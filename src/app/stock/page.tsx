@@ -1,5 +1,6 @@
 import SellButton from "@/components/stock/sellbutton";
 import BuyButton from "@/components/buybutton";
+import UserTradesSection from "@/components/stock/userTradesSection";
 
 export default function stock() {
     return (
@@ -7,6 +8,7 @@ export default function stock() {
         <div className="underline">stock page</div>
         <BuyButton />
         <SellButton />
+        <UserTradesSection />
       </main>
     )
   }
