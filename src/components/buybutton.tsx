@@ -4,7 +4,7 @@ import { useState } from 'react';
 
 export default function BuyButton() {
 
-    const currentUser = '63dd552ebafd3a998d66b5ee';
+    const currentUser = '63e8451d540fd8c730cb98b4';
     const currentPrice = '63dd56e4f7c1c8cf06522dc9';
     const currentStock = '63dd56b9f7c1c8cf06522dc8';
 
@@ -118,8 +118,8 @@ export default function BuyButton() {
 
     if (buySuccess) {
         return (
-            <div className="inline-block border-solid rounded-md border-2 border-green-500 align-middle text-center">
-                <div className='text-lg font-bold p-2'>Buy Success</div>
+            <div className="inline-block border-solid rounded-md border-2 bg-green-500 align-middle text-center">
+                <div className='text-lg font-bold text-white p-2'>Buy Success</div>
             </div>
         )
     } else {
