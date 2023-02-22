@@ -1,11 +1,14 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { User } from "@/util/types";
 
-const initialState: {
+interface InitState {
     isAuth: boolean;
     user: any;
     token: string | null;
-} = {
+}
+
+const initialState: InitState = {
     isAuth: false,
     user: null,
     token: null
@@ -13,16 +16,16 @@ const initialState: {
 
 const AuthContext = React.createContext({
     ...initialState,
-    login: async (user: any) => {},
+    login: async (user: Partial<User>) => {},
     logout: async () => {},
-    signup: async (user: any) => {},
+    signup: async (user: Partial<User>) => {},
     forgot: async (email: string) => {},
 });
 
 export const AuthContextProvider = (props: React.PropsWithChildren<{}>) => {
-    const [state, setState] = useState(initialState);
+    const [state, setState] = useState<InitState>(initialState);
 
-    const loginHandler = async (user: any) => {
+    const loginHandler = async (user: Partial<User>) => {
         try {
             const res = await axios.post("/api/auth/login", user, {
                 headers: {
@@ -44,7 +47,7 @@ export const AuthContextProvider = (props: React.PropsWithChildren<{}>) => {
         }
     }
 
-    const signupHandler = async (user: any) => {
+    const signupHandler = async (user: Partial<User>) => {
         try {
             const res = await axios.post("/api/auth/signup", user, {
                 headers: {
