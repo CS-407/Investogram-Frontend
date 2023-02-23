@@ -1,5 +1,7 @@
 import './globals.css'
 import Header from './header'
+import MainPage from '@/Auth/App'
+
 
 export default function RootLayout({
   children,
@@ -15,9 +17,8 @@ export default function RootLayout({
       <head />
       <body>
         <div>
-          <Header />
+          <MainPage />
         </div>
-        {children}
       </body>
     </html>
   )
