@@ -11,5 +11,4 @@ export default function stock() {
         <UserTradesSection />
       </main>
     )
-  }
-  
+}
