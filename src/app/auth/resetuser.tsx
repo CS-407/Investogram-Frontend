@@ -1,19 +1,25 @@
 
 import { useState, useEffect } from "react";
-import "./sign_up.css"
+import "./authStyles.css"
+
+interface Fields {
+  username: string;
+}
 
 function ResetUser() {
-  const initialValues = { username: ""};
-  const [formValues, setFormValues] = useState(initialValues);
-  const [formErrors, setFormErrors] = useState({});
+  const initialValues: Fields = { username: ""};
+
+  const [formValues, setFormValues] = useState<Fields>(initialValues);
+  const [formErrors, setFormErrors] = useState<Fields>(initialValues);
+
   const [isSubmit, setIsSubmit] = useState(false);
 
-  const handleChange = (e) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormValues({ ...formValues, [name]: value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setFormErrors(validate(formValues));
     setIsSubmit(true);
@@ -25,12 +31,15 @@ function ResetUser() {
       console.log(formValues);
     }
   }, [formErrors]);
-  const validate = (values) => {
-    const errors = {};
+
+  const validate = (values: Fields) => {
+    const errors: Fields = initialValues;
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
+
     if (!values.username) {
       errors.username = "Username is required!";
     }
+    
     return errors;
   };
 

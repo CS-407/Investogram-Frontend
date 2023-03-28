@@ -1,20 +1,25 @@
 
 import { useState, useEffect } from "react";
-import "./sign_up.css"
-import  {useNavigate} from 'react-router-dom'
+import "./authStyles.css"
 
-function ForgotUser() {
-  const initialValues = { email: "", password: "" };
-  const [formValues, setFormValues] = useState(initialValues);
-  const [formErrors, setFormErrors] = useState({});
+interface Fields {
+  password: string;
+}
+
+function resetPass() {
+  const initialValues = { password: "" };
+
+  const [formValues, setFormValues] = useState<Fields>(initialValues);
+  const [formErrors, setFormErrors] = useState<Fields>(initialValues);
+
   const [isSubmit, setIsSubmit] = useState(false);
 
-  const handleChange = (e) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormValues({ ...formValues, [name]: value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setFormErrors(validate(formValues));
     setIsSubmit(true);
@@ -26,13 +31,10 @@ function ForgotUser() {
       console.log(formValues);
     }
   }, [formErrors]);
-  const validate = (values) => {
-    const errors = {};
-    if (!values.email) {
-      errors.email = "Email is required!";
-    } else if (!regex.test(values.email)) {
-      errors.email = "This is not a valid email format!";
-    }
+
+  const validate = (values: Fields) => {
+    const errors: Fields = initialValues;
+
     if (!values.password) {
       errors.password = "Password is required";
     } else if (values.password.length < 4) {
@@ -40,47 +42,33 @@ function ForgotUser() {
     } else if (values.password.length > 10) {
       errors.password = "Password cannot exceed more than 10 characters";
     }
+    
     return errors;
   };
 
-  const navigate = useNavigate();
-  function ResetUser () {
-    navigate("/resetuser")
-  }
-
   return (
     <div className="container">
+
       <form onSubmit={handleSubmit}>
-        <h1>Reset Username Form</h1>
+        <h1>Reset Password</h1>
         <div className="ui divider"></div>
         <div className="ui form">
           <div className="form">
-            <label>Email</label>
-            <input
-              type="text"
-              name="email"
-              placeholder="Email"
-              value={formValues.email}
-              onChange={handleChange}
-            />
-          </div>
-          <p>{formErrors.email}</p>
-          <div className="form">
-            <label>Password</label>
+            <label>Reset Password</label>
             <input
               type="password"
               name="password"
-              placeholder="Password"
+              placeholder="New Password"
               value={formValues.password}
               onChange={handleChange}
             />
           </div>
           <p>{formErrors.password}</p>
-          <button onClick={ResetUser}>Submit</button>
+          <button className="fluid ui button blue">Submit</button>
         </div>
       </form>
     </div>
   );
 }
 
-export default ForgotUser;
+export default resetPass;

@@ -18,7 +18,7 @@ const SearchStock = () => {
             alert('Trouble Contacting Server');
             console.log(err);
         })
-    })
+    }, []);
 
     const handleFilter = (e: React.ChangeEvent<HTMLInputElement>) => {
 		if (e.target.value.length == 0) {
