@@ -91,7 +91,7 @@ function SignUp() {
             />
           </div>
           <p>{formErrors.password}</p>
-          <button className="fluid ui button blue">Submit</button>
+          <button>Submit</button>
         </div>
       </form>
     </div>
