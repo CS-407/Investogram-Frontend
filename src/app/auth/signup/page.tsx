@@ -1,20 +1,22 @@
+'use client';
+
 import { useState, useEffect } from "react";
-import { useRouter } from "next/router";
-import "./authStyles.css";
+import "../authStyles.css";
 
 interface Fields {
 	username: string;
 	email: string;
+	password: string;
+	password2: string;
 }
 
-function ForgotPass() {
-	const initialValues = { username: "", email: "" };
+function SignUp() {
+	const initialValues: Fields = { username: "", email: "", password: "", password2: "" };
 
 	const [formValues, setFormValues] = useState<Fields>(initialValues);
 	const [formErrors, setFormErrors] = useState<Fields>(initialValues);
-	const [isSubmit, setIsSubmit] = useState(false);
 
-	const router = useRouter();
+	const [isSubmit, setIsSubmit] = useState(false);
 
 	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const { name, value } = e.target;
@@ -35,8 +37,9 @@ function ForgotPass() {
 	}, [formErrors]);
 
 	const validate = (values: Fields) => {
-		const errors: any = {};
+		const errors: Fields = initialValues;
 		const regex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
+
 		if (!values.username) {
 			errors.username = "Username is required!";
 		}
@@ -45,21 +48,33 @@ function ForgotPass() {
 		} else if (!regex.test(values.email)) {
 			errors.email = "This is not a valid email format!";
 		}
+		if (!values.password) {
+			errors.password = "Password is required";
+		} else if (values.password.length < 4) {
+			errors.password = "Password must be more than 4 characters";
+		} else if (values.password.length > 10) {
+			errors.password = "Password cannot exceed more than 10 characters";
+		} else if (values.password2 !== values.password) {
+			errors.password2 = "Passwords must match";
+		}
+
 		return errors;
 	};
 
-	function ResetPass() {
-		router.push("/resetpass");
-	}
-
 	return (
 		<div className="container">
+			{Object.keys(formErrors).length === 0 && isSubmit ? (
+				<div className="ui message success">Signed in successfully</div>
+			) : (
+				<pre>Login Unsuccesfull</pre>
+			)}
+
 			<form onSubmit={handleSubmit}>
-				<h1>Login Form</h1>
+				<h1>Signup Form</h1>
 				<div className="ui divider"></div>
 				<div className="ui form">
 					<div className="form">
-						<label>Username</label>
+						<label>Username </label>
 						<input
 							type="text"
 							name="username"
@@ -70,7 +85,7 @@ function ForgotPass() {
 					</div>
 					<p>{formErrors.username}</p>
 					<div className="form">
-						<label>Email</label>
+						<label>Email </label>
 						<input
 							type="text"
 							name="email"
@@ -80,11 +95,33 @@ function ForgotPass() {
 						/>
 					</div>
 					<p>{formErrors.email}</p>
-					<button onClick={ResetPass}>Submit</button>
+					<div className="form">
+						<label>Password </label>
+						<input
+							type="password"
+							name="password"
+							placeholder="Password"
+							value={formValues.password}
+							onChange={handleChange}
+						/>
+					</div>
+					<p>{formErrors.password}</p>
+					<div className="form">
+						<label>Confirm Password </label>
+						<input
+							type="password"
+							name="password2"
+							placeholder="Confirm Password"
+							value={formValues.password}
+							onChange={handleChange}
+						/>
+					</div>
+					<p>{formErrors.password2}</p>
+					<button className="fluid ui button blue">Submit</button>
 				</div>
 			</form>
 		</div>
 	);
 }
 
-export default ForgotPass;
+export default SignUp;

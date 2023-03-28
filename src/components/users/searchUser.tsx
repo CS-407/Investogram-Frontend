@@ -18,7 +18,7 @@ const SearchUser = () => {
             alert('Trouble Contacting Server');
             console.log(err);
         })
-    })
+    }, []);
 
     const handleFilter = (e: React.ChangeEvent<HTMLInputElement>) => {
 		if (e.target.value.length == 0) {
@@ -35,7 +35,7 @@ const SearchUser = () => {
 
 	return (
         <div>
-            <input placeholder="Search for Stocks" onChange={handleFilter}></input>
+            <input placeholder="Search for Users" onChange={handleFilter}></input>
             <div>
                 {filteredUsers.map((user: User) => (
                     <div>

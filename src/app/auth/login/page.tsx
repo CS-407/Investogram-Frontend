@@ -1,17 +1,20 @@
+'use client';
+
 import { useState, useEffect } from "react";
-import { useRouter } from "next/router";
-import "./authStyles.css";
+import "../authStyles.css";
 
 interface Fields {
+	username: string;
 	email: string;
 	password: string;
 }
 
-function ForgotUser() {
-	const initialValues = { email: "", password: "" };
+function Login() {
+	const initialValues: Fields = { username: "", email: "", password: "" };
 
 	const [formValues, setFormValues] = useState<Fields>(initialValues);
 	const [formErrors, setFormErrors] = useState<Fields>(initialValues);
+
 	const [isSubmit, setIsSubmit] = useState(false);
 
 	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -36,6 +39,9 @@ function ForgotUser() {
 		const errors: Fields = initialValues;
 		const regex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
 
+		if (!values.username) {
+			errors.username = "Username is required!";
+		}
 		if (!values.email) {
 			errors.email = "Email is required!";
 		} else if (!regex.test(values.email)) {
@@ -48,23 +54,35 @@ function ForgotUser() {
 		} else if (values.password.length > 10) {
 			errors.password = "Password cannot exceed more than 10 characters";
 		}
+
 		return errors;
 	};
 
-	const router = useRouter();
-
-	function ResetUser() {
-		router.push("/resetuser");
-	}
-
 	return (
 		<div className="container">
+			{Object.keys(formErrors).length === 0 && isSubmit ? (
+				<div className="ui message success">Signed in successfully</div>
+			) : (
+				<pre>Login Unsuccesfull</pre>
+			)}
+
 			<form onSubmit={handleSubmit}>
-				<h1>Reset Username Form</h1>
+				<h1>Login Form</h1>
 				<div className="ui divider"></div>
 				<div className="ui form">
 					<div className="form">
-						<label>Email</label>
+						<label>Username </label>
+						<input
+							type="text"
+							name="username"
+							placeholder="Username"
+							value={formValues.username}
+							onChange={handleChange}
+						/>
+					</div>
+					<p>{formErrors.username}</p>
+					<div className="form">
+						<label>Email </label>
 						<input
 							type="text"
 							name="email"
@@ -75,7 +93,7 @@ function ForgotUser() {
 					</div>
 					<p>{formErrors.email}</p>
 					<div className="form">
-						<label>Password</label>
+						<label>Password </label>
 						<input
 							type="password"
 							name="password"
@@ -85,11 +103,11 @@ function ForgotUser() {
 						/>
 					</div>
 					<p>{formErrors.password}</p>
-					<button onClick={ResetUser}>Submit</button>
+					<button className="fluid ui button blue">Submit</button>
 				</div>
 			</form>
 		</div>
 	);
 }
 
-export default ForgotUser;
+export default Login;

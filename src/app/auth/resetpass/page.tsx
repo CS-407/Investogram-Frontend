@@ -1,13 +1,14 @@
+'use client';
 
 import { useState, useEffect } from "react";
 import "./authStyles.css"
 
 interface Fields {
-  username: string;
+  password: string;
 }
 
-function ResetUser() {
-  const initialValues: Fields = { username: ""};
+function resetPass() {
+  const initialValues = { password: "" };
 
   const [formValues, setFormValues] = useState<Fields>(initialValues);
   const [formErrors, setFormErrors] = useState<Fields>(initialValues);
@@ -34,10 +35,13 @@ function ResetUser() {
 
   const validate = (values: Fields) => {
     const errors: Fields = initialValues;
-    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
 
-    if (!values.username) {
-      errors.username = "Username is required!";
+    if (!values.password) {
+      errors.password = "Password is required";
+    } else if (values.password.length < 4) {
+      errors.password = "Password must be more than 4 characters";
+    } else if (values.password.length > 10) {
+      errors.password = "Password cannot exceed more than 10 characters";
     }
     
     return errors;
@@ -45,21 +49,22 @@ function ResetUser() {
 
   return (
     <div className="container">
+
       <form onSubmit={handleSubmit}>
-        <h1>Reset Username</h1>
+        <h1>Reset Password</h1>
         <div className="ui divider"></div>
         <div className="ui form">
           <div className="form">
-            <label>Username</label>
+            <label>Reset Password</label>
             <input
-              type="text"
-              name="username"
-              placeholder="Username"
-              value={formValues.username}
+              type="password"
+              name="password"
+              placeholder="New Password"
+              value={formValues.password}
               onChange={handleChange}
             />
           </div>
-          <p>{formErrors.username}</p>
+          <p>{formErrors.password}</p>
           <button className="fluid ui button blue">Submit</button>
         </div>
       </form>
@@ -67,4 +72,4 @@ function ResetUser() {
   );
 }
 
-export default ResetUser;
+export default resetPass;
