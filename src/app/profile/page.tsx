@@ -8,13 +8,7 @@ export default function profile() {
 
   return (
     <main className="">
-      <div>profile</div>
-
-      <RecentTradesSection />
-      <div className='flex'>
-        <AcceptFollowButton />
-        <RejectFollowButton />
-      </div>
+      <p>Visit a profile at /[profileId]</p>
 
 
     </main>

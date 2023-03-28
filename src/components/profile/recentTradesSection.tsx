@@ -15,8 +15,7 @@ export default function RecentTradesSection() {
             headers: {
                 'Content-Type': 'application/json',
             }
-        }
-        ) // Update to real endpoint
+        })
         .then(res => res.json())
         .then(data => {
             if (data.msg === "Success") {

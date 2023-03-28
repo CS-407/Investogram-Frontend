@@ -3,7 +3,13 @@
 import { ResponsiveLine } from '@nivo/line'
 import { useEffect, useState } from 'react';
 
-export default function StockGraph() {
+interface StockGraphProps {
+    stockId: string;
+}
+
+export default function StockGraph( props: StockGraphProps) {
+
+    const stockId = props.stockId
 
     const mockData = [
         {
@@ -18,10 +24,9 @@ export default function StockGraph() {
     ];
 
     const [prices, setPrices] = useState([]);
-    const mockStockId = "63dd56b9f7c1c8cf06522dc8"
 
     useEffect(() => {
-        fetch(`http://localhost:8080/api/stock/history/${mockStockId}`)
+        fetch(`http://localhost:8080/api/stock/history/${stockId}`)
         .then(res => res.json())
         .then(data => {
             if (data.msg === "Success") {
