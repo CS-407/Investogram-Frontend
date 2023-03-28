@@ -1,10 +1,11 @@
 'use client';
 
 import { ResponsiveLine } from '@nivo/line'
+import { useEffect, useState } from 'react';
 
 export default function StockGraph() {
 
-    const stockData = [
+    const mockData = [
         {
             id: "stockPrices",
             data: [
@@ -16,15 +17,51 @@ export default function StockGraph() {
         }
     ];
 
+    const [prices, setPrices] = useState([]);
+    const mockStockId = "63dd56b9f7c1c8cf06522dc8"
+
+    useEffect(() => {
+        fetch(`http://localhost:8080/api/stock/history/${mockStockId}`)
+        .then(res => res.json())
+        .then(data => {
+            if (data.msg === "Success") {
+                let fetchedPrices = data.data
+                fetchedPrices.sort(function(a: any, b:any) { return Date.parse(b.time_pulled) - Date.parse(a.time_pulled) })
+                console.log(fetchedPrices)
+                setPrices(data.data)
+            } else {
+                console.log("Error")
+                console.log(data)
+            }
+        })
+    },[])
+
+    const converDateToPlotFormat = (date: Date) => {
+        let year = date.getFullYear();
+        let month = date.getMonth() + 1;
+        let day = date.getDate();
+        return `${year}-${month}-${day}`;
+    }
+
+    const stockData = () => {
+        let info = prices.map((price: any) => {
+            return { x: converDateToPlotFormat(new Date(price.time_pulled)), y: price.current_price } 
+        });
+        let out = [{
+            id: "stockPrices",
+            data: info
+        }];
+        console.log(info)
+        return out;
+    }
 
 
-    
-
+    if (prices.length === 0) return (<div>loading...</div>);
     return (
-        <div className='w-4/5'>
+        <div className=''>
             <div className='h-96'>
                 <ResponsiveLine
-                    data={stockData}
+                    data={stockData()}
                     margin={{ top: 50, right: 60, bottom: 50, left: 120 }}
                     xScale={{
                         type: "time",

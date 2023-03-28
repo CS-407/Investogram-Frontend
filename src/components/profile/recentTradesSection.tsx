@@ -5,12 +5,18 @@ import { useEffect, useState } from "react"
 
 export default function RecentTradesSection() {
 
-
-    const mockStockId = "63dd56b9f7c1c8cf06522dc8" // Remove this later
-    const mockUserId = "63dd552ebafd3a998d66b5ee" // Swap this in for props
+    const mockUser = {
+        id: '63e8451d540fd8c730cb98b4'
+    }
 
     useEffect(() => {
-        fetch(`http://localhost:8080/api/stock/trades/${mockUserId}/${mockStockId}`) // Update to real endpoint
+        fetch(`http://localhost:8080/api/user/trades/${mockUser.id}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        }
+        ) // Update to real endpoint
         .then(res => res.json())
         .then(data => {
             if (data.msg === "Success") {

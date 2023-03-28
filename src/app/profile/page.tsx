@@ -1,3 +1,7 @@
+'use client';
+
+import AcceptFollowButton from "@/components/acceptFollowButton";
+import RejectFollowButton from "@/components/rejectFollowButton";
 import RecentTradesSection from "../../components/profile/recentTradesSection";
 
 export default function profile() {
@@ -7,6 +11,11 @@ export default function profile() {
       <div>profile</div>
 
       <RecentTradesSection />
+      <div className='flex'>
+        <AcceptFollowButton />
+        <RejectFollowButton />
+      </div>
+
 
     </main>
   )
