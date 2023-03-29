@@ -1,3 +1,7 @@
+'use client';
+
+import { AuthContextProvider } from '../context/AuthContext';
+
 export default function RootLayout({
   children,
 }: {
@@ -5,8 +9,9 @@ export default function RootLayout({
 }) {
   return (
     <html>
-      <head />
-      <body>{children}</body>
+      <AuthContextProvider>
+        <body>{children}</body>
+      </AuthContextProvider>
     </html>
   )
 }

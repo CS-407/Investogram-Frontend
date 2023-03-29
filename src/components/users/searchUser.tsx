@@ -1,19 +1,21 @@
 'use client';
 
+import Link from "next/link";
 import React, { useEffect, useState } from "react";
 
 import { User } from '../../util/types';
+import "./userStyles.css";
 
 const SearchUser = () => {
-    const [users, setUsers] = useState<User[]>([]);
-    const [filteredUsers, setFilteredUsers] = useState<User[]>([]);
+    const [users, setUsers] = useState<Partial<User>[]>([]);
+    const [filteredUsers, setFilteredUsers] = useState<Partial<User>[]>([]);
 
     useEffect(() => {
-        fetch('http://localhost:3000/api/stocks').then(res => {
+        fetch('http://localhost:5000/api/global/users').then(res => {
             return res.json();
         }).then(data => {
-            setUsers(data);
-            setFilteredUsers(data);
+            setUsers(data.users);
+            setFilteredUsers(data.users);
         }).catch(err => {
             alert('Trouble Contacting Server');
             console.log(err);
@@ -26,7 +28,7 @@ const SearchUser = () => {
 		} else {
 			const filter = e.target.value.toLowerCase();
 			const tmp = users.filter((usr) =>
-				usr.username.toLowerCase().startsWith(filter)
+				usr.username?.toLowerCase().startsWith(filter)
 			);
 
 			setFilteredUsers(tmp);
@@ -36,10 +38,11 @@ const SearchUser = () => {
 	return (
         <div>
             <input placeholder="Search for Users" onChange={handleFilter}></input>
-            <div>
-                {filteredUsers.map((user: User) => (
-                    <div>
-                        {user.username}
+            <div className="grid">
+                {filteredUsers.map((user: Partial<User>) => (
+                    <div className="card" key={user._id}>
+                        <p className="username">{user.username}</p>
+                        <Link href={`/user/${user._id}`}>Visit Profile</Link>
                     </div>
                 ))}
             </div>
