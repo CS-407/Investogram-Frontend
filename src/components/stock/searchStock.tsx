@@ -1,19 +1,21 @@
 'use client';
 
+import Link from "next/link";
 import React, { useEffect, useState } from "react";
 
 import { Stock } from '../../util/types';
+import "./stockStyles.css";
 
 const SearchStock = () => {
     const [stocks, setStocks] = useState<Stock[]>([]);
     const [filteredStocks, setFilteredStocks] = useState<Stock[]>([]);
 
     useEffect(() => {
-        fetch('http://localhost:3000/api/stocks').then(res => {
+        fetch('http://localhost:5000/api/global/stocks').then(res => {
             return res.json();
         }).then(data => {
-            setStocks(data);
-            setFilteredStocks(data);
+            setStocks(data.stocks);
+            setFilteredStocks(data.stocks);
         }).catch(err => {
             alert('Trouble Contacting Server');
             console.log(err);
@@ -36,10 +38,12 @@ const SearchStock = () => {
 	return (
         <div>
             <input placeholder="Search for Stocks" onChange={handleFilter}></input>
-            <div>
+            <div className="grid">
                 {filteredStocks.map((stock: Stock) => (
-                    <div>
-                        {stock.stock_name} || {stock.stock_ticker}
+                    <div className="card">
+                        <p>{stock.stock_ticker}</p>
+                        <p>{stock.stock_name}</p>
+                        <Link href={`/stock/${stock._id}`}>Visit Stock Page</Link>
                     </div>
                 ))}
             </div>

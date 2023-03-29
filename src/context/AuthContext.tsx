@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import axios from "axios";
 import { User } from "@/util/types";
 
+axios.defaults.baseURL = "http://localhost:5000/";
+
 interface InitState {
     isAuth: boolean;
     user: any;
@@ -65,7 +67,7 @@ export const AuthContextProvider = (props: React.PropsWithChildren<{}>) => {
                 token: data.token
             })
         } catch (err: any) {
-            throw new Error(err.message);
+            throw new Error(err);
         }
     }
 
@@ -95,3 +97,5 @@ export const AuthContextProvider = (props: React.PropsWithChildren<{}>) => {
         </AuthContext.Provider>
     )
 }
+
+export default AuthContext;

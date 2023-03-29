@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
-import "./authStyles.css";
+import "../authStyles.css";
 
 interface Fields {
 	email: string;
@@ -60,36 +60,38 @@ function ForgotUser() {
 	}
 
 	return (
-		<div className="container">
-			<form onSubmit={handleSubmit}>
-				<h1>Reset Username Form</h1>
-				<div className="ui divider"></div>
-				<div className="ui form">
-					<div className="form">
-						<label>Email</label>
-						<input
-							type="text"
-							name="email"
-							placeholder="Email"
-							value={formValues.email}
-							onChange={handleChange}
-						/>
+		<div className="formPage">
+			<div className="container">
+				<form onSubmit={handleSubmit}>
+					<h1>Reset Username Form</h1>
+					<div className="ui divider"></div>
+					<div className="ui form">
+						<div className="form">
+							<label>Email</label>
+							<input
+								type="text"
+								name="email"
+								placeholder="Email"
+								value={formValues.email}
+								onChange={handleChange}
+							/>
+						</div>
+						<p>{formErrors.email}</p>
+						<div className="form">
+							<label>Password</label>
+							<input
+								type="password"
+								name="password"
+								placeholder="Password"
+								value={formValues.password}
+								onChange={handleChange}
+							/>
+						</div>
+						<p>{formErrors.password}</p>
+						<button onClick={ResetUser}>Submit</button>
 					</div>
-					<p>{formErrors.email}</p>
-					<div className="form">
-						<label>Password</label>
-						<input
-							type="password"
-							name="password"
-							placeholder="Password"
-							value={formValues.password}
-							onChange={handleChange}
-						/>
-					</div>
-					<p>{formErrors.password}</p>
-					<button onClick={ResetUser}>Submit</button>
-				</div>
-			</form>
+				</form>
+			</div>
 		</div>
 	);
 }
