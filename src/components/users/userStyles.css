@@ -1,0 +1,10 @@
+.grid {
+    display: flex;
+    flex-direction: row;
+}
+
+.card {
+    border-bottom: 5px black;
+    padding: 0.25rem;
+    margin: 0.5rem;
+}

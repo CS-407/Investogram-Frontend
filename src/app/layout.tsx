@@ -1,12 +1,21 @@
+"use client";
+
+import Navbar from "@/components/navbar/navbar";
+import { AuthContextProvider } from "../context/AuthContext";
+
 export default function RootLayout({
-  children,
+	children,
 }: {
-  children: React.ReactNode
+	children: React.ReactNode;
 }) {
-  return (
-    <html>
-      <head />
-      <body>{children}</body>
-    </html>
-  )
+	return (
+		<html>
+			<AuthContextProvider>
+				<body>
+					<Navbar />
+					{children}
+				</body>
+			</AuthContextProvider>
+		</html>
+	);
 }

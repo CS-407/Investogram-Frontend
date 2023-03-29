@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
-import "./authStyles.css";
+import "../authStyles.css";
 
 interface Fields {
 	username: string;
@@ -16,7 +16,7 @@ function ForgotPass() {
 	const [formErrors, setFormErrors] = useState<Fields>(initialValues);
 	const [isSubmit, setIsSubmit] = useState(false);
 
-	const router = useRouter();
+	// const router = useRouter();
 
 	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const { name, value } = e.target;
@@ -51,40 +51,42 @@ function ForgotPass() {
 	};
 
 	function ResetPass() {
-		router.push("/resetpass");
+		// router.push("/resetpass");
 	}
 
 	return (
-		<div className="container">
-			<form onSubmit={handleSubmit}>
-				<h1>Login Form</h1>
-				<div className="ui divider"></div>
-				<div className="ui form">
-					<div className="form">
-						<label>Username</label>
-						<input
-							type="text"
-							name="username"
-							placeholder="Username"
-							value={formValues.username}
-							onChange={handleChange}
-						/>
+		<div className="formPage">
+			<div className="container">
+				<form onSubmit={handleSubmit}>
+					<h1>Forgot Password Form</h1>
+					<div className="ui divider"></div>
+					<div className="ui form">
+						<div className="form">
+							<label>Username</label>
+							<input
+								type="text"
+								name="username"
+								placeholder="Username"
+								value={formValues.username}
+								onChange={handleChange}
+							/>
+						</div>
+						<p>{formErrors.username}</p>
+						<div className="form">
+							<label>Email</label>
+							<input
+								type="text"
+								name="email"
+								placeholder="Email"
+								value={formValues.email}
+								onChange={handleChange}
+							/>
+						</div>
+						<p>{formErrors.email}</p>
+						<button onClick={ResetPass}>Submit</button>
 					</div>
-					<p>{formErrors.username}</p>
-					<div className="form">
-						<label>Email</label>
-						<input
-							type="text"
-							name="email"
-							placeholder="Email"
-							value={formValues.email}
-							onChange={handleChange}
-						/>
-					</div>
-					<p>{formErrors.email}</p>
-					<button onClick={ResetPass}>Submit</button>
-				</div>
-			</form>
+				</form>
+			</div>
 		</div>
 	);
 }
