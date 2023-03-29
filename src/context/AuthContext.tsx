@@ -6,7 +6,7 @@ axios.defaults.baseURL = "http://localhost:5000/";
 
 interface InitState {
     isAuth: boolean;
-    user: any;
+    user: Partial<User> | null;
     token: string | null;
 }
 

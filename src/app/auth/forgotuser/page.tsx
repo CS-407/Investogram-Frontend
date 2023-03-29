@@ -63,7 +63,7 @@ function ForgotUser() {
 		<div className="formPage">
 			<div className="container">
 				<form onSubmit={handleSubmit}>
-					<h1>Reset Username Form</h1>
+					<h1>Forgot Username Form</h1>
 					<div className="ui divider"></div>
 					<div className="ui form">
 						<div className="form">

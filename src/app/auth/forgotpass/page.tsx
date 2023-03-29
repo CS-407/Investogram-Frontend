@@ -58,7 +58,7 @@ function ForgotPass() {
 		<div className="formPage">
 			<div className="container">
 				<form onSubmit={handleSubmit}>
-					<h1>Login Form</h1>
+					<h1>Forgot Password Form</h1>
 					<div className="ui divider"></div>
 					<div className="ui form">
 						<div className="form">
