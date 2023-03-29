@@ -18,6 +18,7 @@ const Navbar = () => {
 				<Link href={"/"}>Home</Link>
 				<Link href={"/globalstocks"}>Global Stocks</Link>
 				<Link href={"/globalusers"}>Global Users</Link>
+				{authCtx.isAuth && <Link href={"/profile"}>Profile</Link>}
 				{
                     authCtx.isAuth ? 
                     <button className="logoutBtn" onClick={() => {
