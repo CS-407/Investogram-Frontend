@@ -28,7 +28,13 @@ const User = () => {
                 "Authorization": "Bearer " + localStorage.getItem("token")
             }
         }).then(res => {
-            alert("Follow Request Sent Successfully");
+            if (res.status == 200) {
+                alert("Follow Request Sent Successfully");
+            } else {
+                return res.json();
+            }
+        }).then(data => {
+            alert(data.msg);
         }).catch(err => {
             console.log(err);
             alert("Trouble Contacting Server");
