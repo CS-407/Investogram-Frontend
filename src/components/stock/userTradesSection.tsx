@@ -5,13 +5,17 @@ import { currencyConverter, dateConverter, dateToString } from '@/util/HelperFun
 import { useEffect, useState } from 'react';
 import { TradeRow } from '../transaction/tradeRow';
 
-export default function UserTradesSection() {
+interface UserTradesSectionProps {
+    stockId: string;
+}
 
-    const mockStockId = "63dd56b9f7c1c8cf06522dc8"
+export default function UserTradesSection( props: UserTradesSectionProps) {
+
+    const stockId = props.stockId
     const mockUserId = "63e8451d540fd8c730cb98b4"
 
     useEffect(() => {
-        fetch(`http://localhost:8080/api/stock/trades/${mockUserId}/${mockStockId}`)
+        fetch(`http://localhost:8080/api/stock/trades/${mockUserId}/${stockId}`)
         .then(res => res.json())
         .then(data => {
             if (data.msg === "Success") {
