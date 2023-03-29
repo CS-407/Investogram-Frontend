@@ -5,8 +5,11 @@ import { useState } from 'react';
 export default function BuyButton() {
 
     const currentUser = '63e8451d540fd8c730cb98b4';
-    const currentPrice = '63dd56e4f7c1c8cf06522dc9';
+    const currentPrice = '63dd56e4f7c1c8cf06522dc9'; // Microsoft
     const currentStock = '63dd56b9f7c1c8cf06522dc8';
+
+    //const currentPrice = '63f6bd19d9c993dbca2465cd'; // Adobe
+    //const currentStock = '63f6bb07d9c993dbca2465c7';
 
     const executeBuy = async () => {
         fetch('http://localhost:8080/api/stock/buy', {
@@ -39,9 +42,9 @@ export default function BuyButton() {
     }
 
     const mockStock = {
-        name: "Apple",
-        ticker: "AAPL",
-        price: 100
+        name: "Microsoft",
+        ticker: "MSFT",
+        price: 10.11
     }
 
     const [orderAmt, setOrderAmt] = useState(0);

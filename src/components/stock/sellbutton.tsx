@@ -13,6 +13,7 @@ export default function SellButton() {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
+                'Authorization': ""
             },
             body: JSON.stringify({
                 user_id: currentUser,
@@ -41,9 +42,9 @@ export default function SellButton() {
     }
 
     const mockStock = {
-        name: "Apple",
-        ticker: "AAPL",
-        price: 100
+        name: "Microsoft",
+        ticker: "MSFT",
+        price: 10.11
     }
 
     const [orderAmt, setOrderAmt] = useState(0);
