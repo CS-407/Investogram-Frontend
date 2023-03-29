@@ -10,5 +10,4 @@ export default function stockPage() {
         <p>Go to a specific stock use "/[stockId]"</p>
       </main>
     )
-  }
-  
+}
