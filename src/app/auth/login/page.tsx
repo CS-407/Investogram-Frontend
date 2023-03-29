@@ -4,6 +4,7 @@ import { useState, useEffect, useContext } from "react";
 import AuthContext from "@/context/AuthContext";
 import { useRouter } from "next/navigation";
 import "../authStyles.css";
+import Link from "next/link";
 
 interface Fields {
 	username: string;
@@ -127,6 +128,10 @@ function Login() {
 						</div>
 						<p>{formErrors.password}</p>
 						<button className="fluid ui button blue">Submit</button>
+						<div className="linkContainer">
+							<Link href={"/auth/signup"}>Sign up for an account</Link>
+							<Link href={"/auth/forgotpass"}>Forgot password</Link>
+						</div>
 					</div>
 				</form>
 			</div>

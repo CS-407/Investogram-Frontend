@@ -20,6 +20,7 @@
 	width: 100%;
 	margin: auto;
 }
+
 .container > form {
 	width: 70%;
 	border: 1px solid #dfdfdf;
@@ -27,6 +28,7 @@
 	border-radius: 5px;
 	background: #fff;
 }
+
 pre {
 	width: 70%;
 	color: #fff;
@@ -34,8 +36,26 @@ pre {
 }
 
 button {
+	padding: 0.5rem 0.75rem;
 	background: #0563b4 !important;
+	color: #dfdfdf;
+	border: #0563b4;
+	border-radius: 0.2rem;
 }
+
+button:hover {
+	cursor: pointer;
+	background: #dfdfdf !important;
+	color: #0563b4;
+}
+
 p {
 	color: red;
+}
+
+.linkContainer {
+	display: flex;
+	flex-direction: column;
+	margin-top: 0.5rem;
+	justify-content: space-between;
 }

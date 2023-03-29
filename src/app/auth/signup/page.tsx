@@ -7,6 +7,7 @@ import AuthContext from "@/context/AuthContext";
 
 import "../authStyles.css";
 import { NextPage } from "next";
+import Link from "next/link";
 
 interface Fields {
 	username: string;
@@ -151,6 +152,9 @@ const SignUp: NextPage = () => {
 						</div>
 						<p>{formErrors.password2}</p>
 						<button className="fluid ui button blue">Submit</button>
+						<div className="linkContainer">
+							<Link href={"/auth/login"}>Already have an account</Link>
+						</div>
 					</div>
 				</form>
 			</div>

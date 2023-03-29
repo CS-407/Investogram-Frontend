@@ -75,12 +75,11 @@ export const AuthContextProvider = (props: React.PropsWithChildren<{}>) => {
 
     const logoutHandler = async () => {
         localStorage.removeItem("token");
-
         setState({
             isAuth: false,
             user: null,
             token: null
-        })
+        });
     }
 
     return (
