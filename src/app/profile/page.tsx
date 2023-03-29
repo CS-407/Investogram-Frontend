@@ -1,4 +1,5 @@
 import RecentTradesSection from "../../components/profile/recentTradesSection";
+import DeleteButton from "@/components/deleteButton";
 
 export default function profile() {
 
@@ -6,8 +7,9 @@ export default function profile() {
     <main className="">
       <div>profile</div>
 
-      <RecentTradesSection />
-
+      <div>
+        <DeleteButton />
+      </div>
     </main>
   )
 }

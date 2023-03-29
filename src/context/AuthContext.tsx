@@ -58,7 +58,6 @@ export const AuthContextProvider = (props: React.PropsWithChildren<{}>) => {
             });
 
             const data = res.data;
-
             localStorage.setItem("token", data.token);
 
             setState({
