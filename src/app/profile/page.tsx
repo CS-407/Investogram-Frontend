@@ -1,16 +1,17 @@
 'use client';
 
 import AcceptFollowButton from "@/components/acceptFollowButton";
+import FollowRequests from "@/components/profile/followRequests";
 import RejectFollowButton from "@/components/rejectFollowButton";
+import Link from "next/link";
 import RecentTradesSection from "../../components/profile/recentTradesSection";
 
 export default function profile() {
 
   return (
     <main className="">
-      <p>Visit a profile at /[profileId]</p>
-
-
+      <div>profile</div>
+			<FollowRequests />
     </main>
   )
 }

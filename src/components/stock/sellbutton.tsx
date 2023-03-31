@@ -12,7 +12,7 @@ export default function SellButton(props: BuySellButtonProps) {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': ""
+                "Authorization": "Bearer " + localStorage.getItem("token"),
             },
             body: JSON.stringify({
                 stock_id: stockId,

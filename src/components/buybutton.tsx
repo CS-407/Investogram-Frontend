@@ -12,16 +12,17 @@ export default function BuyButton(props: BuySellButtonProps) {
     const stockId = props.stock_id;
 
     const executeBuy = async () => {
-        fetch('http://localhost:8080/api/stock/buy', {
+        fetch('http://localhost:8080/api/stock/buy/', {
             method: 'POST',
             headers: {
+                "Authorization": "Bearer " + localStorage.getItem("token"),
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
                 stock_id: stockId,
                 stock_price_id: stockPriceId,
                 no_of_shares: orderAmt,
-                amount_usd: orderAmt * price.stock_price,
+                amount_usd: orderAmt * price,
                 buy: true
             })
         })

@@ -3,17 +3,20 @@
 import { TradeRow } from "@/components/transaction/tradeRow"
 import { useEffect, useState } from "react"
 
-export default function RecentTradesSection() {
+interface RecentTradesSectionProps {
+    user_id: string
+}
 
-    const mockUser = {
-        id: '63e8451d540fd8c730cb98b4'
-    }
+export default function RecentTradesSection(props: RecentTradesSectionProps) {
+
+    const user_id = props.user_id
 
     useEffect(() => {
-        fetch(`http://localhost:8080/api/user/trades/${mockUser.id}`, {
+        fetch(`http://localhost:8080/api/user/trades/${user_id}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
+                "Authorization": "Bearer " + localStorage.getItem("token"),
             }
         })
         .then(res => res.json())

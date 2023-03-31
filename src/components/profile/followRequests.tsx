@@ -5,7 +5,7 @@ import React, { useEffect, useState } from "react";
 import AcceptFollowButton from "../acceptFollowButton";
 import RejectFollowButton from "../rejectFollowButton";
 
-import "./requestStyles.css";
+//import "./requestStyles.css";
 
 const FollowRequests = () => {
     const [followRequests, setFollowRequests] = useState<Partial<User>[]>();
