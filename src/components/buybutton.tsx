@@ -43,6 +43,7 @@ export default function BuyButton(props: BuySellButtonProps) {
         .then(res => res.json())
         .then(data => {
             if (data.msg === "Success") {
+                let price = data.data[0]
                 setStockPriceId(price._id)
                 setPrice(price.current_price)
             } else {
