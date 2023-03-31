@@ -4,7 +4,7 @@ const Trades = () => {
 	const [trades, setTrades] = useState<any>({});
 
     useEffect(() => {
-        fetch("http://localhost:5000/api/user/trades", {
+        fetch("http://localhost:8080/api/user/trades", {
             method: "GET",
             headers: {
                 'Authorization': "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjNlODQ1MWQ1NDBmZDhjNzMwY2I5OGI0In0sImlhdCI6MTY3NzI2NzgyMywiZXhwIjoxNjc3MjcxNDIzfQ.xabL3dMzEd6G0l2lB3q7QBDOcbgY_foD7Ah6oeBFCbY"

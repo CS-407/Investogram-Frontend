@@ -2,6 +2,11 @@ import React, { useState } from "react";
 import axios from "axios";
 import { User } from "@/util/types";
 
+<<<<<<< Updated upstream
+=======
+axios.defaults.baseURL = "http://localhost:8080/";
+
+>>>>>>> Stashed changes
 interface InitState {
     isAuth: boolean;
     user: any;

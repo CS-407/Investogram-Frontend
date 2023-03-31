@@ -1,17 +1,18 @@
 'use client';
 
-export default function RejectFollowButton() {
+import AuthContext from "@/context/AuthContext";
+import { useContext } from "react";
+import { FollowButtonProps } from "./acceptFollowButton";
 
-    const mockUser = {
-        id: '63e8451d540fd8c730cb98b4'
-    }
+export default function RejectFollowButton(props: FollowButtonProps) {
 
-    const followUser = () => {
-        console.log("Reject user")
-        /*
-        fetch(`http://localhost:8080/api/user/follow/${mockUser.id}`, {
+    const otherUser = props.otherUser;
+
+    const rejectUser = () => {
+        fetch(`http://localhost:8080/api/user/follow/reject/${otherUser}/`, {
             method: 'POST',
             headers: {
+                "Authorization": "Bearer " + localStorage.getItem("token"),
                 'Content-Type': 'application/json',
             }
         }
@@ -26,13 +27,12 @@ export default function RejectFollowButton() {
                 console.log(data)
             }
         });
-        */
     }
 
   return (
     <button 
         className="flex items-center justify-center px-2 py-1 mx-1 text-base font-medium leading-6 text-white whitespace-no-wrap bg-red-500 border-2 border-transparent rounded-lg shadow-sm hover:bg-transparent hover:text-red-500 hover:border-red-500 focus:outline-none"
-        onClick={() => followUser()}>
+        onClick={() => rejectUser()}>
         Reject
     </button>
   )

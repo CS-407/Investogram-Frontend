@@ -1,17 +1,21 @@
 'use client';
 
-export default function AcceptFollowButton() {
+import AuthContext from "@/context/AuthContext";
+import { useContext } from "react";
 
-    const mockUser = {
-        id: '63e8451d540fd8c730cb98b4'
-    }
+export interface FollowButtonProps {
+    otherUser: string;
+}
+
+export default function AcceptFollowButton(props: FollowButtonProps) {
+
+    const otherUser = props.otherUser;
 
     const followUser = () => {
-        console.log("Follow user")
-        /*
-        fetch(`http://localhost:8080/api/user/follow/${mockUser.id}`, {
+        fetch(`http://localhost:8080/api/user/follow/accept/${otherUser}`, {
             method: 'POST',
             headers: {
+                "Authorization": "Bearer " + localStorage.getItem("token"),
                 'Content-Type': 'application/json',
             }
         }
@@ -26,7 +30,6 @@ export default function AcceptFollowButton() {
                 console.log(data)
             }
         });
-        */
     }
 
   return (

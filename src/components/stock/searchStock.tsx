@@ -9,7 +9,11 @@ const SearchStock = () => {
     const [filteredStocks, setFilteredStocks] = useState<Stock[]>([]);
 
     useEffect(() => {
+<<<<<<< Updated upstream
         fetch('http://localhost:3000/api/stocks').then(res => {
+=======
+        fetch('http://localhost:8080/api/global/stocks').then(res => {
+>>>>>>> Stashed changes
             return res.json();
         }).then(data => {
             setStocks(data);

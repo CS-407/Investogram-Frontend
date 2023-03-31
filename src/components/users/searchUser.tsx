@@ -9,7 +9,11 @@ const SearchUser = () => {
     const [filteredUsers, setFilteredUsers] = useState<User[]>([]);
 
     useEffect(() => {
+<<<<<<< Updated upstream
         fetch('http://localhost:3000/api/stocks').then(res => {
+=======
+        fetch('http://localhost:8080/api/global/users').then(res => {
+>>>>>>> Stashed changes
             return res.json();
         }).then(data => {
             setUsers(data);
