@@ -1,14 +1,17 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import "../authStyles.css";
 
 interface Fields {
 	password: string;
+	confirmpass: string;
+	opt: string;
 }
 
 function resetPass() {
-	const initialValues = { password: "" };
+	const initialValues = { password: "" , confirmpass: "", opt: ""};
 
 	const [formValues, setFormValues] = useState<Fields>(initialValues);
 	const [formErrors, setFormErrors] = useState<Fields>(initialValues);
@@ -47,6 +50,31 @@ function resetPass() {
 		return errors;
 	};
 
+
+	const router = useRouter();
+
+	function ResetPass() {
+		fetch('http://localhost:5000/api/auth/resetpass', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            OPT: formValues.opt,
+			newpass: formValues.password,
+			confirmpass: formValues.confirmpass
+        })
+    })
+    .then(res => res.json())
+    .then(data => {
+        if (data.msg === "Success") {
+			router.push("/auth/login");
+        } else {
+			// handle else condition
+        }
+    })
+	}
+
 	return (
 		<div className="formPage">
 			<div className="container">
@@ -55,7 +83,18 @@ function resetPass() {
 					<div className="ui divider"></div>
 					<div className="ui form">
 						<div className="form">
-							<label>Reset Password</label>
+							<label>OPT</label>
+							<input
+								type="text"
+								name="opt"
+								placeholder="Enter OPT"
+								value={formValues.opt}
+								onChange={handleChange}
+							/>
+						</div>
+						<p>{formErrors.opt}</p>
+						<div className="form">
+							<label>New password</label>
 							<input
 								type="password"
 								name="password"
@@ -65,6 +104,17 @@ function resetPass() {
 							/>
 						</div>
 						<p>{formErrors.password}</p>
+						<div className="form">
+							<label>Confirm Password</label>
+							<input
+								type="password"
+								name="confirmpass"
+								placeholder="Confirm Password"
+								value={formValues.confirmpass}
+								onChange={handleChange}
+							/>
+						</div>
+						<p>{formErrors.confirmpass}</p>
 						<button className="fluid ui button blue">Submit</button>
 					</div>
 				</form>

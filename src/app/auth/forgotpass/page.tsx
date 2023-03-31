@@ -5,12 +5,11 @@ import { useRouter } from "next/navigation";
 import "../authStyles.css";
 
 interface Fields {
-	username: string;
 	email: string;
 }
 
 function ForgotPass() {
-	const initialValues = { username: "", email: "" };
+	const initialValues = { email: "" };
 
 	const [formValues, setFormValues] = useState<Fields>(initialValues);
 	const [formErrors, setFormErrors] = useState<Fields>(initialValues);
@@ -37,9 +36,6 @@ function ForgotPass() {
 	const validate = (values: Fields) => {
 		const errors: any = {};
 		const regex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
-		if (!values.username) {
-			errors.username = "Username is required!";
-		}
 		if (!values.email) {
 			errors.email = "Email is required!";
 		} else if (!regex.test(values.email)) {
@@ -51,7 +47,6 @@ function ForgotPass() {
 	const router = useRouter();
 
 	function ResetPass() {
-		
 		router.push("/auth/resetpass");
 	}
 
@@ -59,20 +54,9 @@ function ForgotPass() {
 		<div className="formPage">
 			<div className="container">
 				<form onSubmit={handleSubmit}>
-					<h1>Login Form</h1>
+					<h1>Forgot password Form</h1>
 					<div className="ui divider"></div>
 					<div className="ui form">
-						<div className="form">
-							<label>Username</label>
-							<input
-								type="text"
-								name="username"
-								placeholder="Username"
-								value={formValues.username}
-								onChange={handleChange}
-							/>
-						</div>
-						<p>{formErrors.username}</p>
 						<div className="form">
 							<label>Email</label>
 							<input
