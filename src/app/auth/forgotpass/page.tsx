@@ -46,7 +46,7 @@ function ForgotPass() {
 
 	const router = useRouter();
 
-	function ResetPass() {
+	function ForgotPass() {
 		router.push("/auth/resetpass");
 	}
 
@@ -68,7 +68,7 @@ function ForgotPass() {
 							/>
 						</div>
 						<p>{formErrors.email}</p>
-						<button onClick={ResetPass}>Submit</button>
+						<button onClick={ForgotPass}>Submit</button>
 					</div>
 				</form>
 			</div>

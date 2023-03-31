@@ -115,7 +115,7 @@ function resetPass() {
 							/>
 						</div>
 						<p>{formErrors.confirmpass}</p>
-						<button className="fluid ui button blue">Submit</button>
+						<button onClick={ResetPass}>Submit</button>
 					</div>
 				</form>
 			</div>

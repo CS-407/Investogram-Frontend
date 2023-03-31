@@ -9,7 +9,7 @@ import AuthContext from "@/context/AuthContext";
 import { useRouter } from "next/navigation";
 
 
-const currentUser = '6425f4e107ef6e8dc68ceb0d';
+const currentUser = '6425f46907ef6e8dc68ceb06';
 
 export default function DeleteButton() {
 
