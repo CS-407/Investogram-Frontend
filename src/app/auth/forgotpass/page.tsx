@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import "../authStyles.css";
 
 interface Fields {
@@ -15,8 +15,6 @@ function ForgotPass() {
 	const [formValues, setFormValues] = useState<Fields>(initialValues);
 	const [formErrors, setFormErrors] = useState<Fields>(initialValues);
 	const [isSubmit, setIsSubmit] = useState(false);
-
-	// const router = useRouter();
 
 	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const { name, value } = e.target;
@@ -50,8 +48,11 @@ function ForgotPass() {
 		return errors;
 	};
 
+	const router = useRouter();
+
 	function ResetPass() {
-		// router.push("/resetpass");
+		
+		router.push("/auth/resetpass");
 	}
 
 	return (

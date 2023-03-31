@@ -5,12 +5,12 @@ import { useRouter } from "next/navigation";
 import "../authStyles.css";
 
 interface Fields {
+	username: string;
 	email: string;
-	password: string;
 }
 
 function ForgotUser() {
-	const initialValues = { email: "", password: "" };
+	const initialValues = { username: "", email: "" };
 
 	const [formValues, setFormValues] = useState<Fields>(initialValues);
 	const [formErrors, setFormErrors] = useState<Fields>(initialValues);
@@ -43,29 +43,50 @@ function ForgotUser() {
 		} else if (!regex.test(values.email)) {
 			errors.email = "This is not a valid email format!";
 		}
-		if (!values.password) {
-			errors.password = "Password is required";
-		} else if (values.password.length < 4) {
-			errors.password = "Password must be more than 4 characters";
-		} else if (values.password.length > 10) {
-			errors.password = "Password cannot exceed more than 10 characters";
-		}
 		return errors;
 	};
 
 	const router = useRouter();
 
-	function ResetUser() {
-		router.push("/resetuser");
+	function ForgotUser() {
+		fetch('http://localhost:5000/api/auth/resetuser', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            email: formValues.email,
+			newusername: formValues.username
+        })
+    })
+    .then(res => res.json())
+    .then(data => {
+        if (data.msg === "Success") {
+			router.push("/auth/login");
+        } else {
+			// handle else condition
+        }
+    })
 	}
 
 	return (
 		<div className="formPage">
 			<div className="container">
-				<form onSubmit={handleSubmit}>
+			<form onSubmit={handleSubmit}>
 					<h1>Reset Username Form</h1>
 					<div className="ui divider"></div>
 					<div className="ui form">
+						<div className="form">
+							<label>Username</label>
+							<input
+								type="text"
+								name="username"
+								placeholder="Username"
+								value={formValues.username}
+								onChange={handleChange}
+							/>
+						</div>
+						<p>{formErrors.username}</p>
 						<div className="form">
 							<label>Email</label>
 							<input
@@ -77,18 +98,7 @@ function ForgotUser() {
 							/>
 						</div>
 						<p>{formErrors.email}</p>
-						<div className="form">
-							<label>Password</label>
-							<input
-								type="password"
-								name="password"
-								placeholder="Password"
-								value={formValues.password}
-								onChange={handleChange}
-							/>
-						</div>
-						<p>{formErrors.password}</p>
-						<button onClick={ResetUser}>Submit</button>
+						<button onClick={ForgotUser}>Submit</button>
 					</div>
 				</form>
 			</div>

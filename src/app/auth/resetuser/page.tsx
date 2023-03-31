@@ -55,8 +55,8 @@ function ResetUser() {
 							<label>Username</label>
 							<input
 								type="text"
-								name="username"
-								placeholder="Username"
+								name="Newusername"
+								placeholder="New Username"
 								value={formValues.username}
 								onChange={handleChange}
 							/>
