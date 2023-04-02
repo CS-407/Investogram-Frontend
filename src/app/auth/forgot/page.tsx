@@ -1,22 +1,21 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { useRouter } from "next/router";
+import { useContext, useState } from "react";
+import AuthContext from "@/context/AuthContext";
+
 import "../authStyles.css";
+import Link from "next/link";
 
 interface Fields {
-	username: string;
 	email: string;
 }
 
 function ForgotPass() {
 	const initialValues = { username: "", email: "" };
+	const { forgot } = useContext(AuthContext);
 
 	const [formValues, setFormValues] = useState<Fields>(initialValues);
 	const [formErrors, setFormErrors] = useState<Fields>(initialValues);
-	const [isSubmit, setIsSubmit] = useState(false);
-
-	// const router = useRouter();
 
 	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const { name, value } = e.target;
@@ -25,65 +24,59 @@ function ForgotPass() {
 
 	const handleSubmit = (e: React.FormEvent) => {
 		e.preventDefault();
-		setFormErrors(validate(formValues));
-		setIsSubmit(true);
+		if (validate()) {
+			return;
+		}
+
+		try {
+			forgot(formValues.email);
+			alert('Email Sent Successfully');
+		} catch (err: any) {
+			alert('Trouble Contacting Server');
+		}
 	};
 
-	useEffect(() => {
-		console.log(formErrors);
-		if (Object.keys(formErrors).length === 0 && isSubmit) {
-			console.log(formValues);
-		}
-	}, [formErrors]);
-
-	const validate = (values: Fields) => {
-		const errors: any = {};
+	const validate = () => {
+		const errors: Fields = initialValues;
 		const regex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
-		if (!values.username) {
-			errors.username = "Username is required!";
-		}
-		if (!values.email) {
-			errors.email = "Email is required!";
-		} else if (!regex.test(values.email)) {
-			errors.email = "This is not a valid email format!";
-		}
-		return errors;
-	};
+		let invalid: boolean = false;
 
-	function ResetPass() {
-		// router.push("/resetpass");
-	}
+		if (!formValues.email) {
+			errors.email = "Email is required!";
+			invalid = true;
+		} else if (!regex.test(formValues.email)) {
+			errors.email = "This is not a valid email format!";
+			invalid = true;
+		}
+
+		setFormErrors(errors);
+
+		return invalid;
+	};
 
 	return (
 		<div className="formPage">
 			<div className="container">
 				<form onSubmit={handleSubmit}>
-					<h1>Forgot Password Form</h1>
+					<h1>Forgot Username / Password</h1>
 					<div className="ui divider"></div>
 					<div className="ui form">
 						<div className="form">
-							<label>Username</label>
-							<input
-								type="text"
-								name="username"
-								placeholder="Username"
-								value={formValues.username}
-								onChange={handleChange}
-							/>
-						</div>
-						<p>{formErrors.username}</p>
-						<div className="form">
-							<label>Email</label>
+							<label>Enter Email</label>
 							<input
 								type="text"
 								name="email"
-								placeholder="Email"
+								placeholder="jdoe@gmail.com"
 								value={formValues.email}
 								onChange={handleChange}
 							/>
 						</div>
 						<p>{formErrors.email}</p>
-						<button onClick={ResetPass}>Submit</button>
+						<button type="submit">Submit</button>
+						<div className="linkContainer">
+							<Link href={"/auth/resetpass"}>Reset Password</Link>
+							<Link href={"/auth/resetuser"}>Reset Username</Link>							
+						</div>
 					</div>
 				</form>
 			</div>

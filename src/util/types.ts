@@ -7,6 +7,7 @@ export interface User {
     following: number;
     password?: string;
     password2?: string;
+    reset_token?: number;
 }
 
 export interface Stock {

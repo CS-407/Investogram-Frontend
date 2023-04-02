@@ -1,6 +1,7 @@
 'use client';
 
 import { TransactionType } from '@/types/TransactionType';
+import { BASE_URL } from '@/util/globals';
 import { currencyConverter, dateConverter, dateToString } from '@/util/HelperFunctions';
 import { useEffect, useState } from 'react';
 import { TradeRow } from '../transaction/tradeRow';
@@ -15,7 +16,7 @@ export default function UserTradesSection( props: UserTradesSectionProps) {
     const mockUserId = "63e8451d540fd8c730cb98b4"
 
     useEffect(() => {
-        fetch(`http://localhost:8080/api/stock/trades/${mockUserId}/${stockId}`)
+        fetch(`${BASE_URL}/api/stock/trades/${mockUserId}/${stockId}`)
         .then(res => res.json())
         .then(data => {
             if (data.msg === "Success") {

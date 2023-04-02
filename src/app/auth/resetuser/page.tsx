@@ -1,19 +1,23 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import AuthContext from "@/context/AuthContext";
+import { User } from "@/util/types";
+import { useContext, useState } from "react";
 import "../authStyles.css";
 
 interface Fields {
+	email: string;
 	username: string;
+	reset_token: number;
 }
 
 function ResetUser() {
-	const initialValues: Fields = { username: "" };
+	const initialValues: Fields = { email: "", username: "", reset_token: 0 };
+
+	const { resetUsername } = useContext(AuthContext);
 
 	const [formValues, setFormValues] = useState<Fields>(initialValues);
-	const [formErrors, setFormErrors] = useState<Fields>(initialValues);
-
-	const [isSubmit, setIsSubmit] = useState(false);
+	const [formErrors, setFormErrors] = useState<Partial<Fields>>(initialValues);
 
 	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const { name, value } = e.target;
@@ -22,26 +26,40 @@ function ResetUser() {
 
 	const handleSubmit = (e: React.FormEvent) => {
 		e.preventDefault();
-		setFormErrors(validate(formValues));
-		setIsSubmit(true);
+
+		
+		if (validate()) {
+			return;
+		}
+
+		try {
+			const updated_user: Partial<User> = {
+				'email': formValues.email,
+				'username': formValues.username,
+				'reset_token': formValues.reset_token
+			}
+
+			resetUsername(updated_user);
+			alert('Username reset successfully');
+		} catch (err: any) {
+			alert('Trouble contacting server');
+		}
 	};
 
-	useEffect(() => {
-		console.log(formErrors);
-		if (Object.keys(formErrors).length === 0 && isSubmit) {
-			console.log(formValues);
-		}
-	}, [formErrors]);
-
-	const validate = (values: Fields) => {
+	const validate = () => {
 		const errors: Fields = initialValues;
 		const regex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
 
-		if (!values.username) {
-			errors.username = "Username is required!";
+		let invalid: boolean = false;
+
+		if (!regex.test(formValues.email)) {
+			errors.email = "This is not a valid email format!";
+			invalid = true;
 		}
 
-		return errors;
+		setFormErrors(errors);
+
+		return invalid;
 	};
 
 	return (
@@ -52,16 +70,38 @@ function ResetUser() {
 					<div className="ui divider"></div>
 					<div className="ui form">
 						<div className="form">
-							<label>Username</label>
+							<label>Enter Email</label>
+							<input
+								type="email"
+								name="email"
+								placeholder="jdoe@gmail.com"
+								value={formValues.email}
+								onChange={handleChange}
+							/>
+						</div>
+						<p>{formErrors.email}</p>
+						<div className="form">
+							<label>New Username</label>
 							<input
 								type="text"
 								name="username"
-								placeholder="Username"
+								placeholder="new-username"
 								value={formValues.username}
 								onChange={handleChange}
 							/>
 						</div>
-						<p>{formErrors.username}</p>
+						<div className="form">
+							<label>Enter Reset Token</label>
+							<input
+								type="number"
+								min={0}
+								max={99999}
+								name="reset_token"
+								placeholder="00000"
+								value={formValues.reset_token}
+								onChange={handleChange}
+							/>
+						</div>
 						<button className="fluid ui button blue">Submit</button>
 					</div>
 				</form>

@@ -1,5 +1,6 @@
 'use client';
 
+import { BASE_URL } from "@/util/globals";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 
@@ -11,7 +12,7 @@ const SearchUser = () => {
     const [filteredUsers, setFilteredUsers] = useState<Partial<User>[]>([]);
 
     useEffect(() => {
-        fetch('http://localhost:5000/api/global/users').then(res => {
+        fetch(`${BASE_URL}/api/global/users`).then(res => {
             return res.json();
         }).then(data => {
             setUsers(data.users);
@@ -37,7 +38,7 @@ const SearchUser = () => {
 
 	return (
         <div>
-            <input placeholder="Search for Users" onChange={handleFilter}></input>
+            <input className="searchBar" placeholder="Search for Users" onChange={handleFilter}></input>
             <div className="grid">
                 {filteredUsers.map((user: Partial<User>) => (
                     <div className="card" key={user._id}>

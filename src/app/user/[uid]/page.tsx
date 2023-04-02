@@ -1,5 +1,6 @@
 "use client";
 
+import { BASE_URL } from '@/util/globals';
 import { User } from '@/util/types';
 import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
@@ -11,7 +12,7 @@ const User = () => {
     const uid = params ? params.split("/")[2] : "";
 
     useEffect(() => {
-        fetch("http://localhost:5000/api/global/user/" + uid).then(res => {
+        fetch(`${BASE_URL}/api/global/user/${uid}`).then(res => {
             return res.json();
         }).then(data => {
             setUser(data.user);
@@ -22,7 +23,7 @@ const User = () => {
     }, []);
 
     const handleFollowRequest = () => {
-        fetch("http://localhost:5000/api/user/follow/" + uid, {
+        fetch(`{BASE_URL}/api/user/follow/${uid}`, {
             method: "POST",
             headers: {
                 "Authorization": "Bearer " + localStorage.getItem("token")

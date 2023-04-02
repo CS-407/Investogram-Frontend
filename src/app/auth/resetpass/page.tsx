@@ -1,19 +1,25 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useContext, useState } from "react";
+import AuthContext from "@/context/AuthContext";
+
 import "../authStyles.css";
+import { User } from "@/util/types";
 
 interface Fields {
+	email: string;
 	password: string;
+	password2: string;
+	reset_token: number;
 }
 
 function resetPass() {
-	const initialValues = { password: "" };
+	const initialValues: Fields = { email: "", password: "", password2: "", reset_token: 0 };
+
+	const { resetPassword } = useContext(AuthContext);
 
 	const [formValues, setFormValues] = useState<Fields>(initialValues);
 	const [formErrors, setFormErrors] = useState<Fields>(initialValues);
-
-	const [isSubmit, setIsSubmit] = useState(false);
 
 	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const { name, value } = e.target;
@@ -22,29 +28,44 @@ function resetPass() {
 
 	const handleSubmit = (e: React.FormEvent) => {
 		e.preventDefault();
-		setFormErrors(validate(formValues));
-		setIsSubmit(true);
+		
+		if (validate()) {
+			return;
+		}
+
+		try {
+			const updated_user: Partial<User> = {
+				'email': formValues.email,
+				'password': formValues.password,
+				'password2': formValues.password2,
+				'reset_token': formValues.reset_token
+			}
+
+			resetPassword(updated_user);
+			alert('Password reset successfully');
+		} catch (err: any) {
+			alert('Trouble contacting server');
+		}
 	};
 
-	useEffect(() => {
-		console.log(formErrors);
-		if (Object.keys(formErrors).length === 0 && isSubmit) {
-			console.log(formValues);
-		}
-	}, [formErrors]);
-
-	const validate = (values: Fields) => {
+	const validate = () => {
 		const errors: Fields = initialValues;
 
-		if (!values.password) {
+		if (!formValues.password) {
 			errors.password = "Password is required";
-		} else if (values.password.length < 4) {
-			errors.password = "Password must be more than 4 characters";
-		} else if (values.password.length > 10) {
-			errors.password = "Password cannot exceed more than 10 characters";
+		} else if (formValues.password.length < 6 || formValues.password.length > 10) {
+			errors.password = "Password must be between 6 and 10 characters";
+		} else if (formValues.password2 !== formValues.password) {
+			errors.password2 = "Passwords must match";
 		}
 
-		return errors;
+		if (errors == initialValues) {
+			return false;
+		}
+
+		setFormErrors(errors);
+
+		return true;
 	};
 
 	return (
@@ -55,16 +76,49 @@ function resetPass() {
 					<div className="ui divider"></div>
 					<div className="ui form">
 						<div className="form">
-							<label>Reset Password</label>
+							<label>Enter Email</label>
+							<input
+								type="email"
+								name="email"
+								placeholder="jdoe@gmail.com"
+								value={formValues.email}
+								onChange={handleChange}
+							/>
+						</div>
+						<div className="form">
+							<label>Enter New Password</label>
 							<input
 								type="password"
 								name="password"
-								placeholder="New Password"
+								placeholder="new-password"
 								value={formValues.password}
 								onChange={handleChange}
 							/>
 						</div>
 						<p>{formErrors.password}</p>
+						<div className="form">
+							<label>Retype New Password</label>
+							<input
+								type="password"
+								name="password2"
+								placeholder="new-password"
+								value={formValues.password2}
+								onChange={handleChange}
+							/>
+						</div>
+						<p>{formErrors.password2}</p>
+						<div className="form">
+							<label>Enter Reset Token</label>
+							<input
+								type="number" 
+								min={0}
+								max={99999}
+								name="reset_token"
+								placeholder="00000"
+								value={formValues.reset_token}
+								onChange={handleChange}
+							/>
+						</div>
 						<button className="fluid ui button blue">Submit</button>
 					</div>
 				</form>

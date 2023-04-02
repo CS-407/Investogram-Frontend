@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import axios from "axios";
+import axios, { Axios } from "axios";
 import { User } from "@/util/types";
 
-axios.defaults.baseURL = "http://localhost:5000/";
+axios.defaults.baseURL = "http://localhost:5000";
 
 interface InitState {
     isAuth: boolean;
@@ -22,6 +22,8 @@ const AuthContext = React.createContext({
     logout: async () => {},
     signup: async (user: Partial<User>) => {},
     forgot: async (email: string) => {},
+    resetPassword: async (user: Partial<User>) => {},
+    resetUsername: async (user: Partial<User>) => {}
 });
 
 export const AuthContextProvider = (props: React.PropsWithChildren<{}>) => {
@@ -71,7 +73,45 @@ export const AuthContextProvider = (props: React.PropsWithChildren<{}>) => {
         }
     }
 
-    const forgotHandler = async (email: string) => {}
+    const forgotHandler = async (email: string) => {
+        try {
+            const reqBody = {
+                'email': email
+            }
+
+            await axios.post("/api/auth/forgot", reqBody, {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+        } catch (err: any) {
+            throw new Error(err.message);
+        }
+    }
+
+    const resetPasswordHandler = async (user: Partial<User>) => {
+        try {
+            await axios.patch("/api/auth/resetpass", user, {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+        } catch (err: any) {
+            throw new Error(err.message);
+        }
+    }
+
+    const resetUsernameHandler = async (user: Partial<User>) => {
+        try {
+            await axios.patch("/api/auth/resetuser", user, {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+        } catch (err: any) {
+            throw new Error(err.message);
+        }
+    }
 
     const logoutHandler = async () => {
         localStorage.removeItem("token");
@@ -90,7 +130,9 @@ export const AuthContextProvider = (props: React.PropsWithChildren<{}>) => {
             login: loginHandler,
             signup: signupHandler,
             forgot: forgotHandler,
-            logout: logoutHandler
+            logout: logoutHandler,
+            resetPassword: resetPasswordHandler,
+            resetUsername: resetUsernameHandler
         }}>
             {props.children}
         </AuthContext.Provider>
