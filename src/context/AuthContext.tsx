@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { User } from "@/util/types";
 
-axios.defaults.baseURL = "http://localhost:5000/";
+axios.defaults.baseURL = "http://localhost:5000";
 
 interface InitState {
     isAuth: boolean;
@@ -22,6 +22,8 @@ const AuthContext = React.createContext({
     logout: async () => {},
     signup: async (user: Partial<User>) => {},
     forgot: async (email: string) => {},
+    resetPassword: async (user: Partial<User>) => {},
+    resetUsername: async (user: Partial<User>) => {}
 });
 
 export const AuthContextProvider = (props: React.PropsWithChildren<{}>) => {
@@ -31,21 +33,22 @@ export const AuthContextProvider = (props: React.PropsWithChildren<{}>) => {
         try {
             const res = await axios.post("/api/auth/login", user, {
                 headers: {
-                    "Content-Type": "application/json"
+                    'Content-Type': 'application/json'
                 }
             });
 
-            const data = res.data;
-
-            localStorage.setItem('token', data.token);
+            localStorage.setItem("token", res.data.token);
 
             setState({
                 isAuth: true,
-                user: data.user,
-                token: data.token
-            })
+                user: res.data.user,
+                token: res.data.token
+            });
         } catch (err: any) {
-            throw new Error(err.message);
+            if (err.response) {
+                throw err.response.data.msg;
+            }
+            throw err.message;
         }
     }
 
@@ -67,11 +70,61 @@ export const AuthContextProvider = (props: React.PropsWithChildren<{}>) => {
                 token: data.token
             })
         } catch (err: any) {
-            throw new Error(err);
+            if (err.response) {
+                throw err.response.data.msg;
+            }
+            throw err.message;
         }
     }
 
-    const forgotHandler = async (email: string) => {}
+    const forgotHandler = async (email: string) => {
+        try {
+            const reqBody = {
+                'email': email
+            }
+
+            await axios.post("/api/auth/forgot", reqBody, {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+        } catch (err: any) {
+            if (err.response) {
+                throw err.response.data.msg;
+            }
+            throw err.message;
+        }
+    }
+
+    const resetPasswordHandler = async (user: Partial<User>) => {
+        try {
+            await axios.patch("/api/auth/resetpass", user, {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+        } catch (err: any) {
+            if (err.response) {
+                throw err.response.data.msg;
+            }
+            throw err.message;
+        }
+    }
+
+    const resetUsernameHandler = async (user: Partial<User>) => {
+        try {
+            await axios.patch("/api/auth/resetuser", user, {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+        } catch (err: any) {
+            if (err.response) {
+                throw err.response.data.msg;
+            }
+            throw err.message;
+        }
+    }
 
     const logoutHandler = async () => {
         localStorage.removeItem("token");
@@ -90,7 +143,9 @@ export const AuthContextProvider = (props: React.PropsWithChildren<{}>) => {
             login: loginHandler,
             signup: signupHandler,
             forgot: forgotHandler,
-            logout: logoutHandler
+            logout: logoutHandler,
+            resetPassword: resetPasswordHandler,
+            resetUsername: resetUsernameHandler
         }}>
             {props.children}
         </AuthContext.Provider>

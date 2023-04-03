@@ -2,6 +2,10 @@
 
 import { User } from "@/util/types";
 import React, { useEffect, useState } from "react";
+import AcceptFollowButton from "../acceptFollowButton";
+import RejectFollowButton from "../rejectFollowButton";
+
+import { BASE_URL } from '../../util/globals';
 
 import "./requestStyles.css";
 
@@ -9,7 +13,7 @@ const FollowRequests = () => {
     const [followRequests, setFollowRequests] = useState<Partial<User>[]>();
     
     useEffect(() => {
-        fetch("http://localhost:5000/api/user/requests", {
+        fetch(`${BASE_URL}/api/user/requests`, {
             headers: {
                 "Authorization": "Bearer " + localStorage.getItem("token")
             }
@@ -29,8 +33,8 @@ const FollowRequests = () => {
             {followRequests?.map(usr => 
             <div className="request" key={usr._id}>
                 <p>{usr.username}</p>
-                <button className="acceptBtn">Accept</button>
-                <button className="rejectBtn">Reject</button>
+                <AcceptFollowButton />
+                <RejectFollowButton />
             </div>)}
         </div>
     );

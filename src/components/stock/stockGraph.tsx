@@ -1,6 +1,7 @@
 'use client';
 
-import { ResponsiveLine } from '@nivo/line'
+import { BASE_URL } from '@/util/globals';
+// import { ResponsiveLine } from '@nivo/line'
 import { useEffect, useState } from 'react';
 
 interface StockGraphProps {
@@ -26,7 +27,7 @@ export default function StockGraph( props: StockGraphProps) {
     const [prices, setPrices] = useState([]);
 
     useEffect(() => {
-        fetch(`http://localhost:8080/api/stock/history/${stockId}`)
+        fetch(`${BASE_URL}/api/stock/history/${stockId}`)
         .then(res => res.json())
         .then(data => {
             if (data.msg === "Success") {
@@ -64,7 +65,7 @@ export default function StockGraph( props: StockGraphProps) {
     if (prices.length === 0) return (<div>loading...</div>);
     return (
         <div className=''>
-            <div className='h-96'>
+            {/* <div className='h-96'>
                 <ResponsiveLine
                     data={stockData()}
                     margin={{ top: 50, right: 60, bottom: 50, left: 120 }}
@@ -99,7 +100,7 @@ export default function StockGraph( props: StockGraphProps) {
                     pointBorderColor={{ from: "serieColor" }}
                     useMesh={true}
                 />
-            </div>
+            </div> */}
         </div>
         
 

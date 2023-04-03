@@ -21,8 +21,6 @@ function Login() {
 	const [formValues, setFormValues] = useState<Fields>(initialValues);
 	const [formErrors, setFormErrors] = useState<Fields>(initialValues);
 
-	const [isSubmit, setIsSubmit] = useState(false);
-
 	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const { name, value } = e.target;
 		setFormValues({ ...formValues, [name]: value });
@@ -31,26 +29,18 @@ function Login() {
 	const handleSubmit = (e: React.FormEvent) => {
 		e.preventDefault();
 		validate();
-		setIsSubmit(true);
 	};
 
-	useEffect(() => {
-		console.log(formErrors);
-		if (Object.keys(formErrors).length === 0 && isSubmit) {
-			console.log(formValues);
-		}
-	}, [formErrors]);
-
-	const loginUser = () => {
+	const loginUser = async () => {
 		try {
-			login({
+			await login({
 				email: formValues.email,
 				password: formValues.password,
 			});
+			alert('Successfully Logged In');
 			router.push("/");
 		} catch (err: any) {
-			console.log(err);
-			alert("Trouble Contacting Server");
+			alert(err);
 		}
 	};
 
@@ -84,12 +74,6 @@ function Login() {
 	return (
 		<div className="formPage">
 			<div className="container">
-				{Object.keys(formErrors).length === 0 && isSubmit ? (
-					<div className="ui message success">Signed in successfully</div>
-				) : (
-					<pre>Login Unsuccesfull</pre>
-				)}
-
 				<form onSubmit={handleSubmit}>
 					<h1>Login Form</h1>
 					<div className="ui divider"></div>
@@ -99,7 +83,7 @@ function Login() {
 							<input
 								type="text"
 								name="username"
-								placeholder="Username"
+								placeholder="johndoe"
 								value={formValues.username}
 								onChange={handleChange}
 							/>
@@ -110,7 +94,7 @@ function Login() {
 							<input
 								type="text"
 								name="email"
-								placeholder="Email"
+								placeholder="jdoe@gmail.com"
 								value={formValues.email}
 								onChange={handleChange}
 							/>
@@ -121,7 +105,7 @@ function Login() {
 							<input
 								type="password"
 								name="password"
-								placeholder="Password"
+								placeholder="123456"
 								value={formValues.password}
 								onChange={handleChange}
 							/>
@@ -130,7 +114,7 @@ function Login() {
 						<button className="fluid ui button blue">Submit</button>
 						<div className="linkContainer">
 							<Link href={"/auth/signup"}>Sign up for an account</Link>
-							<Link href={"/auth/forgotpass"}>Forgot password</Link>
+							<Link href={"/auth/forgot"}>Forgot username or password</Link>
 						</div>
 					</div>
 				</form>

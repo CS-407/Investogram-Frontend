@@ -1,5 +1,6 @@
 'use client';
 
+import { BASE_URL } from "@/util/globals";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 
@@ -11,7 +12,7 @@ const SearchStock = () => {
     const [filteredStocks, setFilteredStocks] = useState<Stock[]>([]);
 
     useEffect(() => {
-        fetch('http://localhost:5000/api/global/stocks').then(res => {
+        fetch(`${BASE_URL}/api/global/stocks`).then(res => {
             return res.json();
         }).then(data => {
             setStocks(data.stocks);
@@ -37,7 +38,7 @@ const SearchStock = () => {
 
 	return (
         <div>
-            <input placeholder="Search for Stocks" onChange={handleFilter}></input>
+            <input className="searchBar" placeholder="Search for Stocks" onChange={handleFilter}></input>
             <div className="grid">
                 {filteredStocks.map((stock: Stock) => (
                     <div className="card">

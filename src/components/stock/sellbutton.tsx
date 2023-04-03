@@ -1,5 +1,6 @@
 'use client';
 
+import { BASE_URL } from '@/util/globals';
 import { useState } from 'react';
 
 export default function SellButton() {
@@ -9,7 +10,7 @@ export default function SellButton() {
     const currentStock = '63dd56b9f7c1c8cf06522dc8';
 
     const executeSell = async () => {
-        fetch('http://localhost:8080/api/stock/sell', {
+        fetch(`${BASE_URL}/api/stock/sell`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

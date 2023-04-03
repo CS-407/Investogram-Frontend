@@ -1,6 +1,7 @@
 'use client';
 
 import { TransactionType } from "@/types/TransactionType";
+import { BASE_URL } from "@/util/globals";
 import { currencyConverter } from "@/util/HelperFunctions";
 import { useEffect, useState } from "react"
 
@@ -11,7 +12,7 @@ export default function LossGainSection() {
     }
 
     useEffect(() => {
-        fetch(`http://localhost:8080/api/user/trades/${mockUser.id}`, {
+        fetch(`${BASE_URL}/api/user/trades/${mockUser.id}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',

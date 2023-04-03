@@ -1,6 +1,7 @@
 'use client';
 
 import { TradeRow } from "@/components/transaction/tradeRow"
+import { BASE_URL } from "@/util/globals";
 import { useEffect, useState } from "react"
 
 export default function RecentTradesSection() {
@@ -10,7 +11,7 @@ export default function RecentTradesSection() {
     }
 
     useEffect(() => {
-        fetch(`http://localhost:8080/api/user/trades/${mockUser.id}`, {
+        fetch(`${BASE_URL}/api/user/trades/${mockUser.id}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',

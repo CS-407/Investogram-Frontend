@@ -1,11 +1,18 @@
 .grid {
     display: flex;
-    flex-direction: row;
+    flex-direction: col;
     flex-wrap: wrap;
 }
 
 .card {
-    border-bottom: 5px black;
+    border: 5px black;
     padding: 0.25rem;
     margin: 0.75rem;
+}
+
+.searchBar {
+    margin-left: 0.5rem;
+    border: 2px blueviolet;
+    border-radius: 0.45rem;
+    padding: 0.5rem;
 }
