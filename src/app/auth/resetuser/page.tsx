@@ -2,6 +2,7 @@
 
 import AuthContext from "@/context/AuthContext";
 import { User } from "@/util/types";
+import { useRouter } from "next/navigation";
 import { useContext, useState } from "react";
 import "../authStyles.css";
 
@@ -14,6 +15,7 @@ interface Fields {
 function ResetUser() {
 	const initialValues: Fields = { email: "", username: "", reset_token: 0 };
 
+	const router = useRouter();
 	const { resetUsername } = useContext(AuthContext);
 
 	const [formValues, setFormValues] = useState<Fields>(initialValues);
@@ -26,12 +28,16 @@ function ResetUser() {
 
 	const handleSubmit = (e: React.FormEvent) => {
 		e.preventDefault();
-
 		
 		if (validate()) {
 			return;
 		}
 
+		resetUser();
+	};
+
+	const resetUser = async () => {
+		
 		try {
 			const updated_user: Partial<User> = {
 				'email': formValues.email,
@@ -39,12 +45,13 @@ function ResetUser() {
 				'reset_token': formValues.reset_token
 			}
 
-			resetUsername(updated_user);
+			await resetUsername(updated_user);
 			alert('Username reset successfully');
+			router.push("/auth/login");
 		} catch (err: any) {
-			alert('Trouble contacting server');
+			alert(err);
 		}
-	};
+	}
 
 	const validate = () => {
 		const errors: Fields = initialValues;

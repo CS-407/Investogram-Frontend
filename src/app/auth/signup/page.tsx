@@ -40,17 +40,18 @@ const SignUp: NextPage = () => {
 		validate();
 	};
 
-	const signupUser = () => {
+	const signupUser = async () => {
 		try {
-			signup({
+			await signup({
 				username: formValues.username,
 				email: formValues.email,
 				password: formValues.password,
 				password2: formValues.password2,
 			});
+			alert("Signed In Successfully");
 			router.push("/");
 		} catch (err: any) {
-			alert(err.message);
+			alert(err);
 		}
 	};
 

@@ -27,14 +27,17 @@ function ForgotPass() {
 		if (validate()) {
 			return;
 		}
+		sendForgotMail();
+	};
 
+	const sendForgotMail = async () => {
 		try {
-			forgot(formValues.email);
+			await forgot(formValues.email);
 			alert('Email Sent Successfully');
 		} catch (err: any) {
-			alert('Trouble Contacting Server');
+			alert(err);
 		}
-	};
+	}
 
 	const validate = () => {
 		const errors: Fields = initialValues;

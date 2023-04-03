@@ -5,6 +5,7 @@ import AuthContext from "@/context/AuthContext";
 
 import "../authStyles.css";
 import { User } from "@/util/types";
+import { useRouter } from "next/navigation";
 
 interface Fields {
 	email: string;
@@ -17,6 +18,7 @@ function resetPass() {
 	const initialValues: Fields = { email: "", password: "", password2: "", reset_token: 0 };
 
 	const { resetPassword } = useContext(AuthContext);
+	const router = useRouter();
 
 	const [formValues, setFormValues] = useState<Fields>(initialValues);
 	const [formErrors, setFormErrors] = useState<Fields>(initialValues);
@@ -33,6 +35,10 @@ function resetPass() {
 			return;
 		}
 
+		resetPass();
+	};
+
+	const resetPass = async () => {
 		try {
 			const updated_user: Partial<User> = {
 				'email': formValues.email,
@@ -41,12 +47,13 @@ function resetPass() {
 				'reset_token': formValues.reset_token
 			}
 
-			resetPassword(updated_user);
+			await resetPassword(updated_user);
 			alert('Password reset successfully');
+			router.push("/auth/login");
 		} catch (err: any) {
-			alert('Trouble contacting server');
+			alert(err);
 		}
-	};
+	}
 
 	const validate = () => {
 		const errors: Fields = initialValues;

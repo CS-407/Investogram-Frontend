@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import axios, { Axios } from "axios";
+import axios from "axios";
 import { User } from "@/util/types";
 
 axios.defaults.baseURL = "http://localhost:5000";
@@ -33,21 +33,22 @@ export const AuthContextProvider = (props: React.PropsWithChildren<{}>) => {
         try {
             const res = await axios.post("/api/auth/login", user, {
                 headers: {
-                    "Content-Type": "application/json"
+                    'Content-Type': 'application/json'
                 }
             });
 
-            const data = res.data;
-
-            localStorage.setItem('token', data.token);
+            localStorage.setItem("token", res.data.token);
 
             setState({
                 isAuth: true,
-                user: data.user,
-                token: data.token
-            })
+                user: res.data.user,
+                token: res.data.token
+            });
         } catch (err: any) {
-            throw new Error(err.message);
+            if (err.response) {
+                throw err.response.data.msg;
+            }
+            throw err.message;
         }
     }
 
@@ -69,7 +70,10 @@ export const AuthContextProvider = (props: React.PropsWithChildren<{}>) => {
                 token: data.token
             })
         } catch (err: any) {
-            throw new Error(err);
+            if (err.response) {
+                throw err.response.data.msg;
+            }
+            throw err.message;
         }
     }
 
@@ -85,7 +89,10 @@ export const AuthContextProvider = (props: React.PropsWithChildren<{}>) => {
                 }
             });
         } catch (err: any) {
-            throw new Error(err.message);
+            if (err.response) {
+                throw err.response.data.msg;
+            }
+            throw err.message;
         }
     }
 
@@ -97,7 +104,10 @@ export const AuthContextProvider = (props: React.PropsWithChildren<{}>) => {
                 }
             });
         } catch (err: any) {
-            throw new Error(err.message);
+            if (err.response) {
+                throw err.response.data.msg;
+            }
+            throw err.message;
         }
     }
 
@@ -109,7 +119,10 @@ export const AuthContextProvider = (props: React.PropsWithChildren<{}>) => {
                 }
             });
         } catch (err: any) {
-            throw new Error(err.message);
+            if (err.response) {
+                throw err.response.data.msg;
+            }
+            throw err.message;
         }
     }
 

@@ -31,16 +31,16 @@ function Login() {
 		validate();
 	};
 
-	const loginUser = () => {
+	const loginUser = async () => {
 		try {
-			login({
+			await login({
 				email: formValues.email,
 				password: formValues.password,
 			});
+			alert('Successfully Logged In');
 			router.push("/");
 		} catch (err: any) {
-			console.log(err);
-			alert("Trouble Contacting Server");
+			alert(err);
 		}
 	};
 
