@@ -1,6 +1,7 @@
 'use client';
 
 import { BASE_URL } from '@/util/globals';
+import axios from 'axios';
 import { useState } from 'react';
 
 export default function SellButton() {
@@ -9,31 +10,32 @@ export default function SellButton() {
     const currentPrice = '63dd56e4f7c1c8cf06522dc9';
     const currentStock = '63dd56b9f7c1c8cf06522dc8';
 
-    const executeSell = async () => {
-        fetch(`${BASE_URL}/api/stock/sell`, {
-            method: 'POST',
+    const executeSell = () => {
+        axios.post(`${BASE_URL}/api/stock/sell`, {
+            user_id: currentUser,
+            stock_id: currentStock,
+            stock_price_id: currentPrice,
+            no_of_shares: orderAmt,
+            amount_usd: orderAmt * mockStock.price,
+            buy: false
+        }, {
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': "Bearer " + localStorage.getItem("token")
-            },
-            body: JSON.stringify({
-                user_id: currentUser,
-                stock_id: currentStock,
-                stock_price_id: currentPrice,
-                no_of_shares: orderAmt,
-                amount_usd: orderAmt * mockStock.price,
-                buy: false
-            })
+            }
         })
-        .then(res => res.json())
-        .then(data => {
-            console.log(data)
+        .then(response => {
+            const data = response.data;
+            console.log(data);
             if (data.msg === "Success") {
                 setSellSuccess(true);
             } else {
                 setSellFail(true);
             }
         })
+        .catch(error => {
+            console.log(error);
+        });
     };
 
 

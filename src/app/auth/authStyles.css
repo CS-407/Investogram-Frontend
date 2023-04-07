@@ -35,27 +35,10 @@ pre {
 	font-size: larger;
 }
 
-button {
-	padding: 0.5rem 0.75rem;
-	background: #0563b4 !important;
-	color: #dfdfdf;
-	border: #0563b4;
-	border-radius: 0.2rem;
-}
-
-button:hover {
-	cursor: pointer;
-	background: #dfdfdf !important;
-	color: #0563b4;
-}
-
-p {
-	color: red;
-}
-
 .linkContainer {
 	display: flex;
 	flex-direction: column;
 	margin-top: 0.5rem;
 	justify-content: space-between;
+	text-align: center;
 }

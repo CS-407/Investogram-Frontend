@@ -8,23 +8,25 @@ import RejectFollowButton from "../rejectFollowButton";
 import { BASE_URL } from '../../util/globals';
 
 import "./requestStyles.css";
+import axios from "axios";
 
 const FollowRequests = () => {
     const [followRequests, setFollowRequests] = useState<Partial<User>[]>();
     
     useEffect(() => {
-        fetch(`${BASE_URL}/api/user/requests`, {
+        axios.get(`${BASE_URL}/api/user/requests`, {
             headers: {
                 "Authorization": "Bearer " + localStorage.getItem("token")
             }
-        }).then(res => {
-            return res.json();
-        }).then(data => {
-            setFollowRequests(data.users);
-        }).catch(err => {
-            console.log(err);
-            alert('Trouble contacting server');
         })
+        .then(response => {
+            const data = response.data;
+            setFollowRequests(data.users);
+        })
+        .catch(error => {
+            console.log(error);
+            alert('Trouble contacting server');
+        });
     }, []);
 
 	return (

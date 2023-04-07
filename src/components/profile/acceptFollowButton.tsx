@@ -1,5 +1,6 @@
 'use client';
 
+import axios from 'axios';
 import { BASE_URL } from '../../util/globals';
 
 export default function AcceptFollowButton() {
@@ -9,22 +10,23 @@ export default function AcceptFollowButton() {
     }
 
     const followUser = () => {
-        fetch(`${BASE_URL}/api/user/follow/${mockUser.id}`, {
-            method: 'POST',
+        axios.post(`${BASE_URL}/api/user/follow/${mockUser.id}`, null, {
             headers: {
                 'Content-Type': 'application/json',
             }
-        }
-        )
-        .then(res => res.json())
-        .then(data => {
+        })
+        .then(response => {
+            const data = response.data;
             if (data.msg === "Success") {
-                console.log("Success")
-                console.log(data)
+                console.log("Success");
+                console.log(data);
             } else {
-                console.log("Error")
-                console.log(data)
+                console.log("Error");
+                console.log(data);
             }
+        })
+        .catch(error => {
+            console.log(error);
         });
     }
 
