@@ -2,21 +2,19 @@
 
 import { BASE_URL } from '@/util/globals';
 import axios from 'axios';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { BuySellButtonProps } from '../buybutton';
 
-export default function SellButton() {
+export default function SellButton(props: BuySellButtonProps) {
 
-    const currentUser = '63e8451d540fd8c730cb98b4';
-    const currentPrice = '63dd56e4f7c1c8cf06522dc9';
-    const currentStock = '63dd56b9f7c1c8cf06522dc8';
+    const stockId = props.stock_id;
 
     const executeSell = () => {
         axios.post(`${BASE_URL}/api/stock/sell`, {
-            user_id: currentUser,
-            stock_id: currentStock,
-            stock_price_id: currentPrice,
+            stock_id: stockId,
+            stock_price_id: stockPriceId,
             no_of_shares: orderAmt,
-            amount_usd: orderAmt * mockStock.price,
+            amount_usd: orderAmt * price,
             buy: false
         }, {
             headers: {
@@ -39,21 +37,48 @@ export default function SellButton() {
     };
 
 
+    const [price, setPrice] = useState<any>();
+    const [stockPriceId, setStockPriceId] = useState<any>();
+    useEffect(() => {
+        fetch(`http://localhost:8080/api/stock/price/${stockId}`)
+        .then(res => res.json())
+        .then(data => {
+            if (data.msg === "Success") {
+                let price = data.data[0]
+                setStockPriceId(price._id)
+                setPrice(price.current_price)
+            } else {
+                console.log("Error")
+                console.log(data)
+            }
+        })
+    },[])
+
+    const [stock, setStock] = useState<any>();
+    useEffect(() => {
+        fetch(`http://localhost:8080/api/stock/get/${stockId}`)
+        .then(res => res.json())
+        .then(data => {
+            if (data.msg === "Success") {
+                let stockInfo = data.data
+                setStock(stockInfo)
+            } else {
+                console.log("Error")
+                console.log(data)
+            }
+        })
+    },[])
+
+
+    const [orderAmt, setOrderAmt] = useState(0);
+
     const mockUser = {
         currentBalance: 1000,
         currentStockOwned: 10
     }
 
-    const mockStock = {
-        name: "Microsoft",
-        ticker: "MSFT",
-        price: 10.11
-    }
-
-    const [orderAmt, setOrderAmt] = useState(0);
-
     function availableBalance() {
-        return mockUser.currentBalance + (orderAmt * mockStock.price)
+        return mockUser.currentBalance + (orderAmt * price)
     }
 
     function decreaseButton() {
@@ -93,7 +118,7 @@ export default function SellButton() {
     function remainingStock() {
         let remaining = mockUser.currentStockOwned - orderAmt
         return (
-            <div className="text-sm italic p-1">{remaining} shares left worth ${(remaining * mockStock.price).toFixed(2)}</div>
+            <div className="text-sm italic p-1">{remaining} shares left worth ${(remaining * price).toFixed(2)}</div>
              
         )
     }
@@ -110,7 +135,7 @@ export default function SellButton() {
                     }
                     >
                         Sell
-                        <div className="flex-row font-normal text-xs italic p-1">Sell {orderAmt} shares for ${(orderAmt * mockStock.price).toFixed(2)}</div>
+                        <div className="flex-row font-normal text-xs italic p-1">Sell {orderAmt} shares for ${(orderAmt * price).toFixed(2)}</div>
                     </button>
                 </div>
             )
@@ -132,8 +157,8 @@ export default function SellButton() {
         <main>
             <div className="inline-block border-solid rounded-md border-2 border-red-500 align-middle text-center">
                 <div className="flex font-bold text-2xl p-1">
-                    Sell {mockStock.name} (
-                        <div className='italic'>{mockStock.ticker}</div>
+                    Sell {stock ? stock.stock_name : ''} (
+                        <div className='italic'>{stock ? stock.stock_ticker : ''}</div>
                     )
                 </div>
                 {amtButtons()}

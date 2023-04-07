@@ -1,28 +1,28 @@
 'use client';
 
-import { useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
+import { AuthContextProvider } from '@/context/AuthContext';
 
-export default function BuyButton() {
+export interface BuySellButtonProps {
+    stock_id: string;
+}
 
-    const currentUser = '63e8451d540fd8c730cb98b4';
-    const currentPrice = '63dd56e4f7c1c8cf06522dc9'; // Microsoft
-    const currentStock = '63dd56b9f7c1c8cf06522dc8';
+export default function BuyButton(props: BuySellButtonProps) {
 
-    //const currentPrice = '63f6bd19d9c993dbca2465cd'; // Adobe
-    //const currentStock = '63f6bb07d9c993dbca2465c7';
+    const stockId = props.stock_id;
 
     const executeBuy = async () => {
-        fetch('http://localhost:8080/api/stock/buy', {
+        fetch('http://localhost:8080/api/stock/buy/', {
             method: 'POST',
             headers: {
+                "Authorization": "Bearer " + localStorage.getItem("token"),
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                user_id: currentUser,
-                stock_id: currentStock,
-                stock_price_id: currentPrice,
+                stock_id: stockId,
+                stock_price_id: stockPriceId,
                 no_of_shares: orderAmt,
-                amount_usd: orderAmt * mockStock.price,
+                amount_usd: orderAmt * price,
                 buy: true
             })
         })
@@ -37,20 +37,46 @@ export default function BuyButton() {
         })
     };
 
-    const mockUser = {
-        currentBalance: 250
-    }
+    const [price, setPrice] = useState<any>();
+    const [stockPriceId, setStockPriceId] = useState<any>();
+    useEffect(() => {
+        fetch(`http://localhost:8080/api/stock/price/${stockId}`)
+        .then(res => res.json())
+        .then(data => {
+            if (data.msg === "Success") {
+                let price = data.data[0]
+                setStockPriceId(price._id)
+                setPrice(price.current_price)
+            } else {
+                console.log("Error")
+                console.log(data)
+            }
+        })
+    },[])
 
-    const mockStock = {
-        name: "Microsoft",
-        ticker: "MSFT",
-        price: 10.11
-    }
+    const [stock, setStock] = useState<any>();
+    useEffect(() => {
+        fetch(`http://localhost:8080/api/stock/get/${stockId}`)
+        .then(res => res.json())
+        .then(data => {
+            if (data.msg === "Success") {
+                let stockInfo = data.data
+                setStock(stockInfo)
+            } else {
+                console.log("Error")
+                console.log(data)
+            }
+        })
+    },[])
 
     const [orderAmt, setOrderAmt] = useState(0);
 
+    const mockUser = {
+        currentBalance: 500
+    }
+
     function availableBalance() {
-        return mockUser.currentBalance - (orderAmt * mockStock.price)
+        return mockUser.currentBalance - (orderAmt * (price ? price : 0))
     }
 
     function decreaseButton() {
@@ -66,7 +92,7 @@ export default function BuyButton() {
     }
     
     function increaseButton() {
-        if (availableBalance() - mockStock.price >= 0) { // Enough funds
+        if (availableBalance() - (price ? price : 0) >= 0) { // Enough funds
             return (
                 <button 
                 className="flex items-center justify-center px-2 py-1 text-base font-medium leading-6 text-white whitespace-no-wrap bg-black border-2 border-transparent rounded-full shadow-sm hover:bg-transparent hover:text-black hover:border-black focus:outline-none"
@@ -105,9 +131,9 @@ export default function BuyButton() {
                         >
                             <div className='flex justify-center'>
                                 Buy
-                                <div className='pl-2 italic'> {mockStock.ticker} </div>
+                                <div className='pl-2 italic'> {stock && stock.stock_ticker} </div>
                             </div>
-                            <div className="flex-row font-normal italic text-xs p-1">{orderAmt} shares for ${(orderAmt * mockStock.price).toFixed(2)}</div>
+                            <div className="flex-row font-normal italic text-xs p-1">{orderAmt} shares for ${(orderAmt * (price ? price : 0)).toFixed(2)}</div>
                         </button>
                         
                     </div>
@@ -130,8 +156,8 @@ export default function BuyButton() {
         <main>
             <div className="inline-block border-solid rounded-md border-2 border-green-500 align-middle text-center">
                 <div className="flex font-bold text-2xl p-1">
-                    Buy {mockStock.name} (
-                        <div className='italic'>{mockStock.ticker}</div>
+                    Buy {stock ? stock.stock_name : ''} (
+                        <div className='italic'>{stock ? stock.stock_ticker : ''}</div>
                     )
                 </div>
                 {amtButtons()}

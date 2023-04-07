@@ -4,17 +4,20 @@ import { TradeRow } from "@/components/transaction/tradeRow"
 import { BASE_URL } from "@/util/globals";
 import { useEffect, useState } from "react"
 
-export default function RecentTradesSection() {
+interface RecentTradesSectionProps {
+    user_id: string
+}
 
-    const mockUser = {
-        id: '63e8451d540fd8c730cb98b4'
-    }
+export default function RecentTradesSection(props: RecentTradesSectionProps) {
+
+    const user_id = props.user_id
 
     useEffect(() => {
-        fetch(`${BASE_URL}/api/user/trades/${mockUser.id}`, {
+        fetch(`${BASE_URL}/api/user/trades/${user_id}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
+                "Authorization": "Bearer " + localStorage.getItem("token"),
             }
         })
         .then(res => res.json())

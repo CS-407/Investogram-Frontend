@@ -20,10 +20,10 @@ export default function stock() {
           </div>
           <div className="py-auto">
             <div className="py-2">
-              <BuyButton />
+              <BuyButton stock_id={stockId}/>
             </div>
             <div className="py-2">
-              <SellButton />
+              <SellButton stock_id={stockId}/>
             </div>
           </div>
         </div>
