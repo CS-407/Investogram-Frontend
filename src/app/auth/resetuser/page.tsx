@@ -2,6 +2,7 @@
 
 import AuthContext from "@/context/AuthContext";
 import { User } from "@/util/types";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useContext, useState } from "react";
 import "../authStyles.css";
@@ -74,7 +75,7 @@ function ResetUser() {
 			<div className="container">
 				<form onSubmit={handleSubmit}>
 				<div className="text-center">
-						<h1 className="text-2xl mb-4">Reset Password</h1>
+						<h1 className="text-2xl mb-4">Reset Username</h1>
 					</div>
 					<div className="ui form">
 						<div className="form">
@@ -116,6 +117,13 @@ function ResetUser() {
 						<button className="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded mb-3">
 							Submit
 						</button>
+						<div className="linkContainer">
+							<Link href={"/auth/resetpass"}>
+								<p className="font-medium text-blue-600 dark:text-blue-500 hover:underline mb-2">
+									Reset Password
+								</p>
+							</Link>
+						</div>
 					</div>
 				</form>
 			</div>

@@ -6,6 +6,7 @@ import AuthContext from "@/context/AuthContext";
 import "../authStyles.css";
 import { User } from "@/util/types";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 interface Fields {
 	email: string;
@@ -144,6 +145,13 @@ function resetPass() {
 						<button className="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded mb-3">
 							Submit
 						</button>
+						<div className="linkContainer">
+							<Link href={"/auth/resetuser"}>
+								<p className="font-medium text-blue-600 dark:text-blue-500 hover:underline mb-2">
+									Reset Username
+								</p>
+							</Link>
+						</div>
 					</div>
 				</form>
 			</div>
