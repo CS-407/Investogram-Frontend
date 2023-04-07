@@ -14,7 +14,7 @@ const NewPost = () => {
         axios.post("/api/blog", { content }).then(() => {
             alert("Post created");
             setContent("");
-        }).catch(err => alert(err));
+        }).catch((err: any) => alert(err));
     }
 
 	return (
