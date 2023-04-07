@@ -2,6 +2,7 @@
 
 import AuthContext from "@/context/AuthContext";
 import { User } from "@/util/types";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useContext, useState } from "react";
 import "../authStyles.css";
@@ -73,12 +74,14 @@ function ResetUser() {
 		<div className="formPage">
 			<div className="container">
 				<form onSubmit={handleSubmit}>
-					<h1>Reset Username</h1>
-					<div className="ui divider"></div>
+				<div className="text-center">
+						<h1 className="text-2xl mb-4">Reset Username</h1>
+					</div>
 					<div className="ui form">
 						<div className="form">
-							<label>Enter Email</label>
+							<label className="block font-bold mb-2">Enter Email</label>
 							<input
+								className="border rounded w-full py-2 px-3 text-gray-700 mb-3"
 								type="email"
 								name="email"
 								placeholder="jdoe@gmail.com"
@@ -88,8 +91,9 @@ function ResetUser() {
 						</div>
 						<p>{formErrors.email}</p>
 						<div className="form">
-							<label>New Username</label>
+							<label className="block font-bold mb-2">New Username</label>
 							<input
+								className="border rounded w-full py-2 px-3 text-gray-700 mb-3"
 								type="text"
 								name="username"
 								placeholder="new-username"
@@ -98,8 +102,9 @@ function ResetUser() {
 							/>
 						</div>
 						<div className="form">
-							<label>Enter Reset Token</label>
+							<label className="block font-bold mb-2">Enter Reset Token</label>
 							<input
+								className="border rounded w-full py-2 px-3 text-gray-700 mb-3"
 								type="number"
 								min={0}
 								max={99999}
@@ -109,7 +114,16 @@ function ResetUser() {
 								onChange={handleChange}
 							/>
 						</div>
-						<button className="fluid ui button blue">Submit</button>
+						<button className="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded mb-3">
+							Submit
+						</button>
+						<div className="linkContainer">
+							<Link href={"/auth/resetpass"}>
+								<p className="font-medium text-blue-600 dark:text-blue-500 hover:underline mb-2">
+									Reset Password
+								</p>
+							</Link>
+						</div>
 					</div>
 				</form>
 			</div>

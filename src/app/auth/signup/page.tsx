@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useContext } from "react";
+import { useState, useContext } from "react";
 import { useRouter } from "next/navigation";
 
 import AuthContext from "@/context/AuthContext";
@@ -80,36 +80,40 @@ const SignUp: NextPage = () => {
 		<div className="formPage">
 			<div className="container">
 				<form onSubmit={handleSubmit}>
-					<h1>Signup Form</h1>
-					<div className="ui divider"></div>
+					<div className="text-center">
+						<h1 className="text-2xl mb-4">Signup Form</h1>
+					</div>
 					<div className="ui form">
 						<div className="form">
-							<label>Username </label>
+							<label className="block font-bold mb-2">Username</label>
 							<input
+								className="border rounded w-full py-2 px-3 text-gray-700 mb-3"
 								type="text"
-								name="johndoe"
+								name="username"
 								required
-								placeholder="Username"
+								placeholder="johndoe"
 								value={formValues.username}
 								onChange={handleChange}
 							/>
 						</div>
 						<p>{formErrors.username}</p>
 						<div className="form">
-							<label>Email </label>
+							<label className="block font-bold mb-2">Email </label>
 							<input
+								className="border rounded w-full py-2 px-3 text-gray-700 mb-3"
 								type="text"
-								name="jdoe@gmail.com"
+								name="email"
 								required
-								placeholder="Email"
+								placeholder="jdoe@gmail.com"
 								value={formValues.email}
 								onChange={handleChange}
 							/>
 						</div>
 						<p>{formErrors.email}</p>
 						<div className="form">
-							<label>Password </label>
+							<label className="block font-bold mb-2">Password </label>
 							<input
+								className="border rounded w-full py-2 px-3 text-gray-700 mb-3"
 								type="password"
 								name="password"
 								required
@@ -120,8 +124,9 @@ const SignUp: NextPage = () => {
 						</div>
 						<p>{formErrors.password}</p>
 						<div className="form">
-							<label>Confirm Password </label>
+							<label className="block font-bold mb-2">Confirm Password </label>
 							<input
+								className="border rounded w-full py-2 px-3 text-gray-700 mb-3"
 								type="password"
 								name="password2"
 								required
@@ -131,9 +136,15 @@ const SignUp: NextPage = () => {
 							/>
 						</div>
 						<p>{formErrors.password2}</p>
-						<button className="fluid ui button blue">Submit</button>
+						<button className="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded mb-3">
+							Submit
+						</button>
 						<div className="linkContainer">
-							<Link href={"/auth/login"}>Already have an account</Link>
+							<Link href={"/auth/login"}>
+								<p className="font-medium text-blue-600 dark:text-blue-500 hover:underline mb-2">
+									Already have an account?
+								</p>
+							</Link>
 						</div>
 					</div>
 				</form>

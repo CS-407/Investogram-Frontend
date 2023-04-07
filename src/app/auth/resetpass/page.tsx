@@ -6,6 +6,7 @@ import AuthContext from "@/context/AuthContext";
 import "../authStyles.css";
 import { User } from "@/util/types";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 interface Fields {
 	email: string;
@@ -15,7 +16,12 @@ interface Fields {
 }
 
 function resetPass() {
-	const initialValues: Fields = { email: "", password: "", password2: "", reset_token: 0 };
+	const initialValues: Fields = {
+		email: "",
+		password: "",
+		password2: "",
+		reset_token: 0,
+	};
 
 	const { resetPassword } = useContext(AuthContext);
 	const router = useRouter();
@@ -30,7 +36,7 @@ function resetPass() {
 
 	const handleSubmit = (e: React.FormEvent) => {
 		e.preventDefault();
-		
+
 		if (validate()) {
 			return;
 		}
@@ -41,26 +47,29 @@ function resetPass() {
 	const resetPass = async () => {
 		try {
 			const updated_user: Partial<User> = {
-				'email': formValues.email,
-				'password': formValues.password,
-				'password2': formValues.password2,
-				'reset_token': formValues.reset_token
-			}
+				email: formValues.email,
+				password: formValues.password,
+				password2: formValues.password2,
+				reset_token: formValues.reset_token,
+			};
 
 			await resetPassword(updated_user);
-			alert('Password reset successfully');
+			alert("Password reset successfully");
 			router.push("/auth/login");
 		} catch (err: any) {
 			alert(err);
 		}
-	}
+	};
 
 	const validate = () => {
 		const errors: Fields = initialValues;
 
 		if (!formValues.password) {
 			errors.password = "Password is required";
-		} else if (formValues.password.length < 6 || formValues.password.length > 10) {
+		} else if (
+			formValues.password.length < 6 ||
+			formValues.password.length > 10
+		) {
 			errors.password = "Password must be between 6 and 10 characters";
 		} else if (formValues.password2 !== formValues.password) {
 			errors.password2 = "Passwords must match";
@@ -79,12 +88,14 @@ function resetPass() {
 		<div className="formPage">
 			<div className="container">
 				<form onSubmit={handleSubmit}>
-					<h1>Reset Password</h1>
-					<div className="ui divider"></div>
+					<div className="text-center">
+						<h1 className="text-2xl mb-4">Reset Password</h1>
+					</div>
 					<div className="ui form">
 						<div className="form">
-							<label>Enter Email</label>
+							<label className="block font-bold mb-2">Enter Email</label>
 							<input
+								className="border rounded w-full py-2 px-3 text-gray-700 mb-3"
 								type="email"
 								name="email"
 								placeholder="jdoe@gmail.com"
@@ -93,8 +104,9 @@ function resetPass() {
 							/>
 						</div>
 						<div className="form">
-							<label>Enter New Password</label>
+							<label className="block font-bold mb-2">Enter New Password</label>
 							<input
+								className="border rounded w-full py-2 px-3 text-gray-700 mb-3"
 								type="password"
 								name="password"
 								placeholder="new-password"
@@ -104,8 +116,11 @@ function resetPass() {
 						</div>
 						<p>{formErrors.password}</p>
 						<div className="form">
-							<label>Retype New Password</label>
+							<label className="block font-bold mb-2">
+								Retype New Password
+							</label>
 							<input
+								className="border rounded w-full py-2 px-3 text-gray-700 mb-3"
 								type="password"
 								name="password2"
 								placeholder="new-password"
@@ -115,9 +130,10 @@ function resetPass() {
 						</div>
 						<p>{formErrors.password2}</p>
 						<div className="form">
-							<label>Enter Reset Token</label>
+							<label className="block font-bold mb-2">Enter Reset Token</label>
 							<input
-								type="number" 
+								className="border rounded w-full py-2 px-3 text-gray-700 mb-3"
+								type="number"
 								min={0}
 								max={99999}
 								name="reset_token"
@@ -126,7 +142,16 @@ function resetPass() {
 								onChange={handleChange}
 							/>
 						</div>
-						<button className="fluid ui button blue">Submit</button>
+						<button className="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded mb-3">
+							Submit
+						</button>
+						<div className="linkContainer">
+							<Link href={"/auth/resetuser"}>
+								<p className="font-medium text-blue-600 dark:text-blue-500 hover:underline mb-2">
+									Reset Username
+								</p>
+							</Link>
+						</div>
 					</div>
 				</form>
 			</div>
