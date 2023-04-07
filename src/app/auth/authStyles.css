@@ -34,11 +34,3 @@ pre {
 	color: #fff;
 	font-size: larger;
 }
-
-.linkContainer {
-	display: flex;
-	flex-direction: column;
-	margin-top: 0.5rem;
-	justify-content: space-between;
-	text-align: center;
-}

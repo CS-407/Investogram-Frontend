@@ -8,12 +8,15 @@ import LossGainSection from "@/components/profile/lossGainSection";
 export default function profile() {
 	return (
 		<main className="">
-			<div>profile</div>
-			<RecentTradesSection />
-			<div className="flex">
-				<LossGainSection />
-			</div>
 			<Link href={"/profile/requests"}>See Follow Requests</Link>
+			<div>profile</div>
+			{/* <RecentTradesSection /> */}
+			<div className="flex">
+				{/* <LossGainSection /> */}
+			</div>
+			<div className="flex">
+				{/* <LossGainSection /> */}
+			</div>
 		</main>
 	);
 }
