@@ -17,8 +17,6 @@ export default function profile() {
 			<div className="flex">
 				{/* <LossGainSection /> */}
 			</div>
-
-			<RecentTradesSection />
 		</main>
 	);
 }
