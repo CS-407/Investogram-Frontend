@@ -12,14 +12,12 @@ export default function Followers() {
         fetch(`http://localhost:5000/api/user/followers/${mockId}`)
         .then(res => res.json())
         .then(data => {
-            if (data.msg === "Success") {
-                let followers = data.data
+                let followers = data.followers
                 //console.log(price);
-                setFollowers(data.data)
-            } else {
-                console.log("Error")
-                console.log(data)
-            }
+                setFollowers(data.followers)
+        }).catch(err => {
+            console.log("Error");
+            console.log(err);
         })
     },[])
 
@@ -28,7 +26,7 @@ export default function Followers() {
         <div>
             <div className='font-semibold text-lg'>Followers:</div>
             {followers.map((followersObj) => 
-                <div key={followersObj._id}>{followersObj.followers_list}</div>
+                <div key={followersObj._id}>{followersObj.username}</div>
             )
             }
         </div>

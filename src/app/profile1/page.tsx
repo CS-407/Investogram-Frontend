@@ -6,7 +6,7 @@ export default function profile() {
   return (
     <main className="">
       <div>profile</div>
-      <Followers />
+      <Followees />
 
     </main>
   )
