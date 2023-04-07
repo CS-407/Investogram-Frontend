@@ -117,7 +117,7 @@ function ResetUser() {
 						<button className="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded mb-3">
 							Submit
 						</button>
-						<div className="linkContainer">
+						<div className="flex flex-col text-center mt-2">
 							<Link href={"/auth/resetpass"}>
 								<p className="font-medium text-blue-600 dark:text-blue-500 hover:underline mb-2">
 									Reset Password

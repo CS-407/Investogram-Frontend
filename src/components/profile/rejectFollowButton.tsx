@@ -2,7 +2,9 @@
 
 import { BASE_URL } from '../../util/globals';
 
-export default function RejectFollowButton() {
+export default function RejectFollowButton(
+    props: React.PropsWithChildren<{ id: string | undefined }>
+) {
 
     const mockUser = {
         id: '63e8451d540fd8c730cb98b4'
@@ -10,7 +12,7 @@ export default function RejectFollowButton() {
 
     const followUser = () => {
         console.log("Reject user")
-        fetch(`${BASE_URL}/api/user/follow/${mockUser.id}`, {
+        fetch(`${BASE_URL}/api/user/follow/${props.id}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
