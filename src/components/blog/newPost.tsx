@@ -14,7 +14,13 @@ const NewPost = () => {
         axios.post("/api/blog", { content }).then(() => {
             alert("Post created");
             setContent("");
-        }).catch((err: any) => alert(err));
+        }).catch((err: any) => {
+            if (err.response && err.response.data && err.response.data.msg) {
+                alert(err.response.data.msg);
+            } else {
+                alert("Trouble contacting server");
+            }
+        });
     }
 
 	return (

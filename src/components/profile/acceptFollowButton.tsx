@@ -6,9 +6,6 @@ import { BASE_URL } from "../../util/globals";
 export default function AcceptFollowButton(
 	props: React.PropsWithChildren<{ id: string | undefined }>
 ) {
-	const mockUser = {
-		id: "63e8451d540fd8c730cb98b4",
-	};
 
 	const followUser = () => {
 		axios
@@ -19,16 +16,14 @@ export default function AcceptFollowButton(
 			})
 			.then((response) => {
 				const data = response.data;
-				if (data.msg === "Success") {
-					console.log("Success");
-					console.log(data);
-				} else {
-					console.log("Error");
-					console.log(data);
-				}
+				alert(data.message);
 			})
-			.catch((error) => {
-				console.log(error);
+			.catch((err) => {
+				if (err.response && err.response.data && err.response.data.msg) {
+                    alert(err.response.data.msg);
+                } else {
+                    alert("Trouble contacting server");
+                }
 			});
 	};
 

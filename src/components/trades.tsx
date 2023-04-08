@@ -1,22 +1,19 @@
 import { BASE_URL } from "@/util/globals";
+import axios from "axios";
 import React, { useEffect, useState } from "react";
 
 const Trades = () => {
 	const [trades, setTrades] = useState<any>({});
 
     useEffect(() => {
-        fetch(`${BASE_URL}/api/user/trades`, {
-            method: "GET",
+        axios.get(`${BASE_URL}/api/user/trades`, {
             headers: {
                 'Authorization': "Bearer " + localStorage.getItem("token")
             }
         }).then((res) => {
-            return res.json();
-        }).then((data) => {
-            console.log(data);
             const dict: any = {};
-
-            data.trades.forEach((trade: any) => {
+            
+            res.data.trades.forEach((trade: any) => {
                 var stock_ticker = trade['stock_id']['stock_ticker'];
                 
                 if (!dict[stock_ticker]) {
@@ -34,7 +31,11 @@ const Trades = () => {
 
             setTrades(dict);
         }).catch((err) => {
-            alert(err);
+            if (err.response && err.response.data && err.response.data.msg) {
+                alert(err.response.data.msg);
+            } else {
+                alert("Trouble contacting server");
+            }
         })
     }, [])
 

@@ -20,9 +20,12 @@ const SearchStock = () => {
 					setStocks(data.stocks);
 					setFilteredStocks(data.stocks);
 				})
-				.catch((error) => {
-					alert("Trouble Contacting Server");
-					console.log(error);
+				.catch((err) => {
+					if (err.response && err.response.data && err.response.data.msg) {
+						alert(err.response.data.msg);
+					} else {
+						alert("Trouble contacting server");
+					}
 				});
 		}
 	}, []);
