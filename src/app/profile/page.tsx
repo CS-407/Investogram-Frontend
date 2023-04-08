@@ -4,6 +4,7 @@ import Link from "next/link";
 
 import RecentTradesSection from "../../components/profile/recentTradesSection";
 import LossGainSection from "@/components/profile/lossGainSection";
+
 import { useContext } from "react";
 import AuthContext from "@/context/AuthContext";
 
@@ -11,6 +12,7 @@ export default function profile() {
 	const { user } = useContext(AuthContext);
 
 	return (
+
 		<main className="">
 			<div className="flex flex-row">
 				<div className="flex-none w-1/3 p-4">
