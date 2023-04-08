@@ -1,5 +1,5 @@
 import SellButton from "@/components/stock/sellbutton";
-import BuyButton from "@/components/buybutton";
+import BuyButton from "@/components/stock/buybutton";
 import UserTradesSection from "@/components/stock/userTradesSection";
 import StockGraph from "@/components/stock/stockGraph";
 

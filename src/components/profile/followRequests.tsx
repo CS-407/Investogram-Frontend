@@ -29,9 +29,12 @@ const FollowRequests = () => {
 	        const data = response.data;
 	        setFollowRequests(data.users);
 	    })
-	    .catch(error => {
-	        console.log(error);
-	        alert('Trouble contacting server');
+	    .catch(err => {
+	        if (err.response && err.response.data && err.response.data.msg) {
+				alert(err.response.data.msg);
+			} else {
+				alert("Trouble contacting server");
+			}
 	    });
 	}, []);
 
