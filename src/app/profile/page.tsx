@@ -16,7 +16,7 @@ export default function profile() {
 		<main className="">
 			<div className="flex flex-row">
 				<div className="flex-none w-1/3 p-4">
-					{/* <img src={"default_profile.png"} alt={`${user?.username}'s avatar`} className="w-48 h-48 rounded-full" /> */}
+					<img src={"public/images/default_profile.jpg"} alt={`${user?.username}'s avatar`} className="w-48 h-48 rounded-full" />
 					<h1 className="text-2xl font-bold mt-4">{user?.username}</h1>
 					<div className="flex flex-row">
 						<div className="text-gray-500 mt-2 w-1/2 p-1">{user?.followers} followers</div>
@@ -31,7 +31,7 @@ export default function profile() {
 					</div>
 				</div>
 				<div className="flex-grow w-2/3 p-4">
-					<div>{/* <RecentTradesSection /> */}</div>
+					<div><RecentTradesSection user_id={""} /></div>
 				</div>
 			</div>
 		</main>
