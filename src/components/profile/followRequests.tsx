@@ -18,6 +18,12 @@ const initialUsers: Partial<User>[] = [
 const FollowRequests = () => {
 	const [followRequests, setFollowRequests] =
 		useState<Partial<User>[]>(initialUsers);
+	const [requestsStatus, setRequestsStatus] = useState<any>({});
+	const updateStatus = (id: string, success: boolean) => {
+		setRequestsStatus((prev: any) => {
+			return { ...prev, [id]: success ? "Success" : "Failure" };
+		});
+	}
 
 	useEffect(() => {
 	    axios.get(`${BASE_URL}/api/user/requests`, {
@@ -28,6 +34,11 @@ const FollowRequests = () => {
 	    .then(response => {
 	        const data = response.data;
 	        setFollowRequests(data.users);
+			data.users.forEach((usr: Partial<User>) => {
+				setRequestsStatus((prev: any) => {
+					return { ...prev, [usr._id!]: undefined };
+				});
+			})
 	    })
 	    .catch(err => {
 	        if (err.response && err.response.data && err.response.data.msg) {
@@ -38,6 +49,46 @@ const FollowRequests = () => {
 	    });
 	}, []);
 
+	const requestRow = (usr: Partial<User>) => {
+		let uid = usr._id!;
+		let buttonSection = (
+			<div className="flex flex-row">
+				<AcceptFollowButton otherUser={uid} updateStatus={updateStatus} />
+				<RejectFollowButton otherUser={uid} updateStatus={updateStatus} />
+			</div>
+		);
+
+		if (requestsStatus[uid] !== undefined) {
+			if (requestsStatus[uid] === "Success") {
+				buttonSection = (
+					<div className="flex flex-row">
+						<p>Success</p>
+					</div>
+				);
+			} else { 
+				buttonSection = (
+					<div className="flex flex-row">
+						<p>Request Failure</p>
+					</div>
+				)
+			}
+		}
+
+		return (
+			<div
+				className="max-w-sm p-2 w-full m-3 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 flex flex-row justify-between align-center"
+				key={usr._id}
+			>
+				<p className="font-medium">{usr.username}</p>
+				<div className="flex flex-row">
+					{requestsStatus[uid] != undefined && (
+						buttonSection
+					)}
+				</div>
+			</div>
+		);
+	}
+
 	return (
 		<div className="flex flex-col text-center w-full">
 			<div className="mt-4 mb-2 font-bold">
@@ -46,16 +97,7 @@ const FollowRequests = () => {
 					: "You have follow requests"}
 			</div>
 			{followRequests?.map((usr) => (
-				<div
-					className="max-w-sm p-2 w-full m-3 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 flex flex-row justify-between align-center"
-					key={usr._id}
-				>
-					<p className="font-medium">{usr.username}</p>
-					<div className="flex flex-row">
-						<AcceptFollowButton id={usr._id} />
-						<RejectFollowButton id={usr._id} />
-					</div>
-				</div>
+				<div>{requestRow(usr)}</div>
 			))}
 		</div>
 	);
