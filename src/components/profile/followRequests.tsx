@@ -62,13 +62,13 @@ const FollowRequests = () => {
 			if (requestsStatus[uid] === "Success") {
 				buttonSection = (
 					<div className="flex flex-row">
-						<p>Success</p>
+						<p className="p-1 bg-green-500 rounded-md">Success</p>
 					</div>
 				);
 			} else { 
 				buttonSection = (
 					<div className="flex flex-row">
-						<p>Request Failure</p>
+						<p className="p-1 bg-red-500 rounded-md">Failure</p>
 					</div>
 				)
 			}
@@ -76,14 +76,12 @@ const FollowRequests = () => {
 
 		return (
 			<div
-				className="max-w-sm p-2 w-full m-3 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 flex flex-row justify-between align-center"
+				className="max-w-sm p-2 w-full m-3 text-white bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 flex flex-row justify-between align-center"
 				key={usr._id}
 			>
-				<p className="font-medium">{usr.username}</p>
+				<p className="font-medium my-auto">{usr.username}</p>
 				<div className="flex flex-row">
-					{requestsStatus[uid] != undefined && (
-						buttonSection
-					)}
+					{buttonSection}
 				</div>
 			</div>
 		);

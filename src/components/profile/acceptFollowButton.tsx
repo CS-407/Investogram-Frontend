@@ -1,4 +1,8 @@
 'use client';
+
+import { BASE_URL } from "@/util/globals";
+import axios from "axios";
+
 export interface FollowButtonProps {
     otherUser: string;
     updateStatus: Function;
@@ -7,29 +11,25 @@ export interface FollowButtonProps {
 export default function AcceptFollowButton(props: FollowButtonProps) {
 
     const otherUser = props.otherUser;
+	const updateStatus = props.updateStatus;
 
     const followUser = () => {
-        fetch(`http://localhost:8080/api/user/follow/accept/${otherUser}`, {
-            method: 'POST',
-            headers: {
-                "Authorization": "Bearer " + localStorage.getItem("token"),
-                'Content-Type': 'application/json',
-            }
-        }
-        )
-        .then(res => res.json())
-        .then(data => {
-            if (data.msg === "Success") {
-                props.updateStatus(otherUser, true)
-                console.log("Success")
-                console.log(data)
-            } else {
-                props.updateStatus(otherUser, false)
-                console.log("Error")
-                console.log(data)
-            }
-        });
-    }
+		console.log(otherUser)
+		axios
+			.post(`${BASE_URL}/api/user/follow/accept/${otherUser}`, {}, {
+				headers: {
+					"Authorization": "Bearer " + localStorage.getItem("token"),
+					"Content-Type": "application/json",
+				},
+			})
+			.then((response) => {
+				const data = response.data;
+                updateStatus(otherUser, true)
+			})
+			.catch((err) => {
+				updateStatus(otherUser, false)
+			});
+	};
 
   return (
     <button 
