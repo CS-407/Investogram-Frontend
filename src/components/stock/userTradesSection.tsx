@@ -1,10 +1,9 @@
 "use client";
 
-import { TransactionType } from "@/util/types";
 import { BASE_URL } from "@/util/globals";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { TradeRow } from "../transaction/tradeRow";
+import { TradeList } from "../transaction/tradeList";
 
 interface UserTradesSectionProps {
 	stockId: string;
@@ -12,11 +11,15 @@ interface UserTradesSectionProps {
 
 export default function UserTradesSection(props: UserTradesSectionProps) {
 	const stockId = props.stockId;
-	const mockUserId = "63e8451d540fd8c730cb98b4";
 
 	useEffect(() => {
+
 		axios
-			.get(`${BASE_URL}/api/stock/trades/${mockUserId}/${stockId}`)
+			.get(`${BASE_URL}/api/stock/userTrades/${stockId}`, {
+				headers: {
+				  "Authorization": "Bearer " + localStorage.getItem("token")
+			  }
+			})
 			.then((res) => {
 				const data = res.data;
 				
@@ -38,25 +41,12 @@ export default function UserTradesSection(props: UserTradesSectionProps) {
 
 	const [trades, setTrades] = useState([]);
 
-	function Divider() {
-		const dividerStyle = "border-b-2 border-gray-300 my-1";
-		return <div className={dividerStyle}> </div>;
-	}
-
 	return (
 		<div>
 			<div className="font-semibold text-lg">
 				Your most recent trades for this stock:
 			</div>
-			<Divider />
-			<div>
-				{trades.map((tradeObj) => (
-					<div>
-						<TradeRow props={tradeObj} />
-						<Divider />
-					</div>
-				))}
-			</div>
+			<TradeList trades={trades}/>
 		</div>
 	);
 }
