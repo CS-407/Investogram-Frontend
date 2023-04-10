@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { User } from "@/util/types";
+import { BASE_URL } from "@/util/globals";
 
-axios.defaults.baseURL = "http://localhost:5000";
+axios.defaults.baseURL = BASE_URL;
 
 interface InitState {
     isAuth: boolean;

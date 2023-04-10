@@ -32,8 +32,8 @@ const Following = () => {
       <h1 className="text-2xl font-bold mt-4">Users You Follow</h1>
       <p>Number of following: {followingNumber}</p>
       <ul>
-        {followingList.map((item, index) => (
-          <li key={index}>{item}</li>
+        {followingList.map((following, index) => (
+          <li key={index}>{following}</li>
         ))}
       </ul>
     </div>
