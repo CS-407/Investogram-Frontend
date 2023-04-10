@@ -6,10 +6,15 @@ import { BASE_URL } from "@/util/globals";
 
 export interface BuySellButtonProps {
 	stock_id: string;
+	stock: any;
+	stock_price: any;
 }
 
 export default function BuyButton(props: BuySellButtonProps) {
 	const stockId = props.stock_id;
+	const price = props.stock_price ? props.stock_price.current_price: 0;
+	const stockPriceId = props.stock_price ? props.stock_price._id : "";
+	const stock = props.stock;
 
 	const executeBuy = async () => {
 		axios
@@ -41,49 +46,6 @@ export default function BuyButton(props: BuySellButtonProps) {
 				}
 			});
 	};
-
-	const [price, setPrice] = useState<any>();
-	const [stockPriceId, setStockPriceId] = useState<any>();
-
-	useEffect(() => {
-		axios
-			.get(`${BASE_URL}/api/stock/price/${stockId}`)
-			.then((response) => {
-				let price = response.data.data[0];
-				setStockPriceId(price._id);
-				setPrice(price.current_price);
-			})
-			.catch((err) => {
-				if (err.response && err.response.data && err.response.data.msg) {
-					alert(err.response.data.msg);
-				} else {
-					alert("Trouble contacting server");
-				}
-			});
-	}, []);
-
-	const [stock, setStock] = useState<any>();
-
-	useEffect(() => {
-		axios
-			.get(`${BASE_URL}/api/stock/get/${stockId}`, {
-				headers: {
-					"Content-Type": "application/json",
-				},
-			})
-			.then((response) => {
-				const data = response.data;
-				let stockInfo = data.data;
-				setStock(stockInfo);
-			})
-			.catch((err) => {
-				if (err.response && err.response.data && err.response.data.msg) {
-					alert(err.response.data.msg);
-				} else {
-					alert("Trouble contacting server");
-				}
-			});
-	}, []);
 
 	const [orderAmt, setOrderAmt] = useState(0);
 

@@ -7,6 +7,9 @@ import { BuySellButtonProps } from "./buybutton";
 
 export default function SellButton(props: BuySellButtonProps) {
 	const stockId = props.stock_id;
+	const price = props.stock_price ? props.stock_price.current_price: 0;
+	const stockPriceId = props.stock_price ? props.stock_price._id : "";
+	const stock = props.stock;
 
 	const executeSell = () => {
 		axios
@@ -40,43 +43,6 @@ export default function SellButton(props: BuySellButtonProps) {
 				}
 			});
 	};
-
-	const [price, setPrice] = useState<any>();
-	const [stockPriceId, setStockPriceId] = useState<any>();
-
-	useEffect(() => {
-		axios
-			.get(`http://localhost:8080/api/stock/price/${stockId}`)
-			.then((response) => {
-				let price = response.data.data[0];
-				setStockPriceId(price._id);
-				setPrice(price.current_price);
-			})
-			.catch((err) => {
-				if (err.response && err.response.data && err.response.data.msg) {
-					alert(err.response.data.msg);
-				} else {
-					alert("Trouble contacting server");
-				}
-			});
-	}, []);
-
-	const [stock, setStock] = useState<any>();
-	useEffect(() => {
-		axios
-			.get(`http://localhost:8080/api/stock/get/${stockId}`)
-			.then((response) => {
-				let stockInfo = response.data.data;
-				setStock(stockInfo);
-			})
-			.catch((err) => {
-				if (err.response && err.response.data && err.response.data.msg) {
-                    alert(err.response.data.msg);
-                } else {
-                    alert("Trouble contacting server");
-                }
-			});
-	}, []);
 
 	const [orderAmt, setOrderAmt] = useState(0);
 
