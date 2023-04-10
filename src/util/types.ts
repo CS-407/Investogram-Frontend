@@ -45,6 +45,7 @@ export interface StockInfo {
 	stock_ticker: string;
 	stock_name: string;
 	owned: number;
+	current_price: number;
 }
 
 export interface MonetaryInfo {
