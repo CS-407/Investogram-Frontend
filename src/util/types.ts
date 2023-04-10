@@ -5,6 +5,9 @@ export interface User {
 	current_balance: number;
 	followers: number;
 	following: number;
+	followers_list: string[];
+	following_list: string[];
+	requests: string[];
 	password?: string;
 	password2?: string;
 	reset_token?: number;
@@ -36,4 +39,18 @@ export interface TransactionType {
 	timestamp: number;
 	post_id: string;
 	buy: boolean;
+}
+
+export interface StockInfo {
+	stock_ticker: string;
+	stock_name: string;
+	owned: number;
+}
+
+export interface MonetaryInfo {
+	purchases: number;
+	sales: number;
+	revenue: number;
+	loss: number;
+	profit: number;
 }

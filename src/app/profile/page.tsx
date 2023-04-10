@@ -17,8 +17,18 @@ export default function profile() {
 					{/* <img src={"default_profile.png"} alt={`${user?.username}'s avatar`} className="w-48 h-48 rounded-full" /> */}
 					<h1 className="text-2xl font-bold mt-4">{user?.username}</h1>
 					<div className="flex flex-row">
-						<div className="text-gray-500 mt-2 w-1/2 p-1">{user?.followers} followers</div>
-						<div className="text-gray-500 mt-2 w-1/2 p-1">{user?.following} following</div>
+					<div className="text-gray-500 mt-2 w-1/2 p-1">
+						<p className="inline bg-blue-100 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
+							{user?.followers}
+						</p>{" "}
+						followers
+					</div>
+					<div className="text-gray-500 mt-2 w-1/2 p-1">
+						<p className="inline bg-blue-100 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
+							{user?.following}
+						</p>{" "}
+						following
+					</div>
 					</div>
 					<div className="text-gray-500 mt-2">
 						{

@@ -64,12 +64,7 @@ function resetPass() {
 	const validate = () => {
 		const errors: Fields = initialValues;
 
-		if (!formValues.password) {
-			errors.password = "Password is required";
-		} else if (
-			formValues.password.length < 6 ||
-			formValues.password.length > 10
-		) {
+		if (formValues.password.length < 6 || formValues.password.length > 10) {
 			errors.password = "Password must be between 6 and 10 characters";
 		} else if (formValues.password2 !== formValues.password) {
 			errors.password2 = "Passwords must match";
@@ -98,6 +93,7 @@ function resetPass() {
 								className="border rounded w-full py-2 px-3 text-gray-700 mb-3"
 								type="email"
 								name="email"
+								required
 								placeholder="jdoe@gmail.com"
 								value={formValues.email}
 								onChange={handleChange}
@@ -109,6 +105,7 @@ function resetPass() {
 								className="border rounded w-full py-2 px-3 text-gray-700 mb-3"
 								type="password"
 								name="password"
+								required
 								placeholder="new-password"
 								value={formValues.password}
 								onChange={handleChange}
@@ -123,6 +120,7 @@ function resetPass() {
 								className="border rounded w-full py-2 px-3 text-gray-700 mb-3"
 								type="password"
 								name="password2"
+								required
 								placeholder="new-password"
 								value={formValues.password2}
 								onChange={handleChange}
@@ -136,6 +134,7 @@ function resetPass() {
 								type="number"
 								min={0}
 								max={99999}
+								required
 								name="reset_token"
 								placeholder="00000"
 								value={formValues.reset_token}
