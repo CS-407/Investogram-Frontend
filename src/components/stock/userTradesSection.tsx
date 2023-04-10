@@ -12,11 +12,15 @@ interface UserTradesSectionProps {
 
 export default function UserTradesSection(props: UserTradesSectionProps) {
 	const stockId = props.stockId;
-	const mockUserId = "63e8451d540fd8c730cb98b4";
 
 	useEffect(() => {
+
 		axios
-			.get(`${BASE_URL}/api/stock/trades/${mockUserId}/${stockId}`)
+			.get(`${BASE_URL}/api/stock/userTrades/${stockId}`, {
+				headers: {
+				  "Authorization": "Bearer " + localStorage.getItem("token")
+			  }
+			})
 			.then((res) => {
 				const data = res.data;
 				
