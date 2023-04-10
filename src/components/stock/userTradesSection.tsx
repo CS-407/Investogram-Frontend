@@ -1,10 +1,9 @@
 "use client";
 
-import { TransactionType } from "@/util/types";
 import { BASE_URL } from "@/util/globals";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { TradeRow } from "../transaction/tradeRow";
+import { TradeList } from "../transaction/tradeList";
 
 interface UserTradesSectionProps {
 	stockId: string;
@@ -42,25 +41,12 @@ export default function UserTradesSection(props: UserTradesSectionProps) {
 
 	const [trades, setTrades] = useState([]);
 
-	function Divider() {
-		const dividerStyle = "border-b-2 border-gray-300 my-1";
-		return <div className={dividerStyle}> </div>;
-	}
-
 	return (
 		<div>
 			<div className="font-semibold text-lg">
 				Your most recent trades for this stock:
 			</div>
-			<Divider />
-			<div>
-				{trades.map((tradeObj) => (
-					<div>
-						<TradeRow props={tradeObj} />
-						<Divider />
-					</div>
-				))}
-			</div>
+			<TradeList trades={trades}/>
 		</div>
 	);
 }
