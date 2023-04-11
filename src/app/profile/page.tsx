@@ -5,11 +5,48 @@ import Link from "next/link";
 import RecentTradesSection from "../../components/profile/recentTradesSection";
 import LossGainSection from "@/components/profile/lossGainSection";
 
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import AuthContext from "@/context/AuthContext";
+import { Transaction, StockInfo, MonetaryInfo } from "@/util/types";
+import axios from "axios";
+import { BASE_URL } from "@/util/globals";
+
+interface TradeInfo {
+	trades: Transaction[];
+	stock_info: StockInfo[];
+	monetary_info: MonetaryInfo;
+}
 
 export default function profile() {
 	const { user } = useContext(AuthContext);
+	const [state, setState] = useState<TradeInfo>();
+
+	useEffect(() => {
+		axios
+			.get(`${BASE_URL}/api/user/trades/${user?._id}`, {
+				headers: {
+					Authorization: "Bearer " + localStorage.getItem("token"),
+				},
+			})
+			.then((res) => {
+				console.log("trades", res.data.trades);
+				console.log("stock_info", res.data.stock_info);
+				console.log("monetary_info", res.data.monetary_info);
+
+				setState({
+					trades: res.data.trades,
+					stock_info: res.data.stock_info,
+					monetary_info: res.data.monetary_info,
+				});
+			})
+			.catch((err) => {
+				if (err.response && err.response.data && err.response.data.msg) {
+					alert(err.response.data.msg);
+				} else {
+					alert("Trouble Contacting Server");
+				}
+			});
+	}, []);
 
 	return (
 		<main className="" style={{ backgroundColor: "#f5f5f5", padding: "20px" }}>
@@ -19,7 +56,7 @@ export default function profile() {
 					style={{ backgroundColor: "#f5f5f5", padding: "20px" }}
 				>
 					<img
-						src={"public/images/default_profile.jpg"}
+						src={"/images/default_profile.jpg"}
 						alt={`${user?.username}'s avatar`}
 						className={"flex-center"}
 						style={{
@@ -99,10 +136,11 @@ export default function profile() {
 					style={{ backgroundColor: "#FDE698" }}
 				>
 					<div>
-						<RecentTradesSection user_id={""} />
+						{state?.trades && <LossGainSection trades={state.trades} />}
 					</div>
 				</div>
 			</div>
+			{state?.trades && <RecentTradesSection trades={state.trades} />}
 		</main>
 	);
 }

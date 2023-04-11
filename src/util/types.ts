@@ -19,21 +19,18 @@ export interface Stock {
 	stock_name: string;
 }
 
-export interface Post {
-	userId: string;
-	type: string;
-	content: string;
-	likes: number;
-	timestamp: string;
-	comments: any[];
+export interface StockPrice {
+	_id: string;
+	stock_id: string;
+	current_price: number;
+	time_pulled: number;
 }
 
-export interface TransactionType {
-	id: string;
+export interface Transaction {
+	_id: string;
 	user_id: string;
-	stock_id: string;
-	stock_price_id: string;
-	current_price: number;
+	stock_id: Stock;
+	stock_price_id: StockPrice;
 	no_of_shares: number;
 	amount_usd: number;
 	timestamp: number;
@@ -42,6 +39,7 @@ export interface TransactionType {
 }
 
 export interface StockInfo {
+	_id: string;
 	stock_ticker: string;
 	stock_name: string;
 	owned: number;
@@ -54,4 +52,13 @@ export interface MonetaryInfo {
 	revenue: number;
 	loss: number;
 	profit: number;
+}
+
+export interface Post {
+	userId: string;
+	type: string;
+	content: string;
+	likes: number;
+	timestamp: string;
+	comments: any[];
 }
