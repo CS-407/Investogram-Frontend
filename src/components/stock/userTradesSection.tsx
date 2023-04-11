@@ -43,7 +43,7 @@ export default function UserTradesSection(props: UserTradesSectionProps) {
 
 	return (
 		<div>
-			<div className="font-semibold text-lg">
+			<div className="font-semibold text-lg px-2">
 				Your most recent trades for this stock:
 			</div>
 			<TradeList trades={trades}/>

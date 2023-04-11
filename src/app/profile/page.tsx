@@ -138,7 +138,7 @@ export default function profile() {
 						style={{ backgroundColor: "#FDE698" }}
 					>
 						<div>
-							{/* {state?.trades && <LossGainSection trades={state.trades} />} */}
+							{state?.trades && <LossGainSection monetaryInfo={state.monetary_info} />}
 						</div>
 					</div>
 				</div>
@@ -148,7 +148,7 @@ export default function profile() {
 					<p className="mb-4 font-extrabold leading-none tracking-tight text-gray-900 md:text-2xl lg:text-4xl dark:text-white">
 						Trade History
 					</p>
-					{/* { state?.trades && <RecentTradesSection trades={state.trades} /> } */}
+					{ state?.trades && <RecentTradesSection trades={state.trades} /> }
 				</div>
 				<div className="col-span-1">
 					<p className="mb-4 font-extrabold leading-none tracking-tight text-gray-900 md:text-2xl lg:text-4xl dark:text-white">
