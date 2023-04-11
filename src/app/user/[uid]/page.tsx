@@ -1,14 +1,18 @@
 "use client";
 
+import LossGainSection from "@/components/profile/lossGainSection";
 import AuthContext from "@/context/AuthContext";
 import { BASE_URL } from "@/util/globals";
-import { User } from "@/util/types";
+import { TradeInfo, User } from "@/util/types";
 import axios from "axios";
 import { usePathname } from "next/navigation";
 import { useContext, useEffect, useState } from "react";
 
 const User = () => {
 	const [user, setUser] = useState<User>();
+	const [state, setState] = useState<TradeInfo>();
+	const [following, setFollowing] = useState<boolean>(false);
+
 	const authCtx = useContext(AuthContext);
 
 	const curUser = authCtx.user;
@@ -21,23 +25,59 @@ const User = () => {
 			.get(`${BASE_URL}/api/global/user/${uid}`)
 			.then((response) => {
 				setUser(response.data.user);
+				if (
+					curUser &&
+					curUser.following_list &&
+					curUser.following_list.includes(response.data.user._id)
+				) {
+					setFollowing(true);
+				}
 			})
 			.catch((err) => {
 				if (err.response && err.response.data && err.response.data.msg) {
-					alert(err.response.data.msg);
+					console.log(err.response.data.msg);
 				} else {
-					alert("Trouble contacting server");
+					console.log("Trouble contacting server");
 				}
 			});
 	}, []);
 
+	useEffect(() => {
+		if (following) {
+			axios
+				.get(`${BASE_URL}/api/user/trades/${user?._id}`, {
+					headers: {
+						Authorization: "Bearer " + localStorage.getItem("token"),
+					},
+				})
+				.then((res) => {
+					setState({
+						trades: res.data.trades,
+						stock_info: res.data.stock_info,
+						monetary_info: res.data.monetary_info,
+					});
+				})
+				.catch((err) => {
+					if (err.response && err.response.data && err.response.data.msg) {
+						console.log(err.response.data.msg);
+					} else {
+						console.log("Trouble Contacting Server");
+					}
+				});
+		}
+	}, [following]);
+
 	const handleFollowRequest = () => {
 		axios
-			.post(`${BASE_URL}/api/user/follow/${uid}`, {}, {
-				headers: {
-					Authorization: "Bearer " + localStorage.getItem("token"),
-				},
-			})
+			.post(
+				`${BASE_URL}/api/user/follow/${uid}`,
+				{},
+				{
+					headers: {
+						Authorization: "Bearer " + localStorage.getItem("token"),
+					},
+				}
+			)
 			.then((res) => {
 				alert(res.data.msg);
 			})
@@ -69,10 +109,7 @@ const User = () => {
 					</div>
 				</div>
 				<div className="text-gray-500 mt-2">
-					{user?._id &&
-					curUser &&
-					curUser.following_list &&
-					curUser.following_list.includes(user._id) ? (
+					{following ? (
 						<p className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
 							Following
 						</p>
@@ -89,6 +126,18 @@ const User = () => {
 						>
 							Follow
 						</button>
+					)}
+				</div>
+			</div>
+			<div
+				className="flex-grow w-2/3 p-4"
+				style={{ backgroundColor: "#FDE698" }}
+			>
+				<div>
+					{following ? (
+						state?.trades && <LossGainSection trades={state.trades} />
+					) : (
+						<p className="text-2xl font-bold mt-4">Follow to see trades</p>
 					)}
 				</div>
 			</div>

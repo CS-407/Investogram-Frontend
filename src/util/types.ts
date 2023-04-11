@@ -54,6 +54,12 @@ export interface MonetaryInfo {
 	profit: number;
 }
 
+export interface TradeInfo {
+	trades: Transaction[];
+	stock_info: StockInfo[];
+	monetary_info: MonetaryInfo;
+}
+
 export interface Post {
 	userId: string;
 	type: string;

@@ -7,15 +7,9 @@ import LossGainSection from "@/components/profile/lossGainSection";
 
 import { useContext, useEffect, useState } from "react";
 import AuthContext from "@/context/AuthContext";
-import { Transaction, StockInfo, MonetaryInfo } from "@/util/types";
+import { TradeInfo } from "@/util/types";
 import axios from "axios";
 import { BASE_URL } from "@/util/globals";
-
-interface TradeInfo {
-	trades: Transaction[];
-	stock_info: StockInfo[];
-	monetary_info: MonetaryInfo;
-}
 
 export default function profile() {
 	const { user } = useContext(AuthContext);
@@ -41,9 +35,9 @@ export default function profile() {
 			})
 			.catch((err) => {
 				if (err.response && err.response.data && err.response.data.msg) {
-					alert(err.response.data.msg);
+					console.log(err.response.data.msg);
 				} else {
-					alert("Trouble Contacting Server");
+					console.log("Trouble Contacting Server");
 				}
 			});
 	}, []);
@@ -94,7 +88,7 @@ export default function profile() {
 								</Link>
 							</button>
 						</div>
-						<div className={`following`} style={{ color: "#364F6B" }}>
+						<div className="following" style={{ color: "#364F6B" }}>
 							<button
 								className={`button`}
 								style={{
@@ -136,11 +130,11 @@ export default function profile() {
 					style={{ backgroundColor: "#FDE698" }}
 				>
 					<div>
-						{state?.trades && <LossGainSection trades={state.trades} />}
+						{/* {state?.trades && <LossGainSection trades={state.trades} />} */}
 					</div>
 				</div>
 			</div>
-			{state?.trades && <RecentTradesSection trades={state.trades} />}
+			{/* {state?.trades && <RecentTradesSection trades={state.trades} />} */}
 		</main>
 	);
 }
