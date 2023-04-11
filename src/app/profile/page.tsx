@@ -1,15 +1,14 @@
 "use client";
 
+import { useContext, useEffect, useState } from "react";
 import Link from "next/link";
+import axios from "axios";
+import AuthContext from "@/context/AuthContext";
+import { TradeInfo } from "@/util/types";
+import { BASE_URL } from "@/util/globals";
 
 import RecentTradesSection from "../../components/profile/recentTradesSection";
 import LossGainSection from "@/components/profile/lossGainSection";
-
-import { useContext, useEffect, useState } from "react";
-import AuthContext from "@/context/AuthContext";
-import { TradeInfo } from "@/util/types";
-import axios from "axios";
-import { BASE_URL } from "@/util/globals";
 import StocksOwned from "@/components/profile/stocksOwned";
 
 export default function profile() {
@@ -66,7 +65,7 @@ export default function profile() {
 							}}
 						/>
 						<h1
-							className="text-2xl font-bold mt-4"
+							className="text-2xl font-bold mt-4 mb-2"
 							style={{ color: "#364F6B" }}
 						>
 							{user?.username}
