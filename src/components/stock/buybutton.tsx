@@ -65,7 +65,8 @@ export default function BuyButton(props: BuySellButtonProps) {
 	        if (err.response && err.response.data && err.response.data.msg) {
 				alert(err.response.data.msg);
 			} else {
-				alert("Trouble contacting server");
+				console.log('buyButton', err);
+				// alert("Trouble contacting server");
 			}
 	    });
 	}, []);

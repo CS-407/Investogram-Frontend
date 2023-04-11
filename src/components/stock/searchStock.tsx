@@ -72,7 +72,7 @@ const SearchStock = () => {
 			</div>
 			<div className="flex flex-row flex-wrap">
 				{filteredStocks.map((stock: Stock) => (
-					<div className="max-w-sm rounded overflow-hidden shadow-lg m-3">
+					<div key={stock._id} className="max-w-sm rounded overflow-hidden shadow-lg m-3">
 						<div className="px-4 py-2">
 							<div className="font-bold text-l mb-2">{stock.stock_ticker}</div>
 							<p className="text-gray-700 text-base text-sm">
