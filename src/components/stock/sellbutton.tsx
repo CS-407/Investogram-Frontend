@@ -2,8 +2,9 @@
 
 import { BASE_URL } from "@/util/globals";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { BuySellButtonProps } from "./buybutton";
+import AuthContext from "@/context/AuthContext";
 
 export default function SellButton(props: BuySellButtonProps) {
 	const stockId = props.stock_id;
@@ -44,15 +45,56 @@ export default function SellButton(props: BuySellButtonProps) {
 			});
 	};
 
+	const [balance, setBalance] = useState<Partial<number>>(0);
+	useEffect(() => {
+	    axios.get(`${BASE_URL}/api/user/getBalance`, {
+	        headers: {
+	            "Authorization": "Bearer " + localStorage.getItem("token")
+	        }
+	    })
+	    .then(response => {
+	        const data = response.data;
+	        setBalance(data.balance)
+	    })
+	    .catch(err => {
+	        if (err.response && err.response.data && err.response.data.msg) {
+				alert(err.response.data.msg);
+			} else {
+				alert("Trouble contacting server");
+			}
+	    });
+	}, []);
+
+	const { user } = useContext(AuthContext);
+	const uid = user?._id;
+
+	const [currentStockOwned, setCurrentStockOwned] = useState<Partial<number>>(0);
+	useEffect(() => {
+		if (!uid) return;
+	    axios.get(`${BASE_URL}/api/user/trades/${uid}`, {
+	        headers: {
+	            "Authorization": "Bearer " + localStorage.getItem("token")
+	        }
+	    })
+	    .then(response => {
+	        const data = response.data.stock_info;
+			const stock = data.filter((stock: any) => stock._id === stockId);
+			let owned = stock.length > 0 ? stock[0].owned : 0;
+	        setCurrentStockOwned(owned)
+	    })
+	    .catch(err => {
+	        if (err.response && err.response.data && err.response.data.msg) {
+				alert(err.response.data.msg);
+			} else {
+				alert("Trouble contacting server");
+			}
+	    });
+	}, []);
+
 	const [orderAmt, setOrderAmt] = useState(0);
 
-	const mockUser = {
-		currentBalance: 1000,
-		currentStockOwned: 10,
-	};
-
 	function availableBalance() {
-		return mockUser.currentBalance + orderAmt * price;
+		return balance + orderAmt * price;
 	}
 
 	function decreaseButton() {
@@ -70,7 +112,7 @@ export default function SellButton(props: BuySellButtonProps) {
 	}
 
 	function increaseButton() {
-		if (orderAmt + 1 <= mockUser.currentStockOwned) {
+		if (orderAmt + 1 <= currentStockOwned) {
 			// Enough funds
 			return (
 				<button
@@ -94,7 +136,7 @@ export default function SellButton(props: BuySellButtonProps) {
 	}
 
 	function remainingStock() {
-		let remaining = mockUser.currentStockOwned - orderAmt;
+		let remaining = currentStockOwned - orderAmt;
 		return (
 			<div className="text-sm italic p-1">
 				{remaining} shares left worth ${(remaining * price).toFixed(2)}
