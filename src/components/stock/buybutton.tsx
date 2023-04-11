@@ -1,8 +1,11 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { BASE_URL } from "@/util/globals";
+import { UserContextProvider } from "@/context/UserContext";
+import AuthContext from "@/context/AuthContext";
+import { User } from "@/util/types";
 
 export interface BuySellButtonProps {
 	stock_id: string;
@@ -47,14 +50,30 @@ export default function BuyButton(props: BuySellButtonProps) {
 			});
 	};
 
+	const [balance, setBalance] = useState<Partial<number>>(0);
+	useEffect(() => {
+	    axios.get(`${BASE_URL}/api/user/getBalance`, {
+	        headers: {
+	            "Authorization": "Bearer " + localStorage.getItem("token")
+	        }
+	    })
+	    .then(response => {
+	        const data = response.data;
+	        setBalance(data.balance)
+	    })
+	    .catch(err => {
+	        if (err.response && err.response.data && err.response.data.msg) {
+				alert(err.response.data.msg);
+			} else {
+				alert("Trouble contacting server");
+			}
+	    });
+	}, []);
+
 	const [orderAmt, setOrderAmt] = useState(0);
 
-	const mockUser = {
-		currentBalance: 500,
-	};
-
 	function availableBalance() {
-		return mockUser.currentBalance - orderAmt * (price ? price : 0);
+		return balance - orderAmt * (price ? price : 0);
 	}
 
 	function decreaseButton() {
