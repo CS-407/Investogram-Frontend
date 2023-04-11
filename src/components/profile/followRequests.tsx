@@ -9,15 +9,9 @@ import { BASE_URL } from "../../util/globals";
 
 import axios from "axios";
 
-const initialUsers: Partial<User>[] = [
-	{ _id: "1", username: "user1" },
-	{ _id: "2", username: "user2" },
-	{ _id: "3", username: "user3" },
-];
-
 const FollowRequests = () => {
 	const [followRequests, setFollowRequests] =
-		useState<Partial<User>[]>(initialUsers);
+		useState<Partial<User>[]>([]);
 	const [requestsStatus, setRequestsStatus] = useState<any>({});
 	const updateStatus = (id: string, success: boolean) => {
 		setRequestsStatus((prev: any) => {
@@ -79,7 +73,7 @@ const FollowRequests = () => {
 				className="max-w-sm p-2 w-full m-3 text-white bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 flex flex-row justify-between align-center"
 				key={usr._id}
 			>
-				<p className="font-medium my-auto">{usr.username}</p>
+				<p className="text-black ml-2 font-medium my-auto">{usr.username}</p>
 				<div className="flex flex-row">
 					{buttonSection}
 				</div>
