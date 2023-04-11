@@ -37,7 +37,12 @@ const SignUp: NextPage = () => {
 
 	const handleSubmit = (e: React.FormEvent) => {
 		e.preventDefault();
-		validate();
+		
+		if (validate()) {
+			return;
+		}
+
+		signupUser();
 	};
 
 	const signupUser = async () => {
@@ -70,10 +75,11 @@ const SignUp: NextPage = () => {
 		}
 
 		if (errors == initialValues) {
-			signupUser();
+			return false;
 		}
 
 		setFormErrors(errors);
+		return true;
 	};
 
 	return (

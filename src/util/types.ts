@@ -5,6 +5,9 @@ export interface User {
 	current_balance: number;
 	followers: number;
 	following: number;
+	followers_list: string[];
+	following_list: string[];
+	requests: string[];
 	password?: string;
 	password2?: string;
 	reset_token?: number;
@@ -16,6 +19,41 @@ export interface Stock {
 	stock_name: string;
 }
 
+export interface StockPrice {
+	_id: string;
+	stock_id: string;
+	current_price: number;
+	time_pulled: number;
+}
+
+export interface Transaction {
+	_id: string;
+	user_id: string;
+	stock_id: Stock;
+	stock_price_id: StockPrice;
+	no_of_shares: number;
+	amount_usd: number;
+	timestamp: number;
+	post_id: string;
+	buy: boolean;
+}
+
+export interface StockInfo {
+	_id: string;
+	stock_ticker: string;
+	stock_name: string;
+	owned: number;
+	current_price: number;
+}
+
+export interface MonetaryInfo {
+	purchases: number;
+	sales: number;
+	revenue: number;
+	loss: number;
+	profit: number;
+}
+
 export interface Post {
 	userId: string;
 	type: string;
@@ -23,17 +61,4 @@ export interface Post {
 	likes: number;
 	timestamp: string;
 	comments: any[];
-}
-
-export interface TransactionType {
-	id: string;
-	user_id: string;
-	stock_id: string;
-	stock_price_id: string;
-	current_price: number;
-	no_of_shares: number;
-	amount_usd: number;
-	timestamp: number;
-	post_id: string;
-	buy: boolean;
 }

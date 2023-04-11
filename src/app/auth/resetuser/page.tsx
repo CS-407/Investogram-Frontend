@@ -84,6 +84,7 @@ function ResetUser() {
 								className="border rounded w-full py-2 px-3 text-gray-700 mb-3"
 								type="email"
 								name="email"
+								required
 								placeholder="jdoe@gmail.com"
 								value={formValues.email}
 								onChange={handleChange}
@@ -96,6 +97,7 @@ function ResetUser() {
 								className="border rounded w-full py-2 px-3 text-gray-700 mb-3"
 								type="text"
 								name="username"
+								required
 								placeholder="new-username"
 								value={formValues.username}
 								onChange={handleChange}
@@ -108,6 +110,7 @@ function ResetUser() {
 								type="number"
 								min={0}
 								max={99999}
+								required
 								name="reset_token"
 								placeholder="00000"
 								value={formValues.reset_token}

@@ -1,53 +1,21 @@
 "use client";
 
-import { TransactionType } from "@/util/types";
+import { Transaction } from "@/util/types";
 import { BASE_URL } from "@/util/globals";
 import { currencyConverter } from "@/util/HelperFunctions";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
-interface LossGainSectionProps {
-	user_id: string;
-}
-
-export default function LossGainSection(props: LossGainSectionProps) {
-	const user_id = props.user_id;
-
-	useEffect(() => {
-		axios
-			.get(`${BASE_URL}/api/user/trades/${user_id}`, {
-				headers: {
-					"Content-Type": "application/json",
-					Authorization: `Bearer ${localStorage.getItem("token")}`,
-				},
-			})
-			.then((res) => {
-				const data = res.data;
-
-				const trades = data.data;
-				trades.sort(
-					(a: any, b: any) => Date.parse(b.timestamp) - Date.parse(a.timestamp)
-				);
-				setTrades(data.data);
-			})
-			.catch((err) => {
-				if (err.response && err.response.data && err.response.data.msg) {
-                    alert(err.response.data.msg);
-                } else {
-                    alert("Trouble contacting server");
-                }
-			});
-	}, []);
-
-	const [trades, setTrades] = useState<TransactionType[]>([]);
+export default function LossGainSection(props: React.PropsWithChildren<{ trades: Transaction[] }>) {
+	const { trades } = props;
 
 	const totalRevenue = () => {
 		if (trades.length > 0) {
 			let sells = trades.filter(
-				(trade: TransactionType) => trade.buy === false
+				(trade: Transaction) => trade.buy === false
 			);
 			let revenue = sells.reduce(
-				(total: number, item: TransactionType) => total + item.amount_usd,
+				(total: number, item: Transaction) => total + item.amount_usd,
 				0
 			);
 			return [currencyConverter(revenue), sells.length];
@@ -58,9 +26,9 @@ export default function LossGainSection(props: LossGainSectionProps) {
 
 	const totalLoss = () => {
 		if (trades.length > 0) {
-			let buys = trades.filter((trade: TransactionType) => trade.buy === true);
+			let buys = trades.filter((trade: Transaction) => trade.buy === true);
 			let loss = buys.reduce(
-				(total: number, item: TransactionType) => total + item.amount_usd,
+				(total: number, item: Transaction) => total + item.amount_usd,
 				0
 			);
 			return [currencyConverter(loss), buys.length];

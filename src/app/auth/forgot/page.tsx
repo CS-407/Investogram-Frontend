@@ -24,9 +24,11 @@ function ForgotPass() {
 
 	const handleSubmit = (e: React.FormEvent) => {
 		e.preventDefault();
+
 		if (validate()) {
 			return;
 		}
+		
 		sendForgotMail();
 	};
 
@@ -44,10 +46,7 @@ function ForgotPass() {
 		const regex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
 		let invalid: boolean = false;
 
-		if (!formValues.email) {
-			errors.email = "Email is required!";
-			invalid = true;
-		} else if (!regex.test(formValues.email)) {
+		if (!regex.test(formValues.email)) {
 			errors.email = "This is not a valid email format!";
 			invalid = true;
 		}
@@ -71,6 +70,7 @@ function ForgotPass() {
 								className="border rounded w-full py-2 px-3 text-gray-700 mb-3"
 								type="text"
 								name="email"
+								required
 								placeholder="jdoe@gmail.com"
 								value={formValues.email}
 								onChange={handleChange}
