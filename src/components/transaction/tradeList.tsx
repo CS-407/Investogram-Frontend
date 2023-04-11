@@ -26,8 +26,8 @@ export function TradeList(props: any) {
         <div>
             <Divider />
             <div>
-                {tradesToDisplay.map((tradeObj: any) => 
-                    <div>
+                {tradesToDisplay.map((tradeObj: any, idx: number) => 
+                    <div key={idx}>
                         <TradeRow props={tradeObj} />
                         <Divider />
                     </div>
