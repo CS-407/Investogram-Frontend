@@ -46,7 +46,12 @@ export default function UserTradesSection(props: UserTradesSectionProps) {
 			<div className="font-semibold text-lg px-2">
 				Your most recent trades for this stock:
 			</div>
-			<TradeList trades={trades}/>
+			{trades.length === 0 && (
+				<div>You have no trades for this stock yet!</div>
+			)}
+			{trades.length > 0 && (
+				<TradeList trades={trades} />
+			)}
 		</div>
 	);
 }
