@@ -9,7 +9,7 @@ import AuthContext from "@/context/AuthContext";
 import { useRouter } from "next/navigation";
 
 
-const currentUser = '6425f46907ef6e8dc68ceb06';
+const currentUser = '64270b70316cc0d88e749cb6';
 
 export default function DeleteButton() {
 
@@ -57,7 +57,7 @@ function VisibleButton() {
 	};
     return (
         <div className='flex-col py-2 px-2'>
-				<h1>Reset Username</h1>
+				<h1>Delete Account</h1>
 				<div className="ui divider"></div>
 					<div className="ui form">
 						<div className="form">
