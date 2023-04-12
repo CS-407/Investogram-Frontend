@@ -25,17 +25,22 @@ const Followers = () => {
 	}, []);
 
 	return (
-		<>
-			<h1 className="text-2xl font-bold mt-4">Your Followers</h1>
-			<p>Number of followers: {followersList.length}</p>
-			<ul>
-			{
-					followersList.map((usr) =>
-						<li id={usr._id}>{usr.username}</li>
-					)
-				}
-			</ul>
-		</>
+
+
+<>
+<h1 className="text-2xl font-bold mt-4" style={{backgroundColor: "#FDE698", padding: "20px"}}>Your Followers</h1>
+<p className="text-lg mb-2" style={{color: "#364F6B", padding: "20px"}}>Number of followers: {followersList.length}</p>
+<ul className="list-none" style={{padding: "20px"}}>
+	{
+		followersList.map((usr) =>
+			<li id={usr._id} className="mb-2 p-2 bg-gray-100 rounded-lg shadow-sm">
+				{usr.username} 
+			</li>
+		)
+	}
+</ul>
+</>
+
 	);
 };
 

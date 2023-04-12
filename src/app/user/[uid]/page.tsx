@@ -91,57 +91,89 @@ const User = () => {
 	};
 
 	return (
-		<div className="flex flex-row">
-			<div className="flex-none w-1/3 p-4">
-				<h1 className="text-2xl font-bold mt-4">{user?.username}</h1>
-				<div className="flex flex-row">
-					<div className="text-gray-500 mt-2 w-1/2 p-1">
-						<p className="inline bg-blue-100 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
-							{user?.followers}
-						</p>{" "}
-						followers
-					</div>
-					<div className="text-gray-500 mt-2 w-1/2 p-1">
-						<p className="inline bg-blue-100 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
-							{user?.following}
-						</p>{" "}
-						following
-					</div>
-				</div>
-				<div className="text-gray-500 mt-2">
-					{following ? (
-						<p className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
-							Following
-						</p>
-					) : user?.requests &&
-					  curUser?._id &&
-					  user.requests.includes(curUser?._id) ? (
-						<p className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
-							Requested
-						</p>
-					) : (
-						<button
-							className="flex items-center justify-center px-2 py-1 text-base font-medium leading-6 text-white whitespace-no-wrap bg-black border-2 border-transparent rounded-full shadow-sm hover:bg-transparent hover:text-black hover:border-black focus:outline-none"
-							onClick={handleFollowRequest}
-						>
-							Follow
-						</button>
-					)}
-				</div>
-			</div>
-			<div
-				className="flex-grow w-2/3 p-4"
-				style={{ backgroundColor: "#FDE698" }}
+		
+
+		<div>
+			<main
+				className=""
+				style={{ backgroundColor: "#f5f5f5", padding: "20px" }}
 			>
-				<div>
-					{following ? (
-						state?.trades && <LossGainSection trades={state.trades} />
-					) : (
-						<p className="text-2xl font-bold mt-4">Follow to see trades</p>
-					)}
-				</div>
-			</div>
+				<div className="flex flex-row">
+					<div
+						className="flex-none w-1/3 p-4 flex justify-center items-center flex-col"
+						style={{ backgroundColor: "#f5f5f5", padding: "20px" }}
+						>
+													<img
+							src={"/images/default_profile.jpg"}
+							alt={`${user?.username}'s avatar`}
+							className={"flex-center"}
+							style={{
+								borderRadius: "50%",
+								width: "150px",
+								height: "150px",
+								objectFit: "cover",
+							}}
+						/>
+						<h1
+							className="text-2xl font-bold mt-4"
+							style={{ color: "#364F6B" }}
+						>
+							{user?.username}
+						</h1>
+						<div className="flex flex-row">
+							<div
+								className={`followers`}
+								style={{ marginRight: "10px", color: "#364F6B" }}
+							>
+								<p className="inline bg-blue-100 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
+									{user?.followers}
+								</p>{" "}
+								followers
+							</div>
+							<div className="following" style={{ color: "#364F6B" }}>
+								<p className="inline bg-blue-100 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
+									{user?.following}
+								</p>{" "}
+								following
+							</div>
+						</div>
+						<div className="text-gray-500 mt-2">
+							{following ? (
+								<p className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
+									Following
+								</p>
+							) : user?.requests &&
+					  		curUser?._id &&
+					  		user.requests.includes(curUser?._id) ? (
+								<p className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
+									Requested
+								</p>
+							) : (
+								<button
+									className="flex items-center justify-center px-2 py-1 text-base font-medium leading-6 text-white whitespace-no-wrap bg-black border-2 border-transparent rounded-full shadow-sm hover:bg-transparent hover:text-black hover:border-black focus:outline-none"
+									onClick={handleFollowRequest}
+								>
+									Follow
+								</button>
+							)}
+						</div>
+					</div>
+					<div
+						className="flex-grow w-2/3 p-4 rounded-lg shadow-sm"
+						style={{ backgroundColor: "#FDE698" }}
+					>
+						<div>
+							{state?.trades && <LossGainSection trades={state.trades} />}
+						</div>
+					</div>
+				</div>		
+			</main>
 		</div>
+
+
+
+
+
 	);
 };
 

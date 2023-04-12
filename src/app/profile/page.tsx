@@ -134,24 +134,25 @@ export default function profile() {
 						</div>
 					</div>
 					<div
-						className="flex-grow w-2/3 p-4"
+						className="flex-grow w-2/3 p-4 rounded-lg shadow-sm"
 						style={{ backgroundColor: "#FDE698" }}
 					>
 						<div>
-							{/* {state?.trades && <LossGainSection trades={state.trades} />} */}
+							{state?.trades && <LossGainSection trades={state.trades} />}
 						</div>
 					</div>
 				</div>
 			</main>
-			<div className="grid grid-cols-4 p-4">
-				<div className="col-span-3">
-					<p className="mb-4 font-extrabold leading-none tracking-tight text-gray-900 md:text-2xl lg:text-4xl dark:text-white">
+			<div className="grid grid-cols-4 p-4" style={{ backgroundColor: "#f5f5f5", padding: "20px" }}>
+				<div className="col-span-2" style={{ backgroundColor: "#f5f5f5", padding: "20px" }}>
+
+					<p className="mb-4 font-extrabold leading-none tracking-tight text-gray-900 md:text-2xl lg:text-4xl dark:text-black">
 						Trade History
 					</p>
 					{/* { state?.trades && <RecentTradesSection trades={state.trades} /> } */}
 				</div>
-				<div className="col-span-1">
-					<p className="mb-4 font-extrabold leading-none tracking-tight text-gray-900 md:text-2xl lg:text-4xl dark:text-white">
+				<div className="col-span-2" style={{ backgroundColor: "#f5f5f5", padding: "20px" }}>
+					<p className="mb-4 font-extrabold leading-none tracking-tight text-gray-900 md:text-2xl lg:text-4xl dark:text-black">
 						Value of Stocks Owned
 					</p>
 					{state?.stock_info && <StocksOwned stocks={state.stock_info} />}
