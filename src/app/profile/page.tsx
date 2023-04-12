@@ -133,7 +133,7 @@ export default function profile() {
 						</div>
 					</div>
 					<div
-						className="flex-grow w-2/3 p-4 shadow-lg bg-white mx-auto align-middle"
+						className="flex-grow w-2/3 p-4 shadow-lg bg-white mx-auto align-middle" style={{ backgroundColor: "#FDE698" }}
 					>
 							{state?.trades && <LossGainSection monetaryInfo={state.monetary_info} />}
 					</div>
