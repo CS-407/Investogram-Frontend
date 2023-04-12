@@ -42,12 +42,12 @@ export default function UserTradesSection(props: UserTradesSectionProps) {
 	const [trades, setTrades] = useState([]);
 
 	return (
-		<div>
-			<div className="font-semibold text-lg px-2">
+		<div className="p-3">
+			<div className="font-semibold text-lg px-2 p-3">
 				Your most recent trades for this stock:
 			</div>
 			{trades.length === 0 && (
-				<div>You have no trades for this stock yet!</div>
+				<div className="text-l px-2 p-3">You have no trades for this stock yet!</div>
 			)}
 			{trades.length > 0 && (
 				<TradeList trades={trades} />

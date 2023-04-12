@@ -18,17 +18,17 @@ export default function Home() {
   const { user } = useContext(AuthContext);
   return (
     <main
-				className=""
-				style={{ backgroundColor: "#f5f5f5", padding: "20px" }}
+				className="p-5"
+				style={{ backgroundColor: "#f5f5f5"}}
 			>
         <h1
-							className="text-2xl font-bold mt-4 mb-2"
-							style={{ color: "#364F6B", marginBottom:"20px" }}
+							className="text-2xl font-bold mt-4 mb-4"
+							style={{ color: "#364F6B"}}
 				>Welcome to Investogram!</h1>
       <div className="flex flex-row">
 					<div
-						className="flex-none w-2/3 p-4 flex justify-center items-center flex-col rounded-lg shadow-lg"
-						style={{ backgroundColor: "#FDE698", padding: "20px", marginRight:"20px" }}
+						className="flex-none w-2/3 p-4 flex justify-center items-center flex-col rounded-lg shadow-lg mr-4"
+						style={{ backgroundColor: "#FDE698"}}
 					>
             <h1
 							className="text-2xl font-bold mt-4 mb-2"
@@ -38,8 +38,8 @@ export default function Home() {
 
           </div>
           <div
-						className="flex-none w-1/3 p-4 flex justify-center items-center flex-col rounded-lg shadow-lg"
-						style={{ backgroundColor: "#FDE698", padding: "20px"}}
+						className="flex-none w-1/3 p-4 flex justify-center items-center flex-col rounded-lg shadow-lg p-5"
+						style={{ backgroundColor: "#FDE698"}}
 					>
 						<img
 							src={"/images/avatar_1.png"}

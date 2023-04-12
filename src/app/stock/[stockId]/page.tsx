@@ -58,7 +58,7 @@ export default function stock() {
 			<h1 className="text-5xl m-3 font-bold">
 				{stock ? `${stock.stock_name} (${stock.stock_ticker})` : ""}
 			</h1>
-			<h2 className="text-3xl m-2 inline">
+			<h2 className="inline bg-blue-100 rounded-full px-3 py-1 text-xl font-semibold text-gray-700 p-5 ml-5 mr-2 mb-2">
 				{price ? `$${currencyConverter(price.current_price)}` : ""}
 			</h2>
 

@@ -11,6 +11,7 @@ import RecentTradesSection from "../../components/profile/recentTradesSection";
 import LossGainSection from "@/components/profile/lossGainSection";
 import StocksOwned from "@/components/profile/stocksOwned";
 
+
 export default function profile() {
 	const { user } = useContext(AuthContext);
 	const [state, setState] = useState<TradeInfo>();
@@ -134,7 +135,7 @@ export default function profile() {
 						</div>
 					</div>
 					<div
-						className="flex-grow w-2/3 p-4 shadow-lg bg-white mx-auto align-middle rounded-lg" style={{ backgroundColor: "#FDE698", marginLeft: "20px" }}
+						className="flex-grow w-2/3 p-4 shadow-lg bg-white mx-auto align-middle rounded-lg ml-3" style={{ backgroundColor: "#FDE698"}}
 					>
 							{state?.trades && <LossGainSection monetaryInfo={state.monetary_info} />}
 					</div>

@@ -25,7 +25,7 @@ const Following = () => {
 
 	return (
 <>
-<h1 className="text-2xl font-bold mt-4" style={{backgroundColor: "#FDE698", padding: "20px"}}>Your Followers</h1>
+<h1 className="text-2xl font-bold mt-4" style={{backgroundColor: "#FDE698", padding: "20px"}}>Your Following</h1>
 <p className="text-lg mb-2" style={{color: "#364F6B", padding: "20px"}}>Users You Follow: {followingList.length}</p>
 <ul className="list-none" style={{padding: "20px"}}>
 	{

@@ -4,6 +4,8 @@ import { Transaction } from "@/util/types";
 import { currencyConverter } from "@/util/HelperFunctions";
 import { useEffect, useState } from "react";
 
+import PieChart from "@/components/profile/pieChart";
+
 interface LossGainSectionProps {
 	monetaryInfo: any;
 }
@@ -63,6 +65,8 @@ export default function LossGainSection(props: LossGainSectionProps) {
 						on {purchases + sales} trades
 					</div>
 				</div>
+					
+
 				</div>
 				</div>
 		);
