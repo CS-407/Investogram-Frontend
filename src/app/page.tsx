@@ -42,7 +42,7 @@ export default function Home() {
 						style={{ backgroundColor: "#FDE698", padding: "20px"}}
 					>
 						<img
-							src={"/images/default_profile.jpg"}
+							src={"/images/avatar_1.png"}
 							alt={`${"your"}'s avatar`}
 							className={"flex-center"}
 							style={{
