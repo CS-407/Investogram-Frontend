@@ -37,7 +37,7 @@ export default function profile() {
 				if (err.response && err.response.data && err.response.data.msg) {
 					console.log(err.response.data.msg);
 				} else {
-					console.log("Trouble Contacting Server");
+					// console.log("Trouble Contacting Server");
 				}
 			});
 	}, []);
@@ -133,7 +133,7 @@ export default function profile() {
 						</div>
 					</div>
 					<div
-						className="flex-grow w-2/3 p-4 shadow-lg bg-white mx-auto align-middle" style={{ backgroundColor: "#FDE698" }}
+						className="flex-grow w-2/3 p-4 shadow-lg bg-white mx-auto align-middle rounded-lg" style={{ backgroundColor: "#FDE698" }}
 					>
 							{state?.trades && <LossGainSection monetaryInfo={state.monetary_info} />}
 					</div>

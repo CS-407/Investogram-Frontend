@@ -19,10 +19,10 @@ export default function LossGainSection(props: LossGainSectionProps) {
 
 	if (props.monetaryInfo) {
 		return (
-			<div className="flex my-auto justify-center align-center">
-				<div className="flex-col px-1 mr-2">
+			<div className="flex my-auto justify-center align-center rounded-lg">
+				<div className="flex-col px-1 mr-2 rounded-lg">
 					<div className="font-semibold text-lg">Total Revenue:</div>
-					<p className="text-sm">How much stock has been sold on the app.</p>
+					<p className="text-sm">How much stock has been sold on the app</p>
 					<div className="">
 						<div className="text-2xl font-semibold text-green-500">
 							${revenue}
@@ -34,7 +34,7 @@ export default function LossGainSection(props: LossGainSectionProps) {
 				</div>
 				<div className="flex-col px-1 mr-2">
 					<div className="font-semibold text-lg">Total Loss:</div>
-					<p className="text-sm">How much stock has been bought on the app.</p>
+					<p className="text-sm">How much stock has been bought on the app</p>
 					<div className="">
 						<div className="text-2xl font-semibold text-red-500">
 							${loss}
@@ -46,7 +46,7 @@ export default function LossGainSection(props: LossGainSectionProps) {
 				</div>
 				<div className="flex-col px-1">
 					<div className="font-semibold text-lg">Total Profit:</div>
-					<p className="text-sm">Revenue - losses.</p>
+					<p className="text-sm">Revenue - losses</p>
 					<div
 						className={`text-2xl font-semibold ${
 							profit >= 0 ? "text-green-500" : "text-red-500"

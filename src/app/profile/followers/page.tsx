@@ -20,7 +20,7 @@ const Followers = () => {
 			})
 			.catch((error) => {
 				console.log(error);
-				alert("Trouble contacting server");
+				// alert("Trouble contacting server");
 			});
 	}, []);
 
@@ -29,7 +29,7 @@ const Followers = () => {
 
 <>
 <h1 className="text-2xl font-bold mt-4" style={{backgroundColor: "#FDE698", padding: "20px"}}>Your Followers</h1>
-<p className="text-lg mb-2" style={{color: "#364F6B", padding: "20px"}}>Number of followers: {followersList.length}</p>
+<p className="text-lg mb-2" style={{color: "#364F6B", padding: "20px"}}>Your Followers: {followersList.length}</p>
 <ul className="list-none" style={{padding: "20px"}}>
 	{
 		followersList.map((usr) =>
