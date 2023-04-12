@@ -54,13 +54,18 @@ export default function stock() {
 	}, []);
 
 	return (
-		<main className="">
-			<h1 className="text-5xl m-3 font-bold">
+		<main className="p-5">
+			<div
+				className="flex-none flex justify-center items-center flex-col rounded-lg shadow-lg p-5 mb-5"
+						style={{ backgroundColor: "#FDE698"}}
+			>
+			<h1 className="text-5xl m-3 font-bold" style={{ color: "#364F6B"}}>
 				{stock ? `${stock.stock_name} (${stock.stock_ticker})` : ""}
 			</h1>
 			<h2 className="inline bg-blue-100 rounded-full px-3 py-1 text-xl font-semibold text-gray-700 p-5 ml-5 mr-2 mb-2">
 				{price ? `$${currencyConverter(price.current_price)}` : ""}
 			</h2>
+			</div>
 
 			<div className="flex">
 				<div className="w-4/5">
