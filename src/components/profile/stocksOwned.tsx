@@ -24,7 +24,8 @@ const StocksOwned = (
 				return (
 					<div
 						key={stock._id}
-						className="max-w-sm rounded overflow-hidden shadow-lg mb-2 p-2"
+						className="max-w-sm rounded overflow-hidden shadow-lg mb-3 p-3"
+						
 					>
 						<strong>{stock.owned}</strong> shares of{" "}
 						<strong>{stock.stock_name}</strong> ({stock.stock_ticker}) at{" "}
