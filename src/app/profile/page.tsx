@@ -1,15 +1,14 @@
 "use client";
 
+import { useContext, useEffect, useState } from "react";
 import Link from "next/link";
+import axios from "axios";
+import AuthContext from "@/context/AuthContext";
+import { TradeInfo } from "@/util/types";
+import { BASE_URL } from "@/util/globals";
 
 import RecentTradesSection from "../../components/profile/recentTradesSection";
 import LossGainSection from "@/components/profile/lossGainSection";
-
-import { useContext, useEffect, useState } from "react";
-import AuthContext from "@/context/AuthContext";
-import { TradeInfo } from "@/util/types";
-import axios from "axios";
-import { BASE_URL } from "@/util/globals";
 import StocksOwned from "@/components/profile/stocksOwned";
 
 export default function profile() {
@@ -66,7 +65,7 @@ export default function profile() {
 							}}
 						/>
 						<h1
-							className="text-2xl font-bold mt-4"
+							className="text-2xl font-bold mt-4 mb-2"
 							style={{ color: "#364F6B" }}
 						>
 							{user?.username}
@@ -134,12 +133,9 @@ export default function profile() {
 						</div>
 					</div>
 					<div
-						className="flex-grow w-2/3 p-4 rounded-lg shadow-sm"
-						style={{ backgroundColor: "#FDE698" }}
+						className="flex-grow w-2/3 p-4 shadow-lg bg-white mx-auto align-middle"
 					>
-						<div>
-							{state?.trades && <LossGainSection trades={state.trades} />}
-						</div>
+							{state?.trades && <LossGainSection monetaryInfo={state.monetary_info} />}
 					</div>
 				</div>
 			</main>
@@ -149,7 +145,7 @@ export default function profile() {
 					<p className="mb-4 font-extrabold leading-none tracking-tight text-gray-900 md:text-2xl lg:text-4xl dark:text-black">
 						Trade History
 					</p>
-					{/* { state?.trades && <RecentTradesSection trades={state.trades} /> } */}
+					{ state?.trades && <RecentTradesSection trades={state.trades} /> }
 				</div>
 				<div className="col-span-2" style={{ backgroundColor: "#f5f5f5", padding: "20px" }}>
 					<p className="mb-4 font-extrabold leading-none tracking-tight text-gray-900 md:text-2xl lg:text-4xl dark:text-black">

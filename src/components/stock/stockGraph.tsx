@@ -66,7 +66,6 @@ export default function StockGraph(props: StockGraphProps) {
 				data: info,
 			},
 		];
-		console.log(info);
 		return out;
 	};
 
