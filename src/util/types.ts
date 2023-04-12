@@ -60,11 +60,19 @@ export interface TradeInfo {
 	monetary_info: MonetaryInfo;
 }
 
+export interface Comment {
+	_id: string;
+	post_id: string;
+	user_id: string;
+	content: string;
+	timestamp: number;
+}
+
 export interface Post {
 	userId: string;
 	type: string;
 	content: string;
 	likes: number;
 	timestamp: string;
-	comments: any[];
+	comments: Comment[];
 }
