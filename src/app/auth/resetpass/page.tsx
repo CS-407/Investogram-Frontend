@@ -1,22 +1,33 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
+import { useContext, useState } from "react";
+import AuthContext from "@/context/AuthContext";
+
 import "../authStyles.css";
+import { User } from "@/util/types";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 interface Fields {
+	email: string;
 	password: string;
-	confirmpass: string;
-	opt: string;
+	password2: string;
+	reset_token: number;
 }
 
 function resetPass() {
-	const initialValues = { password: "" , confirmpass: "", opt: ""};
+	const initialValues: Fields = {
+		email: "",
+		password: "",
+		password2: "",
+		reset_token: 0,
+	};
+
+	const { resetPassword } = useContext(AuthContext);
+	const router = useRouter();
 
 	const [formValues, setFormValues] = useState<Fields>(initialValues);
 	const [formErrors, setFormErrors] = useState<Fields>(initialValues);
-
-	const [isSubmit, setIsSubmit] = useState(false);
 
 	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const { name, value } = e.target;
@@ -25,29 +36,47 @@ function resetPass() {
 
 	const handleSubmit = (e: React.FormEvent) => {
 		e.preventDefault();
-		setFormErrors(validate(formValues));
-		setIsSubmit(true);
+
+		if (validate()) {
+			return;
+		}
+
+		resetPass();
 	};
 
-	useEffect(() => {
-		console.log(formErrors);
-		if (Object.keys(formErrors).length === 0 && isSubmit) {
-			console.log(formValues);
-		}
-	}, [formErrors]);
+	const resetPass = async () => {
+		try {
+			const updated_user: Partial<User> = {
+				email: formValues.email,
+				password: formValues.password,
+				password2: formValues.password2,
+				reset_token: formValues.reset_token,
+			};
 
-	const validate = (values: Fields) => {
+			await resetPassword(updated_user);
+			alert("Password reset successfully");
+			router.push("/auth/login");
+		} catch (err: any) {
+			alert(err);
+		}
+	};
+
+	const validate = () => {
 		const errors: Fields = initialValues;
 
-		if (!values.password) {
-			errors.password = "Password is required";
-		} else if (values.password.length < 4) {
-			errors.password = "Password must be more than 4 characters";
-		} else if (values.password.length > 10) {
-			errors.password = "Password cannot exceed more than 10 characters";
+		if (formValues.password.length < 6 || formValues.password.length > 10) {
+			errors.password = "Password must be between 6 and 10 characters";
+		} else if (formValues.password2 !== formValues.password) {
+			errors.password2 = "Passwords must match";
 		}
 
-		return errors;
+		if (errors == initialValues) {
+			return false;
+		}
+
+		setFormErrors(errors);
+
+		return true;
 	};
 
 
@@ -79,43 +108,74 @@ function resetPass() {
 		<div className="formPage">
 			<div className="container">
 				<form onSubmit={handleSubmit}>
-					<h1>Reset Password</h1>
-					<div className="ui divider"></div>
+					<div className="text-center">
+						<h1 className="text-2xl mb-4">Reset Password</h1>
+					</div>
 					<div className="ui form">
 						<div className="form">
-							<label>OPT</label>
+							<label className="block font-bold mb-2">Enter Email</label>
 							<input
-								type="text"
-								name="opt"
-								placeholder="Enter OPT"
-								value={formValues.opt}
+								className="border rounded w-full py-2 px-3 text-gray-700 mb-3"
+								type="email"
+								name="email"
+								required
+								placeholder="jdoe@gmail.com"
+								value={formValues.email}
 								onChange={handleChange}
 							/>
 						</div>
-						<p>{formErrors.opt}</p>
 						<div className="form">
-							<label>New password</label>
+							<label className="block font-bold mb-2">Enter New Password</label>
 							<input
+								className="border rounded w-full py-2 px-3 text-gray-700 mb-3"
 								type="password"
 								name="password"
-								placeholder="New Password"
+								required
+								placeholder="new-password"
 								value={formValues.password}
 								onChange={handleChange}
 							/>
 						</div>
 						<p>{formErrors.password}</p>
 						<div className="form">
-							<label>Confirm Password</label>
+							<label className="block font-bold mb-2">
+								Retype New Password
+							</label>
 							<input
+								className="border rounded w-full py-2 px-3 text-gray-700 mb-3"
 								type="password"
-								name="confirmpass"
-								placeholder="Confirm Password"
-								value={formValues.confirmpass}
+								name="password2"
+								required
+								placeholder="new-password"
+								value={formValues.password2}
 								onChange={handleChange}
 							/>
 						</div>
-						<p>{formErrors.confirmpass}</p>
-						<button onClick={ResetPass}>Submit</button>
+						<p>{formErrors.password2}</p>
+						<div className="form">
+							<label className="block font-bold mb-2">Enter Reset Token</label>
+							<input
+								className="border rounded w-full py-2 px-3 text-gray-700 mb-3"
+								type="number"
+								min={0}
+								max={99999}
+								required
+								name="reset_token"
+								placeholder="00000"
+								value={formValues.reset_token}
+								onChange={handleChange}
+							/>
+						</div>
+						<button className="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded mb-3">
+							Submit
+						</button>
+						<div className="flex flex-col text-center mt-2">
+							<Link href={"/auth/resetuser"}>
+								<p className="font-medium text-blue-600 dark:text-blue-500 hover:underline mb-2">
+									Reset Username
+								</p>
+							</Link>
+						</div>
 					</div>
 				</form>
 			</div>

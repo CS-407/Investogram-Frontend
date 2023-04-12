@@ -1,42 +1,47 @@
 "use client";
 
-import { BASE_URL } from "@/util/globals";
-import axios from "axios";
 import { useContext, useEffect, useState } from "react";
-import { BuySellButtonProps } from "./buybutton";
+import axios from "axios";
+import { BASE_URL } from "@/util/globals";
+import { UserContextProvider } from "@/context/UserContext";
 import AuthContext from "@/context/AuthContext";
+import { User } from "@/util/types";
 
-export default function SellButton(props: BuySellButtonProps) {
+export interface BuySellButtonProps {
+	stock_id: string;
+	stock: any;
+	stock_price: any;
+}
+
+export default function BuyButton(props: BuySellButtonProps) {
 	const stockId = props.stock_id;
 	const price = props.stock_price ? props.stock_price.current_price: 0;
 	const stockPriceId = props.stock_price ? props.stock_price._id : "";
 	const stock = props.stock;
 
-	const executeSell = () => {
+	const executeBuy = async () => {
 		axios
 			.post(
-				`${BASE_URL}/api/stock/sell`,
+				`${BASE_URL}/api/stock/buy`,
 				{
 					stock_id: stockId,
 					stock_price_id: stockPriceId,
 					no_of_shares: orderAmt,
 					amount_usd: orderAmt * price,
-					buy: false,
+					buy: true,
 				},
 				{
 					headers: {
-						"Content-Type": "application/json",
 						Authorization: "Bearer " + localStorage.getItem("token"),
+						"Content-Type": "application/json",
 					},
 				}
 			)
 			.then((response) => {
-				const data = response.data;
-
-				setSellSuccess(true);
+				setBuySuccess(true);
 			})
 			.catch((err) => {
-				setSellFail(true);
+				setBuyFail(true);
 				if (err.response && err.response.data && err.response.data.msg) {
 					alert(err.response.data.msg);
 				} else {
@@ -60,33 +65,8 @@ export default function SellButton(props: BuySellButtonProps) {
 	        if (err.response && err.response.data && err.response.data.msg) {
 				alert(err.response.data.msg);
 			} else {
-				console.log('sellButtonBalance', err);
-			}
-	    });
-	}, []);
-
-	const { user } = useContext(AuthContext);
-	const uid = user?._id;
-
-	const [currentStockOwned, setCurrentStockOwned] = useState<Partial<number>>(0);
-	useEffect(() => {
-		if (!uid) return;
-	    axios.get(`${BASE_URL}/api/user/trades/${uid}`, {
-	        headers: {
-	            "Authorization": "Bearer " + localStorage.getItem("token")
-	        }
-	    })
-	    .then(response => {
-	        const data = response.data.stock_info;
-			const stock = data.filter((stock: any) => stock._id === stockId);
-			let owned = stock.length > 0 ? stock[0].owned : 0;
-	        setCurrentStockOwned(owned)
-	    })
-	    .catch(err => {
-	        if (err.response && err.response.data && err.response.data.msg) {
-				alert(err.response.data.msg);
-			} else {
-				console.log('sellButtonTrades', err);
+				console.log('buyButton', err);
+				// alert("Trouble contacting server");
 			}
 	    });
 	}, []);
@@ -94,12 +74,11 @@ export default function SellButton(props: BuySellButtonProps) {
 	const [orderAmt, setOrderAmt] = useState(0);
 
 	function availableBalance() {
-		return balance + orderAmt * price;
+		return balance - orderAmt * (price ? price : 0);
 	}
 
 	function decreaseButton() {
 		if (orderAmt > 0) {
-			// Don't go below 0
 			return (
 				<button
 					className="flex items-center justify-center px-2 py-1 text-base font-medium leading-6 text-white whitespace-no-wrap bg-black border-2 border-transparent rounded-full shadow-sm hover:bg-transparent hover:text-black hover:border-black focus:outline-none"
@@ -112,7 +91,7 @@ export default function SellButton(props: BuySellButtonProps) {
 	}
 
 	function increaseButton() {
-		if (orderAmt + 1 <= currentStockOwned) {
+		if (availableBalance() - (price ? price : 0) >= 0) {
 			// Enough funds
 			return (
 				<button
@@ -135,59 +114,61 @@ export default function SellButton(props: BuySellButtonProps) {
 		);
 	}
 
-	function remainingStock() {
-		let remaining = currentStockOwned - orderAmt;
-		return (
-			<div className="text-sm italic p-1">
-				{remaining} shares left worth ${(remaining * price).toFixed(2)}
-			</div>
-		);
-	}
-
 	function selectSection() {
-		if (orderAmt > 0) {
-			return (
-				<div className="flex-col items-center px-2">
-					<button
-						className="flex-row items-center justify-center px-4 py-2 text-2xl font-semibold leading-6 text-white whitespace-no-wrap bg-red-500 border-2 border-transparent rounded-full shadow-sm hover:bg-transparent hover:text-red-500 hover:border-red-500 focus:outline-none"
-						onClick={() => {
-							executeSell();
-						}}
-					>
-						Sell
-						<div className="flex-row font-normal text-xs italic p-1">
-							Sell {orderAmt} shares for ${(orderAmt * price).toFixed(2)}
-						</div>
-					</button>
-				</div>
-			);
+		if (availableBalance() < 0) {
+			return <div className="text-sm p-1">Insufficient funds</div>;
+		} else {
+			if (orderAmt > 0) {
+				return (
+					<div className="flex-col py-2 px-2">
+						<button
+							className="flex-row items-center justify-center px-4 py-2 text-2xl font-semibold leading-6 text-white whitespace-no-wrap bg-green-500 border-2 border-transparent rounded-full shadow-sm hover:bg-transparent hover:text-green-500 hover:border-green-500 focus:outline-none"
+							onClick={() => {
+								console.log("Buying stock");
+								executeBuy();
+							}}
+						>
+							<div className="flex justify-center">
+								Buy
+								<div className="pl-2 italic">
+									{" "}
+									{stock && stock.stock_ticker}{" "}
+								</div>
+							</div>
+							<div className="flex-row font-normal italic text-xs p-1">
+								{orderAmt} shares for $
+								{(orderAmt * (price ? price : 0)).toFixed(2)}
+							</div>
+						</button>
+					</div>
+				);
+			}
 		}
 	}
 
-	const [sellSuccess, setSellSuccess] = useState(false);
-	const [sellFail, setSellFail] = useState(false);
+	const [buySuccess, setBuySuccess] = useState(false);
+	const [buyFail, setBuyFail] = useState(false);
 
-	if (sellSuccess) {
+	if (buySuccess) {
 		return (
 			<div className="inline-block border-solid rounded-md border-2 bg-green-500 align-middle text-center">
-				<div className="text-lg font-bold text-white p-2">Sell Success</div>
+				<div className="text-lg font-bold text-white p-2">Buy Success</div>
 			</div>
 		);
 	} else {
 		return (
 			<main>
-				<div className="inline-block border-solid rounded-md border-2 border-red-500 align-middle text-center">
+				<div className="inline-block border-solid rounded-md border-2 border-green-500 align-middle text-center">
 					<div className="flex font-bold text-2xl p-1">
-						Sell {stock ? stock.stock_name : ""} (
+						Buy {stock ? stock.stock_name : ""} (
 						<div className="italic">{stock ? stock.stock_ticker : ""}</div>)
 					</div>
 					{amtButtons()}
-					{remainingStock()}
 					{selectSection()}
 					<div className="text-sm p-1">
-						${availableBalance().toFixed(2)} in account balance
+						${availableBalance().toFixed(2)} left to spend
 					</div>
-					{sellFail && (
+					{buyFail && (
 						<div className="text-sm p-1 text-red-500">
 							ERROR: Stock Buy Failure
 						</div>

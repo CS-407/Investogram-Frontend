@@ -1,13 +1,13 @@
 import SellButton from "@/components/stock/sellbutton";
-import BuyButton from "@/components/buybutton";
+import BuyButton from "@/components/stock/buybutton";
 import UserTradesSection from "@/components/stock/userTradesSection";
+import StockGraph from "@/components/stock/stockGraph";
 
-export default function stock() {
+export default function stockPage() {
     return (
       <main className="">
         <div className="underline">stock page</div>
-        {/* <BuyButton /> */}
-        <BuyButton />
+        <p>Go to a specific stock use "/[stockId]"</p>
       </main>
     )
 }
