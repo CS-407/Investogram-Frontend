@@ -32,6 +32,7 @@ export default function LossGainSection(props: LossGainSectionProps) {
 						</div>
 					</div>
 				</div>
+				<div className="flex flex-row">
 				<div className="flex-col px-1 mr-2">
 					<div className="font-semibold text-lg">Total Loss:</div>
 					<p className="text-sm">How much stock has been bought on the app</p>
@@ -62,7 +63,8 @@ export default function LossGainSection(props: LossGainSectionProps) {
 						on {purchases + sales} trades
 					</div>
 				</div>
-			</div>
+				</div>
+				</div>
 		);
 	} else {
 		return (

@@ -49,9 +49,10 @@ export default function profile() {
 				style={{ backgroundColor: "#f5f5f5", padding: "20px" }}
 			>
 				<div className="flex flex-row">
+					
 					<div
-						className="flex-none w-1/3 p-4 flex justify-center items-center flex-col"
-						style={{ backgroundColor: "#f5f5f5", padding: "20px" }}
+						className="flex-none w-1/3 p-4 flex justify-center items-center flex-col rounded-lg shadow-lg"
+						style={{ backgroundColor: "#FDE698", padding: "20px" }}
 					>
 						<img
 							src={"/images/default_profile.jpg"}
@@ -133,7 +134,7 @@ export default function profile() {
 						</div>
 					</div>
 					<div
-						className="flex-grow w-2/3 p-4 shadow-lg bg-white mx-auto align-middle rounded-lg" style={{ backgroundColor: "#FDE698" }}
+						className="flex-grow w-2/3 p-4 shadow-lg bg-white mx-auto align-middle rounded-lg" style={{ backgroundColor: "#FDE698", marginLeft: "20px" }}
 					>
 							{state?.trades && <LossGainSection monetaryInfo={state.monetary_info} />}
 					</div>
