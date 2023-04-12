@@ -25,35 +25,19 @@ const Following = () => {
 
 	return (
 		<div>
-			<h1 className="text-2xl font-bold mt-4">Users You Follow</h1>
-			<p>Number of following: {followingList.length}</p>
+			<h1 className="flex-none w-1/3 p-4 flex justify-center items-center flex-col text-2xl font-bold mt-1">
+				Users You Follow
+			</h1>
+			<p className="flex-none w-1/3 p-4 flex justify-center items-center flex-col text-2xl font-bold mt-1">
+				Number of following: {followingList.length}
+			</p>
 			<ul>
-				{
-					followingList.map((usr) =>
-						<li id={usr._id}>{usr.username}</li>
-					)
-				}
+				{followingList.map((usr) => (
+					<li id={usr._id}>{usr.username}</li>
+				))}
 			</ul>
 		</div>
 	);
 };
 
-<<<<<<< Updated upstream
 export default Following;
-=======
-  return (
-    <div>
-<h1 className="flex-none w-1/3 p-4 flex justify-center items-center flex-col text-2xl font-bold mt-1">Users You Follow</h1>
-      <p className="flex-none w-1/3 p-4 flex justify-center items-center flex-col text-2xl font-bold mt-1">Number of following: {followingNumber}</p>
-      <ul>
-        {followingList.map((following, index) => (
-          <li key={index}>{following}</li>
-        ))}
-      </ul>
-    </div>
-  )
-}
-
-
-export default Following;
->>>>>>> Stashed changes

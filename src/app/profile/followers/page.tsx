@@ -20,40 +20,25 @@ const Followers = () => {
 			})
 			.catch((error) => {
 				console.log(error);
-				alert("Trouble contacting server");
+				// alert("Trouble contacting server");
 			});
 	}, []);
 
 	return (
 		<>
-			<h1 className="text-2xl font-bold mt-4">Your Followers</h1>
-			<p>Number of followers: {followersList.length}</p>
+			<h1 className="flex-none w-1/3 p-4 flex justify-center items-center flex-col text-2xl font-bold mt-1">
+				Your Followers
+			</h1>
+			<p className="flex-none w-1/3 p-4 flex justify-center items-center flex-col text-2xl font-bold mt-1">
+				Number of followers: {followersList.length}
+			</p>
 			<ul>
-			{
-					followersList.map((usr) =>
-						<li id={usr._id}>{usr.username}</li>
-					)
-				}
+				{followersList.map((usr) => (
+					<li id={usr._id}>{usr.username}</li>
+				))}
 			</ul>
 		</>
 	);
 };
 
-<<<<<<< Updated upstream
 export default Followers;
-=======
-  return (
-    <>
-      <h1 className="flex-none w-1/3 p-4 flex justify-center items-center flex-col text-2xl font-bold mt-1">Your Followers</h1>
-      <p className="flex-none w-1/3 p-4 flex justify-center items-center flex-col text-2xl font-bold mt-1">Number of followers: {followersNumber}</p>
-      <ul>
-        {followersList.map((follower, index) => (
-          <li key={index}>{follower}</li>
-        ))}
-      </ul>
-    </>
-  )
-}
-
-export default Followers;
->>>>>>> Stashed changes
