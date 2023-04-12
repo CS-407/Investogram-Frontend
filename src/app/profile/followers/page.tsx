@@ -39,4 +39,21 @@ const Followers = () => {
 	);
 };
 
+<<<<<<< Updated upstream
 export default Followers;
+=======
+  return (
+    <>
+      <h1 className="flex-none w-1/3 p-4 flex justify-center items-center flex-col text-2xl font-bold mt-1">Your Followers</h1>
+      <p className="flex-none w-1/3 p-4 flex justify-center items-center flex-col text-2xl font-bold mt-1">Number of followers: {followersNumber}</p>
+      <ul>
+        {followersList.map((follower, index) => (
+          <li key={index}>{follower}</li>
+        ))}
+      </ul>
+    </>
+  )
+}
+
+export default Followers;
+>>>>>>> Stashed changes
