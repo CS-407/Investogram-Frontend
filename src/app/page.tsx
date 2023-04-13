@@ -21,9 +21,9 @@ export default function Home() {
     <main
 		className="p-5"
 		style={{ backgroundColor: "#f5f5f5"}}>
-		<div className="flex flex-row">
+
+		{/* start of title */}
 		<div className="flex-none p-4">
-		{/* <img className="w-1/3 h-30" src={"/images/logo-remove-bg.png"} /> */}
 				<h1
       				className="text-2xl font-bold mt-4 mb-4"
       				style={{ color: "#364F6B"}}
@@ -31,6 +31,8 @@ export default function Home() {
       				Welcome to Investogram!
     			</h1>
 		</div>
+		{/* end of title */}
+	
       <div className="flex flex-row">
 
 		<div
@@ -98,7 +100,6 @@ export default function Home() {
             </div>
 			
           </div>
-		  
 
       </div>
     </main>
