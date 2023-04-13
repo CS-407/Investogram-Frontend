@@ -10,37 +10,37 @@ import { BASE_URL } from "../../util/globals";
 import axios from "axios";
 
 const FollowRequests = () => {
-	const [followRequests, setFollowRequests] =
-		useState<Partial<User>[]>([]);
+	const [followRequests, setFollowRequests] = useState<Partial<User>[]>([]);
 	const [requestsStatus, setRequestsStatus] = useState<any>({});
 	const updateStatus = (id: string, success: boolean) => {
 		setRequestsStatus((prev: any) => {
 			return { ...prev, [id]: success ? "Success" : "Failure" };
 		});
-	}
+	};
 
 	useEffect(() => {
-	    axios.get(`${BASE_URL}/api/user/requests`, {
-	        headers: {
-	            "Authorization": "Bearer " + localStorage.getItem("token")
-	        }
-	    })
-	    .then(response => {
-	        const data = response.data;
-	        setFollowRequests(data.users);
-			data.users.forEach((usr: Partial<User>) => {
-				setRequestsStatus((prev: any) => {
-					return { ...prev, [usr._id!]: undefined };
+		axios
+			.get(`${BASE_URL}/api/user/requests`, {
+				headers: {
+					Authorization: "Bearer " + localStorage.getItem("token"),
+				},
+			})
+			.then((response) => {
+				const data = response.data;
+				setFollowRequests(data.users);
+				data.users.forEach((usr: Partial<User>) => {
+					setRequestsStatus((prev: any) => {
+						return { ...prev, [usr._id!]: undefined };
+					});
 				});
 			})
-	    })
-	    .catch(err => {
-	        if (err.response && err.response.data && err.response.data.msg) {
-				alert(err.response.data.msg);
-			} else {
-				alert("Trouble contacting server");
-			}
-	    });
+			.catch((err) => {
+				if (err.response && err.response.data && err.response.data.msg) {
+					alert(err.response.data.msg);
+				} else {
+					alert("Trouble contacting server");
+				}
+			});
 	}, []);
 
 	const requestRow = (usr: Partial<User>) => {
@@ -59,12 +59,12 @@ const FollowRequests = () => {
 						<p className="p-1 bg-green-500 rounded-md">Success</p>
 					</div>
 				);
-			} else { 
+			} else {
 				buttonSection = (
 					<div className="flex flex-row">
 						<p className="p-1 bg-red-500 rounded-md">Failure</p>
 					</div>
-				)
+				);
 			}
 		}
 
@@ -74,12 +74,10 @@ const FollowRequests = () => {
 				key={usr._id}
 			>
 				<p className="text-black ml-2 font-medium my-auto">{usr.username}</p>
-				<div className="flex flex-row">
-					{buttonSection}
-				</div>
+				<div className="flex flex-row">{buttonSection}</div>
 			</div>
 		);
-	}
+	};
 
 	return (
 		<div className="flex flex-col text-center w-full">
