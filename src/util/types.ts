@@ -74,5 +74,14 @@ export interface Post {
 	content: string;
 	likes: number;
 	timestamp: string;
-	comments: Comment[];
+  comments: Comment[];
+}
+
+export interface PopularStock {
+	_id: {
+		stock_id: string;
+		stock_name: string;
+		stock_ticker: string;
+	};
+	totalTransactions: number;
 }
