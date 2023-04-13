@@ -18,7 +18,10 @@ const StocksOwned = (
 	return (
 		<div className="flex flex-col m-5">
 			<div className="font-semibold text-xl max-w-sm overflow-hidden mb-2 p-2">
-				Total value of all stocks: <p className="inline bg-blue-50 px-2 py-1 text-xl font-bold text-gray-700 mr-2 mb-2">${totalValue()}</p>
+				Total value of all stocks:{" "}
+				<p className="inline bg-blue-50 px-2 py-1 text-xl font-bold text-gray-700 mr-2 mb-2">
+					${totalValue()}
+				</p>
 			</div>
 			{stocks.map((stock) => {
 				return (
@@ -36,7 +39,6 @@ const StocksOwned = (
 					</div>
 				);
 			})}
-	
 		</div>
 	);
 };
