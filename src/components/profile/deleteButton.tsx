@@ -69,7 +69,7 @@ function VisibleButton() {
 				<div className="ui divider"></div>
 					<div className="ui form">
 						<div className="form">
-							<label>User password </label>
+							<label>User password</label>
 							<input
 								type="text"
 								name="password"

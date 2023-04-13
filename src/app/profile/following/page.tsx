@@ -24,15 +24,15 @@ const Following = () => {
 	}, []); // Added an empty dependency array to ensure the useEffect hook is only executed once on component mount.
 
 	return (
-		<div>
+		<div className="text-center">
 			<h1
 				className="text-2xl font-bold mt-4"
 				style={{ backgroundColor: "#FDE698", padding: "20px" }}
 			>
 				Your Following
 			</h1>
-			<p className="text-lg mb-2" style={{ color: "#364F6B", padding: "20px" }}>
-				Users You Follow: {followingList.length}
+			<p className="text-lg mb-2 italic" style={{ color: "#364F6B", padding: "20px" }}>
+				You are following <strong>{followingList.length}</strong> user{followingList.length === 1 ? "" : "s"}
 			</p>
 			<ul className="list-none" style={{ padding: "20px" }}>
 				{followingList.map((usr) => (

@@ -25,7 +25,7 @@ const Followers = () => {
 	}, []);
 
 	return (
-		<div>
+		<div className="text-center">
 			<h1
 				className="text-2xl font-bold mt-4"
 				style={{ backgroundColor: "#FDE698", padding: "20px" }}
@@ -33,7 +33,7 @@ const Followers = () => {
 				Your Followers
 			</h1>
 			<p className="text-lg mb-2" style={{ color: "#364F6B", padding: "20px" }}>
-				Your Followers: {followersList.length}
+				You are being followed by <strong>{followersList.length}</strong> user{followersList.length === 1 ? "" : "s"}
 			</p>
 			<ul className="list-none" style={{ padding: "20px" }}>
 				{followersList.map((usr) => (
