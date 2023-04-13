@@ -8,6 +8,7 @@ import Header from './header'
 import Link from "next/link";
 import AuthContext from "@/context/AuthContext";
 import { usePathname, useRouter } from "next/navigation";
+import PopularStocks from "@/components/stock/popularStocks";
 
 
 const inter = Inter({ subsets: ['latin'] })
@@ -23,19 +24,12 @@ export default function Home() {
 		<div className="flex flex-row">
 		<div className="flex-none p-4">
 		{/* <img className="w-1/3 h-30" src={"/images/logo-remove-bg.png"} /> */}
-		<h1
+				<h1
       				className="text-2xl font-bold mt-4 mb-4"
       				style={{ color: "#364F6B"}}
     			>
       				Welcome to Investogram!
     			</h1>
-
-<<<<<<< Updated upstream
-          </div>
-=======
-
-
-		</div>
 		</div>
       <div className="flex flex-row">
 
@@ -48,8 +42,7 @@ export default function Home() {
 				>Popular Stocks</h1>
 		
             <PopularStocks/> 
-			</div>
->>>>>>> Stashed changes
+          </div>
           <div
 			className="flex-none h-1/3 w-1/3 p-4 flex justify-center items-center flex-col rounded-lg shadow-lg p-5 ml-3 mr-3"
 			style={{ backgroundColor: "#FDE698"}}>
