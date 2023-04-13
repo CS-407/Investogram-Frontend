@@ -10,6 +10,8 @@ import { BASE_URL } from "@/util/globals";
 import RecentTradesSection from "../../components/profile/recentTradesSection";
 import LossGainSection from "@/components/profile/lossGainSection";
 import StocksOwned from "@/components/profile/stocksOwned";
+import DeleteButton from "@/components/profile/deleteButton";
+
 
 export default function profile() {
 	const { user } = useContext(AuthContext);
@@ -37,7 +39,7 @@ export default function profile() {
 				if (err.response && err.response.data && err.response.data.msg) {
 					console.log(err.response.data.msg);
 				} else {
-					console.log("Trouble Contacting Server");
+					// console.log("Trouble Contacting Server");
 				}
 			});
 	}, []);
@@ -45,16 +47,17 @@ export default function profile() {
 	return (
 		<div>
 			<main
-				className=""
-				style={{ backgroundColor: "#f5f5f5", padding: "20px" }}
+				className="p-5"
+				style={{ backgroundColor: "#f5f5f5"}}
 			>
 				<div className="flex flex-row">
+					
 					<div
-						className="flex-none w-1/3 p-4 flex justify-center items-center flex-col"
-						style={{ backgroundColor: "#f5f5f5", padding: "20px" }}
+						className="flex-none w-1/3 p-4 flex justify-center items-center flex-col rounded-lg shadow-lg p-5"
+						style={{ backgroundColor: "#FDE698"}}
 					>
 						<img
-							src={"/images/default_profile.jpg"}
+							src={"/images/avatar_1.png"}
 							alt={`${user?.username}'s avatar`}
 							className={"flex-center"}
 							style={{
@@ -133,26 +136,28 @@ export default function profile() {
 						</div>
 					</div>
 					<div
-						className="flex-grow w-2/3 p-4 shadow-lg bg-white mx-auto align-middle"
+						className="flex-grow w-2/3 p-4 shadow-lg bg-white mx-auto align-middle rounded-lg ml-3" style={{ backgroundColor: "#FDE698"}}
 					>
 							{state?.trades && <LossGainSection monetaryInfo={state.monetary_info} />}
 					</div>
 				</div>
 			</main>
-			<div className="grid grid-cols-4 p-4">
-				<div className="col-span-3">
-					<p className="mb-4 font-extrabold leading-none tracking-tight text-gray-900 md:text-2xl lg:text-4xl dark:text-white">
+			<div className="grid grid-cols-4 p-5" style={{ backgroundColor: "#f5f5f5", padding: "20px" }}>
+				<div className="col-span-2 p-5" style={{ backgroundColor: "#f5f5f5", padding: "20px" }}>
+
+					<p className="mb-4 font-extrabold leading-none tracking-tight text-gray-900 md:text-2xl lg:text-4xl dark:text-black">
 						Trade History
 					</p>
 					{ state?.trades && <RecentTradesSection trades={state.trades} /> }
 				</div>
-				<div className="col-span-1">
-					<p className="mb-4 font-extrabold leading-none tracking-tight text-gray-900 md:text-2xl lg:text-4xl dark:text-white">
+				<div className="col-span-2 p-5" style={{ backgroundColor: "#f5f5f5", padding: "20px" }}>
+					<p className="mb-4 font-extrabold leading-none tracking-tight text-gray-900 md:text-2xl lg:text-4xl dark:text-black">
 						Value of Stocks Owned
 					</p>
 					{state?.stock_info && <StocksOwned stocks={state.stock_info} />}
 				</div>
 			</div>
+			<DeleteButton />
 		</div>
 	);
 }

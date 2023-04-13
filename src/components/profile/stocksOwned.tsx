@@ -16,12 +16,15 @@ const StocksOwned = (
 	};
 
 	return (
-		<div className="flex flex-col m-3">
+		<div className="flex flex-col m-5">
+			<div className="font-semibold text-xl max-w-sm overflow-hidden mb-2 p-2">
+				Total value of all stocks: <p className="inline bg-blue-50 px-2 py-1 text-xl font-bold text-gray-700 mr-2 mb-2">${totalValue()}</p>
+			</div>
 			{stocks.map((stock) => {
 				return (
 					<div
 						key={stock._id}
-						className="max-w-sm rounded overflow-hidden shadow-lg mb-2 p-2"
+						className="max-w-sm rounded overflow-hidden shadow-lg mb-3 p-3"
 					>
 						<strong>{stock.owned}</strong> shares of{" "}
 						<strong>{stock.stock_name}</strong> ({stock.stock_ticker}) at{" "}
@@ -33,12 +36,7 @@ const StocksOwned = (
 					</div>
 				);
 			})}
-			<div className="max-w-sm overflow-hidden mb-2 p-2">
-				Total value of all stocks:{" "}
-				<p className="inline bg-blue-50 px-2 py-1 text-sm font-bold text-gray-700 mr-2 mb-2">
-					${totalValue()}
-				</p>
-			</div>
+	
 		</div>
 	);
 };
