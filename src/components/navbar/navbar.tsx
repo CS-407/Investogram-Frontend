@@ -5,6 +5,7 @@ import React, { useContext } from "react";
 import { usePathname, useRouter } from "next/navigation";
 
 import AuthContext from "@/context/AuthContext";
+import { Colors } from "chart.js";
 
 const Navbar = () => {
 	const authCtx = useContext(AuthContext);
@@ -12,6 +13,7 @@ const Navbar = () => {
 	const pathname = usePathname();
 
 	return (
+<<<<<<< Updated upstream
 		<nav className="bg-gray dark:bg-gray-900 w-full sticky z-20 top-0 left-0 border-b border-gray-200 dark:border-gray-600">
 			<div className="flex flex-wrap items-center justify-between mx-auto p-4">
 				<ul className="flex flex-col p-4 md:p-0 mt-4 font-medium border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
@@ -74,6 +76,56 @@ const Navbar = () => {
 				)}
 			</div>
 		</nav>
+=======
+<nav className="bg-gray-100 dark:bg-gray-800">
+  <div className="container mx-auto px-4">
+    <div className="flex justify-between items-center py-4">
+      <div className="flex items-center">
+        <Link href="/"
+          className="font-bold text-xl text-gray-800 dark:text-gray-200" style={{color:"#FDE698"}}>Investogram
+        </Link>
+        <ul className="ml-6 flex">
+          <li className="mr-6">
+            <Link href="/globalstocks"
+              className="text-gray-800 dark:text-gray-200 hover:underline">Global Stocks
+            </Link>
+          </li>
+          <li className="mr-6">
+            <Link href="/globalusers"
+              className="text-gray-800 dark:text-gray-200 hover:underline">Global Users
+            </Link>
+          </li>
+          <li className="mr-6">
+            <Link href="/leaderboard"
+              className="text-gray-800 dark:text-gray-200 hover:underline">Leaderboard
+            </Link>
+          </li>
+        </ul>
+      </div>
+      {authCtx.isAuth ? (
+        <div className="flex items-center">
+          <Link href="/profile"
+            className="text-gray-800 dark:text-gray-200 hover:underline mr-6">Profile
+          </Link>
+          <button className="bg-blue-700 text-white py-2 px-4 rounded">
+            Logout
+          </button>
+        </div>
+      ) : (
+        <div>
+          <Link href="/login"
+            className="text-gray-800 dark:text-gray-200 hover:underline mr-6">Login
+          </Link>
+          <Link href="/signup"
+            className="bg-blue-700 text-white py-2 px-4 rounded">Sign up
+          </Link>
+        </div>
+      )}
+    </div>
+  </div>
+</nav>
+
+>>>>>>> Stashed changes
 	);
 };
 
