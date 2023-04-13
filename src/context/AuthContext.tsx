@@ -95,6 +95,7 @@ export const AuthContextProvider = (props: React.PropsWithChildren<{}>) => {
 			});
 		} catch (err: any) {
 			if (err.response) {
+				console.log(err.response);
 				throw err.response.data.msg;
 			}
 			throw err.message;

@@ -26,15 +26,23 @@ const Followers = () => {
 
 	return (
 		<>
-			<h1 className="flex-none w-1/3 p-4 flex justify-center items-center flex-col text-2xl font-bold mt-1">
+			<h1
+				className="text-2xl font-bold mt-4"
+				style={{ backgroundColor: "#FDE698", padding: "20px" }}
+			>
 				Your Followers
 			</h1>
-			<p className="flex-none w-1/3 p-4 flex justify-center items-center flex-col text-2xl font-bold mt-1">
-				Number of followers: {followersList.length}
+			<p className="text-lg mb-2" style={{ color: "#364F6B", padding: "20px" }}>
+				Your Followers: {followersList.length}
 			</p>
-			<ul>
+			<ul className="list-none" style={{ padding: "20px" }}>
 				{followersList.map((usr) => (
-					<li id={usr._id}>{usr.username}</li>
+					<li
+						id={usr._id}
+						className="mb-2 p-2 bg-gray-100 rounded-lg shadow-sm"
+					>
+						{usr.username}
+					</li>
 				))}
 			</ul>
 		</>
