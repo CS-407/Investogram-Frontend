@@ -18,8 +18,7 @@ const Navbar = () => {
 					<li>
 						<Link href={"/"}>
 							<p className={`block ${pathname == "/" ? "font-bold" : ""} hover:underline py-2 pl-3 pr-4 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 md:dark:text-blue-500`}>
-								{/* <img src = {"src/components/navbar/investogram_logo.png"}></img> */}
-								Home
+								<img src = {"src/components/navbar/investogram_logo.png"}></img>
 							</p>
 						</Link>
 					</li>
@@ -34,6 +33,13 @@ const Navbar = () => {
 						<Link href={"/globalusers"}>
 							<p className={`block ${pathname == "/globalusers" ? "font-bold" : ""} hover:underline py-2 pl-3 pr-4 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 md:dark:text-blue-500`}>
 								Global Users
+							</p>
+						</Link>
+					</li>
+					<li>
+						<Link href={"/leaderboard"}>
+							<p className={`block ${pathname == "/leaderboard" ? "font-bold" : ""} hover:underline py-2 pl-3 pr-4 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 md:dark:text-blue-500`}>
+								Leaderboard
 							</p>
 						</Link>
 					</li>

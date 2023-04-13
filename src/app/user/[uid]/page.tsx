@@ -101,8 +101,8 @@ const User = () => {
 			>
 				<div className="flex flex-row">
 					<div
-						className="flex-none w-1/3 p-4 flex justify-center items-center flex-col"
-						style={{ backgroundColor: "#f5f5f5", padding: "20px" }}
+						className="flex-none w-1/3 p-4 flex justify-center items-center flex-col rounded-lg shadow-lg"
+						style={{ backgroundColor: "#FDE698", padding: "20px" }}
 					>
 						<img
 							src={"/images/default_profile.jpg"}
@@ -126,13 +126,13 @@ const User = () => {
 								className={`followers`}
 								style={{ marginRight: "10px", color: "#364F6B" }}
 							>
-								<p className="inline bg-blue-100 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
+								<p className="inline bg-blue-100 rounded-full px-3 py-1 text-sm font-semibold text-white-700 mr-2 mb-2">
 									{user?.followers}
 								</p>{" "}
 								followers
 							</div>
 							<div className="following" style={{ color: "#364F6B" }}>
-								<p className="inline bg-blue-100 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
+								<p className="inline bg-blue-100 rounded-full px-3 py-1 text-sm font-semibold text-white-700 mr-2 mb-2">
 									{user?.following}
 								</p>{" "}
 								following
@@ -162,18 +162,18 @@ const User = () => {
 						</div>
 					</div>
 					<div
-						className="flex-grow w-2/3 p-4"
-						style={{ backgroundColor: "#FDE698" }}
-					>
+						className="flex-grow w-2/3 p-4 shadow-lg bg-white mx-auto align-middle rounded-lg" style={{ backgroundColor: "#FDE698", marginLeft: "20px"  }}
+						>
 						<div>
 							{following ? (
 								state?.monetary_info && (
+									
 									<LossGainSection monetaryInfo={state.monetary_info} />
 								)
 							) : (
 								<p
 									className="text-2xl font-bold mt-4"
-									style={{ color: "#364F6B" }}
+									style={{ color: "#364F6B", padding: "20px" }}
 								>
 									Follow to see trade information
 								</p>
@@ -183,22 +183,25 @@ const User = () => {
 				</div>
 			</main>
 			{following && (
-				<div className="grid grid-cols-4 p-4">
-					<div className="col-span-3">
-						<p className="mb-4 font-extrabold leading-none tracking-tight text-gray-900 md:text-2xl lg:text-4xl dark:text-white">
-							Trade History
-						</p>
-						{ state?.trades && <RecentTradesSection trades={state.trades} /> }
-					</div>
-					<div className="col-span-1">
-						<p className="mb-4 font-extrabold leading-none tracking-tight text-gray-900 md:text-2xl lg:text-4xl dark:text-white">
-							Value of Stocks Owned
-						</p>
-						{state?.stock_info && <StocksOwned stocks={state.stock_info} />}
-					</div>
+				<div className="grid grid-cols-4 p-4" style={{ backgroundColor: "#f5f5f5", padding: "20px" }}>
+				<div className="col-span-2" style={{ backgroundColor: "#f5f5f5", padding: "20px" }}>
+
+					<p className="mb-4 font-extrabold leading-none tracking-tight text-gray-900 md:text-2xl lg:text-4xl dark:text-black">
+						Trade History
+					</p>
+					{ state?.trades && <RecentTradesSection trades={state.trades} /> }
 				</div>
+				<div className="col-span-2" style={{ backgroundColor: "#f5f5f5", padding: "20px" }}>
+					<p className="mb-4 font-extrabold leading-none tracking-tight text-gray-900 md:text-2xl lg:text-4xl dark:text-black">
+						Value of Stocks Owned
+					</p>
+					{state?.stock_info && <StocksOwned stocks={state.stock_info} />}
+				</div>
+			</div>
 			)}
 		</div>
+
+
 	);
 };
 
