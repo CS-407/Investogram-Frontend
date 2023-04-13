@@ -19,8 +19,20 @@ const Navbar = () => {
 				<ul className="flex flex-col p-4 md:p-0 mt-4 font-medium border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
 					<li>
 						<Link href={"/"}>
+<<<<<<< Updated upstream
 							<p className={`block ${pathname == "/" ? "font-bold" : ""} hover:underline py-2 pl-3 pr-4 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 md:dark:text-blue-500`}>
 								<img src = {"src/components/navbar/investogram_logo.png"}></img>
+=======
+							<p
+								className={`block ${
+									pathname == "/" ? "font-bold" : ""
+								} hover:underline py-2 pl-3 pr-4 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 md:dark:text-blue-500`}
+									style={{backgroundColor:"#FDE698"}}>
+								<img className="h-10"
+									src={"/images/logo-remove-bg.png"}
+								></img>
+								{/* Investogram */}
+>>>>>>> Stashed changes
 							</p>
 						</Link>
 					</li>

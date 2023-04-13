@@ -156,6 +156,10 @@ export default function profile() {
 					{state?.stock_info && <StocksOwned stocks={state.stock_info} />}
 				</div>
 			</div>
+<<<<<<< Updated upstream
+=======
+			{/* <DeleteButton /> */}
+>>>>>>> Stashed changes
 		</div>
 	);
 }
