@@ -11,7 +11,6 @@ import RecentTradesSection from "../../components/profile/recentTradesSection";
 import LossGainSection from "@/components/profile/lossGainSection";
 import StocksOwned from "@/components/profile/stocksOwned";
 
-
 export default function profile() {
 	const { user } = useContext(AuthContext);
 	const [state, setState] = useState<TradeInfo>();
@@ -156,10 +155,6 @@ export default function profile() {
 					{state?.stock_info && <StocksOwned stocks={state.stock_info} />}
 				</div>
 			</div>
-<<<<<<< Updated upstream
-=======
-			{/* <DeleteButton /> */}
->>>>>>> Stashed changes
 		</div>
 	);
 }
