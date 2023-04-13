@@ -25,7 +25,7 @@ const Followers = () => {
 	}, []);
 
 	return (
-		<>
+		<div>
 			<h1
 				className="text-2xl font-bold mt-4"
 				style={{ backgroundColor: "#FDE698", padding: "20px" }}
@@ -45,7 +45,7 @@ const Followers = () => {
 					</li>
 				))}
 			</ul>
-		</>
+		</div>
 	);
 };
 
