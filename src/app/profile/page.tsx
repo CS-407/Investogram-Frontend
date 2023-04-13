@@ -45,7 +45,6 @@ export default function profile() {
 	}, []);
 
 	return (
-<<<<<<< Updated upstream
 		<div>
 			<main
 				className="p-5"
@@ -157,40 +156,6 @@ export default function profile() {
 					</p>
 					{state?.stock_info && <StocksOwned stocks={state.stock_info} />}
 				</div>
-=======
-	  <main className="" style={{ backgroundColor: "#f5f5f5", padding: "20px" }}>
-		<div className="flex flex-row">
-		
-		  <div className="flex-none w-1/3 p-4 flex justify-center items-center flex-col" style={{backgroundColor: "#f5f5f5",  padding: "20px" }}>
-		  <h1 className="text-2xl font-bold mt-4" style={{ color: "#364F6B" }}>
-			  {user?.username}
-			  
-			</h1>
-			<img
-			  src={"public/images/default_profile.jpg"}
-			  alt={`${user?.username}'s avatar`}
-			  className={"flex-center"}
-			  style={{ borderRadius: "50%", width: "150px", height: "150px", objectFit: "cover" }}
-			/>
-			
-			<div className="flex flex-row">
-			  <div className={`followers`} style={{ marginRight: "10px", color: "#364F6B" }}>
-			  <button className={`button`} style={{ border: "none", backgroundColor: "transparent", cursor: "pointer", color: "#666" }}>
-				<Link href={"/profile/followers"} style={{ textDecoration: "none" }}>
-				{user?.followers} {followersNumber} followers
-				</Link>
-			  </button>
-				
-			  </div>
-			  <div className={`following`} style={{ color: "#364F6B" }}>
-			  <button className={`button`} style={{ border: "none", backgroundColor: "transparent", cursor: "pointer", color: "#666" }}>
-				<Link href={"/profile/following"} style={{ textDecoration: "none" }}>
-				{user?.following} {followingNumber} following
-				</Link>
-			  </button>
-				
-			  </div>
->>>>>>> Stashed changes
 			</div>
 			<DeleteButton />
 		</div>
