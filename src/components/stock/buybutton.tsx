@@ -160,8 +160,7 @@ export default function BuyButton(props: BuySellButtonProps) {
 			<main>
 				<div className="inline-block border-solid rounded-md border-2 border-green-500 align-middle text-center">
 					<div className="flex font-bold text-2xl p-1">
-						Buy {stock ? stock.stock_name : ""} (
-						<div className="italic">{stock ? stock.stock_ticker : ""}</div>)
+						Buy {stock ? stock.stock_name : ""} ({stock ? stock.stock_ticker : ""})
 					</div>
 					{amtButtons()}
 					{selectSection()}
