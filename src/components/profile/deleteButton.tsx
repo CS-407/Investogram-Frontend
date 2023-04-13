@@ -9,7 +9,8 @@ import AuthContext from "@/context/AuthContext";
 import { useRouter } from "next/navigation";
 
 
-const currentUser = '64270b70316cc0d88e749cb6';
+//add current user
+const currentUser = "";
 
 export default function DeleteButton() {
 
@@ -62,7 +63,7 @@ function VisibleButton() {
 				<div className="ui divider"></div>
 					<div className="ui form">
 						<div className="form">
-							<label>User password</label>
+							<label>User password </label>
 							<input
 								type="text"
 								name="password"
