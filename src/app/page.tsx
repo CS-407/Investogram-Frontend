@@ -5,10 +5,10 @@ import Image from 'next/image'
 import { Inter } from '@next/font/google'
 import styles from './page.module.css'
 import Header from './header'
-import PopularStocks from '@/components/stock/popularStocks'
 import Link from "next/link";
 import AuthContext from "@/context/AuthContext";
 import { usePathname, useRouter } from "next/navigation";
+
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -37,9 +37,6 @@ export default function Home() {
             <p>This Week</p>
 
           </div>
-          <table>
-            <PopularStocks/> 
-          </table>
           <div
 						className="flex-none w-1/3 p-4 flex justify-center items-center flex-col rounded-lg shadow-lg p-5"
 						style={{ backgroundColor: "#FDE698"}}
