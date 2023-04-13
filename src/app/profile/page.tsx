@@ -10,6 +10,7 @@ import { BASE_URL } from "@/util/globals";
 import RecentTradesSection from "../../components/profile/recentTradesSection";
 import LossGainSection from "@/components/profile/lossGainSection";
 import StocksOwned from "@/components/profile/stocksOwned";
+import DeleteButton from "@/components/profile/deleteButton";
 
 export default function profile() {
 	const { user } = useContext(AuthContext);
@@ -153,6 +154,7 @@ export default function profile() {
 					{state?.stock_info && <StocksOwned stocks={state.stock_info} />}
 				</div>
 			</div>
+			<DeleteButton />
 		</div>
 	);
 }
