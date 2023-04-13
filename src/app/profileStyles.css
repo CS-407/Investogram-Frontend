@@ -47,12 +47,4 @@
 	border-color: #000;
   }
   
-
-  .hide {
-	display: none;
-  }
-  
-  .innerText:hover + .hide {
-	display: block;
-  }
   

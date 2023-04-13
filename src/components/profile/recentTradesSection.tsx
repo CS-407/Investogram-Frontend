@@ -8,8 +8,7 @@ export default function RecentTradesSection(
 ) {
 	return (
 		<div>
-			<div className="font-semibold text-lg mb-2">Your most recent trades:</div>
-
+			<div className="font-semibold text-lg">Your most recent trades:</div>
 			{props.trades.length === 0 && (
 				<div>You have no trades yet!</div>
 			)}
