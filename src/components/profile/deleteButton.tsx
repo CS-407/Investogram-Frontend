@@ -4,12 +4,14 @@ import React, { useContext, useState } from "react";
 import axios from "axios";
 import { User } from "@/util/types";
 import AuthContext from "@/context/AuthContext";
+import { BASE_URL } from "@/util/globals";
 
 //const { logout } = useContext(AuthContext);
 import { useRouter } from "next/navigation";
 
 
-const currentUser = '64270b70316cc0d88e749cb6';
+//add current user
+//const currentUser = "";
 
 export default function DeleteButton() {
 
@@ -17,17 +19,16 @@ const router = useRouter();
 
 const executeDelete = async (password: string) => {
     const { user } = useContext(AuthContext);
-    fetch('http://localhost:5000/api/user/deleteAcc', {
-        method: 'DELETE',
+    axios.delete(`${BASE_URL}/api/user/deleteAcc`, {
         headers: {
-            'Content-Type': 'application/json',
+            'Content-Type': 'application/json'
         },
-        body: JSON.stringify({
-            user_id: currentUser,
+        data: JSON.stringify({
+            user_id: user?._id,
             password: password
         })
     })
-    .then(res => res.json())
+    .then(res => res.data)
     .then(data => {
         if (data.msg === "Success") {
             setDeleteSucess(true);
@@ -35,8 +36,14 @@ const executeDelete = async (password: string) => {
         } else {
             setDeleteFail(true);
         }
-        //logout();
     })
+    .catch(err => {
+        if (err.response && err.response.data && err.response.data.msg) {
+            alert(err.response.data.msg);
+        } else {
+            alert("Trouble Contacting Server");
+        }
+    });
 };
 
 interface Fields {
