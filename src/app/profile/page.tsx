@@ -165,9 +165,7 @@ export default function profile() {
 					</p>
 					{state?.stock_info && <StocksOwned stocks={state.stock_info} />}
 				</div>
-
 			</div>
-			<DeleteButton />
 		</div>
 	);
 }
