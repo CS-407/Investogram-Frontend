@@ -13,7 +13,6 @@ export default function UserTradesSection(props: UserTradesSectionProps) {
 	const stockId = props.stockId;
 
 	useEffect(() => {
-
 		axios
 			.get(`${BASE_URL}/api/stock/userTrades/${stockId}`, {
 				headers: {
@@ -32,9 +31,9 @@ export default function UserTradesSection(props: UserTradesSectionProps) {
 			})
 			.catch((err) => {
 				if (err.response && err.response.data && err.response.data.msg) {
-                    alert(err.response.data.msg);
+                    console.log(err.response.data.msg);
                 } else {                 
-                    alert("Trouble contacting server");
+                    console.log("Trouble contacting server");
                 }
 			});
 	}, []);

@@ -28,7 +28,7 @@ export default function stock() {
 			})
 			.catch((err) => {
 				if (err.response && err.response.data && err.response.data.msg) {
-					alert(err.response.data.msg);
+					console.log(err.response.data.msg);
 				} else {
 					console.log("getStock", err);
 				}
@@ -46,7 +46,7 @@ export default function stock() {
 			})
 			.catch((err) => {
 				if (err.response && err.response.data && err.response.data.msg) {
-					alert(err.response.data.msg);
+					console.log(err.response.data.msg);
 				} else {
 					console.log("getPrice", err);
 				}
