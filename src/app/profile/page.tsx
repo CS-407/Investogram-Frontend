@@ -10,7 +10,6 @@ import { BASE_URL } from "@/util/globals";
 import RecentTradesSection from "../../components/profile/recentTradesSection";
 import LossGainSection from "@/components/profile/lossGainSection";
 import StocksOwned from "@/components/profile/stocksOwned";
-import PieChart from "@/components/profile/pieChart";
 import DeleteButton from "@/components/profile/deleteButton";
 
 export default function profile() {
@@ -168,6 +167,7 @@ export default function profile() {
 				</div>
 
 			</div>
+			<DeleteButton />
 		</div>
 	);
 }
