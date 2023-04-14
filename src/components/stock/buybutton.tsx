@@ -43,9 +43,9 @@ export default function BuyButton(props: BuySellButtonProps) {
 			.catch((err) => {
 				setBuyFail(true);
 				if (err.response && err.response.data && err.response.data.msg) {
-					alert(err.response.data.msg);
+					console.log(err.response.data.msg);
 				} else {
-					alert("Trouble contacting server");
+					console.log("Trouble contacting server");
 				}
 			});
 	};
@@ -63,10 +63,9 @@ export default function BuyButton(props: BuySellButtonProps) {
 	    })
 	    .catch(err => {
 	        if (err.response && err.response.data && err.response.data.msg) {
-				alert(err.response.data.msg);
+				console.log(err.response.data.msg);
 			} else {
-				console.log('buyButton', err);
-				// alert("Trouble contacting server");
+				console.log("Trouble contacting server");
 			}
 	    });
 	}, []);

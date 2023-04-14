@@ -22,9 +22,9 @@ const SearchStock = () => {
 				})
 				.catch((err) => {
 					if (err.response && err.response.data && err.response.data.msg) {
-						alert(err.response.data.msg);
+						console.log(err.response.data.msg);
 					} else {
-						alert("Trouble contacting server");
+						console.log("Trouble contacting server");
 					}
 				});
 		}

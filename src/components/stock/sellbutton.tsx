@@ -58,7 +58,7 @@ export default function SellButton(props: BuySellButtonProps) {
 	    })
 	    .catch(err => {
 	        if (err.response && err.response.data && err.response.data.msg) {
-				alert(err.response.data.msg);
+				console.log(err.response.data.msg);
 			} else {
 				console.log('sellButtonBalance', err);
 			}
@@ -84,9 +84,9 @@ export default function SellButton(props: BuySellButtonProps) {
 	    })
 	    .catch(err => {
 	        if (err.response && err.response.data && err.response.data.msg) {
-				alert(err.response.data.msg);
+				console.log(err.response.data.msg);
 			} else {
-				console.log('sellButtonTrades', err);
+				console.log('Trouble contacting server');
 			}
 	    });
 	}, []);
