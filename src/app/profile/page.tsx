@@ -10,6 +10,11 @@ import { BASE_URL } from "@/util/globals";
 import RecentTradesSection from "../../components/profile/recentTradesSection";
 import LossGainSection from "@/components/profile/lossGainSection";
 import StocksOwned from "@/components/profile/stocksOwned";
+<<<<<<< Updated upstream
+=======
+import DeleteButton from "@/components/profile/deleteButton";
+import FollowRequests from "@/components/profile/followRequests";
+>>>>>>> Stashed changes
 
 export default function profile() {
 	const { user } = useContext(AuthContext);
@@ -130,6 +135,9 @@ export default function profile() {
 								>
 									See Follow Requests
 								</Link>
+								<span className="inline-flex items-center justify-center w-4 h-4 ml-2 text-xs font-semibold text-blue-800 bg-blue-50 rounded-full">
+								{FollowRequests.length}
+  								</span>
 							</button>
 						</div>
 					</div>
