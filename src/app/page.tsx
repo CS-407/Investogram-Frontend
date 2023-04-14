@@ -39,9 +39,15 @@ export default function Home() {
 			className="flex-none h-1/3 w-2/3 flex justify-center items-center flex-col rounded-lg shadow-lg p-5"
 			style={{ backgroundColor: "#fbebaa"}}>
             <h1
-				className="text-2xl text-center font-bold mt-4 mb-2 p-3"
+				className="text-2xl text-center font-bold mt-4 p-1"
 				style={{ color: "#364F6B" }}
 				>Popular Stocks</h1>
+				<p
+							className="text-3l mt-4 mb-2"
+							style={{ color: "#364F6B" }}
+						>
+							Navigate to a stock page by clicking on the stock ticker
+						</p>
 		
             <PopularStocks/> 
           </div>

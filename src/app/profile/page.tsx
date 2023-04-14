@@ -10,11 +10,12 @@ import { BASE_URL } from "@/util/globals";
 import RecentTradesSection from "../../components/profile/recentTradesSection";
 import LossGainSection from "@/components/profile/lossGainSection";
 import StocksOwned from "@/components/profile/stocksOwned";
+import PieChart from "@/components/profile/pieChart";
+import DeleteButton from "@/components/profile/deleteButton";
 
 export default function profile() {
 	const { user } = useContext(AuthContext);
 	const [state, setState] = useState<TradeInfo>();
-
 	useEffect(() => {
 		axios
 			.get(`${BASE_URL}/api/user/trades/${user?._id}`, {
@@ -129,6 +130,10 @@ export default function profile() {
 							</button>
 						</div>
 					</div>
+					{/* useful metrics on profile	
+								- remaining wallet
+								- profit/loss
+								- total value of stock */}
 					<div
 						className="flex-grow w-2/3 p-4 shadow-lg bg-white mx-auto align-middle rounded-lg ml-3"
 						style={{ backgroundColor: "#FDE698" }}
@@ -161,6 +166,7 @@ export default function profile() {
 					</p>
 					{state?.stock_info && <StocksOwned stocks={state.stock_info} />}
 				</div>
+
 			</div>
 		</div>
 	);

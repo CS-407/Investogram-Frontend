@@ -1,40 +1,51 @@
-import React, { useRef, useEffect } from "react";
-import Chart from 'chart.js/auto';
+import { StockInfo } from "@/util/types";
+import { Stock } from "../../util/types";
+import { useRef, useEffect } from "react";
+import Chart from "chart.js/auto";
 
-import { currencyConverter } from "@/util/HelperFunctions";
+interface Props {
+  stocks: StockInfo[];
+}
 
-const PieChart: React.FC = () => {
-  const chartRef = useRef<HTMLCanvasElement | null>(null);
+const PieChart: React.FC<Props> = ({ stocks }) => {
+  const chartRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
     if (chartRef.current) {
-      const ctx = chartRef.current.getContext("2d");
-      if (ctx) {
-        new Chart(ctx, {
-          type: "pie",
-          data: {
-            labels: ["Revenue", "Loss", "Profit"],
-            datasets: [
-              {
-                data: [
-                  Math.floor(Math.random() * 50),
-                  Math.floor(Math.random() * 50),
-                  Math.floor(Math.random() * 50),
-                ],
-                backgroundColor: ["#FF6384", "#36A2EB", "#FFCE56"],
-              },
-            ],
-          },
-        });
-      }
+      const labels = stocks.map((stock) => stock.stock_ticker);
+      const data = stocks.map((stock) => stock.current_price);
+
+      new Chart(chartRef.current, {
+        type: "pie",
+        data: {
+          labels: labels,
+          datasets: [
+            {
+              data: data,
+              backgroundColor: [
+                "#FF6384",
+                "#36A2EB",
+                "#FFCE56",
+                // Add more colors as needed
+              ],
+              borderWidth: 1,
+            },
+          ],
+        },
+        options: {
+          // Add additional options here, such as legend position or chart title
+        },
+      });
     }
-  }, []);
+  }, [stocks]);
 
   return (
     <div>
-      <canvas ref={chartRef} />
+      <PieChart stocks={[]}></PieChart>
     </div>
-  );
+
+  )
+
 };
 
 export default PieChart;
