@@ -40,6 +40,7 @@ export default function LossGainSection(props: LossGainSectionProps) {
 					<div className="p-4"></div>
 
 					{/* start of loss */}
+					{/* profit/loss = total value of stock + stock you've sold - total spent on stocks */}
 					<div className="px-1 rounded-lg">
 						<div className="font-semibold text-lg">Total Loss:</div>
 						{/* <p className="text-sm">How much stock has been bought on the app</p> */}

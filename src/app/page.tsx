@@ -25,56 +25,59 @@ export default function Home() {
 			</div>
 			{/* end of title */}
 
-			<div className="flex flex-row">
-				<div
-					className="flex-none h-1/3 w-2/3 flex justify-center items-center flex-col rounded-lg shadow-lg p-5"
-					style={{ backgroundColor: "#fbebaa" }}
-				>
-					<h1
-						className="text-2xl text-center font-bold mt-4 mb-2 p-3"
-						style={{ color: "#364F6B" }}
-					>
-						Popular Stocks
-					</h1>
-
-					<PopularStocks />
-				</div>
-				<div
-					className="flex-none h-1/3 w-1/3 p-4 flex justify-center items-center flex-col rounded-lg shadow-lg p-5 ml-3 mr-3"
-					style={{ backgroundColor: "#FDE698" }}
-				>
-					<h1
-						className="text-2xl text-center font-bold mt-4 mb-2 p-3"
-						style={{ color: "#364F6B" }}
-					>
-						My Profile
-					</h1>
-					<img
-						src={"/images/avatar_1.png"}
-						alt={`${"your"}'s avatar`}
-						className={"flex-center"}
-						style={{
-							borderRadius: "50%",
-							width: "150px",
-							height: "150px",
-							objectFit: "cover",
-						}}
-					/>
-					<h1
-						className="text-2xl font-bold mt-4 mb-2"
-						style={{ color: "#364F6B" }}
-					>
-						<Link href={"/profile"}>
-							<p
-								className={`block ${
-									pathname == "/profile" ? "font-bold" : ""
-								} hover:underline py-2 pl-3 pr-4 text-black bg-black-700 rounded md:bg-transparent md:text-black-700 md:p-0 md:dark:text-black-500`}
-								style={{ color: "#364F6B" }}
+		<div
+			className="flex-none h-1/3 w-2/3 flex justify-center items-center flex-col rounded-lg shadow-lg p-5"
+			style={{ backgroundColor: "#fbebaa"}}>
+            <h1
+				className="text-2xl text-center font-bold mt-4 p-1"
+				style={{ color: "#364F6B" }}
+				>Popular Stocks</h1>
+				<p
+							className="text-3l mt-4 mb-2"
+							style={{ color: "#364F6B" }}
+						>
+							Navigate to a stock page by clicking on the stock ticker
+						</p>
+		
+            <PopularStocks/> 
+          </div>
+          <div
+			className="flex-none h-1/3 w-1/3 p-4 flex justify-center items-center flex-col rounded-lg shadow-lg p-5 ml-3 mr-3"
+			style={{ backgroundColor: "#FDE698"}}>
+				<h1
+				className="text-2xl text-center font-bold mt-4 mb-2 p-3"
+				style={{ color: "#364F6B" }}
+				>My Profile</h1>
+						<img
+							src={"/images/avatar_1.png"}
+							alt={`${"your"}'s avatar`}
+							className={"flex-center"}
+							style={{
+								borderRadius: "50%",
+								width: "150px",
+								height: "150px",
+								objectFit: "cover"
+							}}
+						/>
+						<h1
+							className="text-2xl font-bold mt-4 mb-2"
+							style={{ color: "#364F6B" }}
+						>
+							<Link href={"/profile"}>
+								<p className={`block ${pathname == "/profile" ? "font-bold" : ""} hover:underline py-2 pl-3 pr-4 text-black bg-black-700 rounded md:bg-transparent md:text-black-700 md:p-0 md:dark:text-black-500`} style={{color:"#364F6B"}}>
+									{user?.username}
+								</p>
+							</Link>
+						</h1>
+            <div className="flex flex-row">
+							<div
+								className={`followers`}
+								style={{ marginRight: "10px", color: "#364F6B" }}
 							>
 								{user?.username}
-							</p>
-						</Link>
-					</h1>
+						
+						
+					
 					<div className="flex flex-row">
 						<div
 							className={`followers`}
@@ -99,6 +102,7 @@ export default function Home() {
 						>
 							{"Leaderboard Position: "}
 						</h1>
+					</div>
 					</div>
 				</div>
 			</div>
