@@ -112,4 +112,8 @@ export default function Home() {
 		</div>
     </main>
   )
+<<<<<<< Updated upstream
 }
+=======
+}
+>>>>>>> Stashed changes
