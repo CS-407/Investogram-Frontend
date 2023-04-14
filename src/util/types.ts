@@ -68,3 +68,12 @@ export interface Post {
 	timestamp: string;
 	comments: any[];
 }
+
+export interface PopularStock {
+	_id: {
+		stock_id: string;
+		stock_name: string;
+		stock_ticker: string;
+	};
+	totalTransactions: number;
+}
