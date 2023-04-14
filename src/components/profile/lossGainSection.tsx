@@ -19,24 +19,26 @@ export default function LossGainSection(props: LossGainSectionProps) {
 
 	if (props.monetaryInfo) {
 		return (
-			<div
-				className="flex my-auto align-center rounded-lg flex-row p-5"
-				style={{ color: "#364F6B" }}
-			>
-				{/* start of revenue */}
-				<div className="px-1 mr-5 rounded-lg">
-					<div className="font-semibold text-lg mr-2">Total Revenue:</div>
-					{/* <p className="text-sm">How much stock has been sold on the app</p> */}
-					<div className="">
-						<div className="text-2xl font-semibold text-green-500">
-							${revenue}
+			
+			<div className="flex my-auto align-center rounded-lg flex-row p-5" style={{color:"#364F6B"}}>
+					{/* start of revenue */}
+					<div className="px-1 mr-5 rounded-lg">
+						<div className="font-semibold text-lg mr-2">Total Revenue:</div>
+						{/* <p className="text-sm">How much stock has been sold on the app</p> */}
+						<div className="">
+							<div className="text-2xl font-semibold text-green-500">
+								${revenue}
+							</div>
+							<div className="text-sm font-semibold text-green-500">
+								on {sales} trades
+							</div>
 						</div>
 						<div className="text-sm font-semibold text-green-500">
 							on {sales} trades
 						</div>
 					</div>
-
 					{/* end of revenue */}
+
 					<div className="p-4"></div>
 
 					{/* start of loss */}
@@ -77,8 +79,6 @@ export default function LossGainSection(props: LossGainSectionProps) {
 						</div>
 					</div>
 				</div>
-				{/* add pie chart here */}
-			</div>
 		);
 	} else {
 		return (
