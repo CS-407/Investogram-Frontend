@@ -34,7 +34,7 @@ export default function Home() {
 		{/* end of title */}
 	
       <div className="flex flex-row">
-
+		{/* start of popular stocks component */}
 		<div
 			className="flex-none h-1/3 w-2/3 flex justify-center items-center flex-col rounded-lg shadow-lg p-5"
 			style={{ backgroundColor: "#fbebaa"}}>
@@ -45,7 +45,10 @@ export default function Home() {
 		
             <PopularStocks/> 
           </div>
-          <div
+		  {/* end of popular stocks component */}
+
+		  {/* start of profile component */}
+        <div
 			className="flex-none h-1/3 w-1/3 p-4 flex justify-center items-center flex-col rounded-lg shadow-lg p-5 ml-3 mr-3"
 			style={{ backgroundColor: "#FDE698"}}>
 				<h1
@@ -73,7 +76,9 @@ export default function Home() {
 								</p>
 							</Link>
 						</h1>
-            <div className="flex flex-row">
+
+						{/* start of followers/following component */}
+            			<div className="flex flex-row">
 							<div
 								className={`followers`}
 								style={{ marginRight: "10px", color: "#364F6B" }}
@@ -89,19 +94,22 @@ export default function Home() {
 								</p>{" "}
 								following
 							</div>
-            </div>
-            <div>
-            <h1
+           				</div>
+						{/* end of followers/following component */}
+
+            			<div>
+            				<h1
 							className="text-3l font-bold mt-4 mb-2"
 							style={{ color: "#364F6B" }}
-						>
+								>
 							{"Leaderboard Position: "}
-						</h1>
-            </div>
+							</h1>
+            			</div>
+						
 			
-          </div>
-
-      </div>
+        </div>
+		{/* end of profile component */}
+		</div>
     </main>
   )
 }
