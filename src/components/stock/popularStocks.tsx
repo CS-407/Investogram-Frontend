@@ -36,7 +36,7 @@ export default function PopularStocks() {
     <tr className="max-w-sm overflow-hidden shadow-lg mt-3 mb-2 p-3 rounded-lg" style={{backgroundColor:"#364F6B", color:"#fff"}}>
         <th className="py-2 px-4 uppercase tracking-wider">Stock Ticker</th>
       <th className="py-2 px-4 uppercase tracking-wider">Stock Name</th>
-      <th className="py-2 px-4 uppercase tracking-wider">Transactions</th>
+      <th className="py-2 px-4 uppercase tracking-wider">Shares</th>
     </tr>
   </thead>
   <tbody>
@@ -44,7 +44,7 @@ export default function PopularStocks() {
       <tr key={index} className="max-w-sm rounded overflow-hidden mb-3 p-3 mt-3">
         
         <td className="inline bg-blue-100 rounded-full px-3 py-1 text-sm text-center font-semibold text-white-700 mr-2 mb-2">
-            <Link href={"/stock/${stockObj._id}"}>{stockObj._id?.stock_ticker}</Link>
+            <Link href={`/stock/${stockObj._id?.stock_id}`}>{stockObj._id?.stock_ticker}</Link>
         </td>
         <td className="py-2 px-4 text-center font-semibold">{stockObj._id?.stock_name}</td>
         {/* <td className="py-2 px-4 text-center">{stockObj._id?.stock_name}</td> */}
