@@ -10,11 +10,8 @@ import { BASE_URL } from "@/util/globals";
 import RecentTradesSection from "../../components/profile/recentTradesSection";
 import LossGainSection from "@/components/profile/lossGainSection";
 import StocksOwned from "@/components/profile/stocksOwned";
-<<<<<<< Updated upstream
-=======
 import DeleteButton from "@/components/profile/deleteButton";
 import FollowRequests from "@/components/profile/followRequests";
->>>>>>> Stashed changes
 
 export default function profile() {
 	const { user } = useContext(AuthContext);

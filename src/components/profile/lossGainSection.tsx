@@ -23,11 +23,7 @@ export default function LossGainSection(props: LossGainSectionProps) {
 	if (props.monetaryInfo) {
 		return (
 			
-<<<<<<< Updated upstream
-			<div className="flex my-auto align-center rounded-lg flex-row p-5">
-=======
 			<div className="flex my-auto align-center rounded-lg flex-row p-5" style={{color:"#364F6B"}}>
->>>>>>> Stashed changes
 					{/* start of revenue */}
 					<div className="px-1 mr-5 rounded-lg">
 						<div className="font-semibold text-lg mr-2">Total Revenue:</div>
