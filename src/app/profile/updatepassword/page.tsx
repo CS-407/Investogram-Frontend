@@ -3,7 +3,7 @@ import React from 'react'
 
 const UpdatePasswordPage = () => {
   return (
-    <div>page</div>
+    <div>Update Password Page</div>
   )
 }
 

@@ -2,7 +2,7 @@ import React from 'react'
 
 const UpdateUsernamePage = () => {
   return (
-    <div>page</div>
+    <div>Update Username Page</div>
   )
 }
 
