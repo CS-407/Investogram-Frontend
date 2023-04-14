@@ -1,10 +1,6 @@
 "use client";
 
-import { Transaction } from "@/util/types";
 import { currencyConverter } from "@/util/HelperFunctions";
-import { useEffect, useState } from "react";
-
-import PieChart from "@/components/profile/pieChart";
 
 interface LossGainSectionProps {
 	monetaryInfo: any;
@@ -32,9 +28,6 @@ export default function LossGainSection(props: LossGainSectionProps) {
 							<div className="text-sm font-semibold text-green-500">
 								on {sales} trades
 							</div>
-						</div>
-						<div className="text-sm font-semibold text-green-500">
-							on {sales} trades
 						</div>
 					</div>
 					{/* end of revenue */}
