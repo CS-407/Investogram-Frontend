@@ -60,28 +60,11 @@ export interface TradeInfo {
 	monetary_info: MonetaryInfo;
 }
 
-export interface Comment {
-	_id: string;
-	post_id: string;
-	user_id: string;
-	content: string;
-	timestamp: number;
-}
-
 export interface Post {
 	userId: string;
 	type: string;
 	content: string;
 	likes: number;
 	timestamp: string;
-  comments: Comment[];
-}
-
-export interface PopularStock {
-	_id: {
-		stock_id: string;
-		stock_name: string;
-		stock_ticker: string;
-	};
-	totalTransactions: number;
+	comments: any[];
 }

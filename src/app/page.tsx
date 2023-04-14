@@ -5,10 +5,11 @@ import Image from 'next/image'
 import { Inter } from '@next/font/google'
 import styles from './page.module.css'
 import Header from './header'
-import PopularStocks from '@/components/stock/popularStocks'
 import Link from "next/link";
 import AuthContext from "@/context/AuthContext";
 import { usePathname, useRouter } from "next/navigation";
+import PopularStocks from "@/components/stock/popularStocks";
+
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -18,32 +19,39 @@ export default function Home() {
   const { user } = useContext(AuthContext);
   return (
     <main
-				className="p-5"
-				style={{ backgroundColor: "#f5f5f5"}}
-			>
-        <h1
-							className="text-2xl font-bold mt-4 mb-4"
-							style={{ color: "#364F6B"}}
-				>Welcome to Investogram!</h1>
-      <div className="flex flex-row">
-					<div
-						className="flex-none w-2/3 p-4 flex justify-center items-center flex-col rounded-lg shadow-lg mr-4"
-						style={{ backgroundColor: "#FDE698"}}
-					>
-            <h1
-							className="text-2xl font-bold mt-4 mb-2"
-							style={{ color: "#364F6B" }}
-						>Popular Stocks</h1>
-            <p>This Week</p>
+		className="p-5"
+		style={{ backgroundColor: "#f5f5f5"}}>
 
-          </div>
-          <table>
+		{/* start of title */}
+		<div className="flex-none p-4">
+				<h1
+      				className="text-2xl font-bold mt-4 mb-4"
+      				style={{ color: "#364F6B"}}
+    			>
+      				Welcome to Investogram!
+    			</h1>
+		</div>
+		{/* end of title */}
+	
+      <div className="flex flex-row">
+
+		<div
+			className="flex-none h-1/3 w-2/3 flex justify-center items-center flex-col rounded-lg shadow-lg p-5"
+			style={{ backgroundColor: "#fbebaa"}}>
+            <h1
+				className="text-2xl text-center font-bold mt-4 mb-2 p-3"
+				style={{ color: "#364F6B" }}
+				>Popular Stocks</h1>
+		
             <PopularStocks/> 
-          </table>
+          </div>
           <div
-						className="flex-none w-1/3 p-4 flex justify-center items-center flex-col rounded-lg shadow-lg p-5"
-						style={{ backgroundColor: "#FDE698"}}
-					>
+			className="flex-none h-1/3 w-1/3 p-4 flex justify-center items-center flex-col rounded-lg shadow-lg p-5 ml-3 mr-3"
+			style={{ backgroundColor: "#FDE698"}}>
+				<h1
+				className="text-2xl text-center font-bold mt-4 mb-2 p-3"
+				style={{ color: "#364F6B" }}
+				>My Profile</h1>
 						<img
 							src={"/images/avatar_1.png"}
 							alt={`${"your"}'s avatar`}
@@ -52,7 +60,7 @@ export default function Home() {
 								borderRadius: "50%",
 								width: "150px",
 								height: "150px",
-								objectFit: "cover",
+								objectFit: "cover"
 							}}
 						/>
 						<h1
@@ -90,6 +98,7 @@ export default function Home() {
 							{"Leaderboard Position: "}
 						</h1>
             </div>
+			
           </div>
 
       </div>

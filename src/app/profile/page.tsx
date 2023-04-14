@@ -12,7 +12,6 @@ import LossGainSection from "@/components/profile/lossGainSection";
 import StocksOwned from "@/components/profile/stocksOwned";
 import DeleteButton from "@/components/profile/deleteButton";
 
-
 export default function profile() {
 	const { user } = useContext(AuthContext);
 	const [state, setState] = useState<TradeInfo>();
@@ -46,15 +45,11 @@ export default function profile() {
 
 	return (
 		<div>
-			<main
-				className="p-5"
-				style={{ backgroundColor: "#f5f5f5"}}
-			>
+			<main className="p-5" style={{ backgroundColor: "#f5f5f5" }}>
 				<div className="flex flex-row">
-					
 					<div
 						className="flex-none w-1/3 p-4 flex justify-center items-center flex-col rounded-lg shadow-lg p-5"
-						style={{ backgroundColor: "#FDE698"}}
+						style={{ backgroundColor: "#FDE698" }}
 					>
 						<img
 							src={"/images/avatar_1.png"}
@@ -136,21 +131,32 @@ export default function profile() {
 						</div>
 					</div>
 					<div
-						className="flex-grow w-2/3 p-4 shadow-lg bg-white mx-auto align-middle rounded-lg ml-3" style={{ backgroundColor: "#FDE698"}}
+						className="flex-grow w-2/3 p-4 shadow-lg bg-white mx-auto align-middle rounded-lg ml-3"
+						style={{ backgroundColor: "#FDE698" }}
 					>
-							{state?.trades && <LossGainSection monetaryInfo={state.monetary_info} />}
+						{state?.trades && (
+							<LossGainSection monetaryInfo={state.monetary_info} />
+						)}
 					</div>
 				</div>
 			</main>
-			<div className="grid grid-cols-4 p-5" style={{ backgroundColor: "#f5f5f5", padding: "20px" }}>
-				<div className="col-span-2 p-5" style={{ backgroundColor: "#f5f5f5", padding: "20px" }}>
-
+			<div
+				className="grid grid-cols-4 p-5"
+				style={{ backgroundColor: "#f5f5f5", padding: "20px" }}
+			>
+				<div
+					className="col-span-2 p-5"
+					style={{ backgroundColor: "#f5f5f5", padding: "20px" }}
+				>
 					<p className="mb-4 font-extrabold leading-none tracking-tight text-gray-900 md:text-2xl lg:text-4xl dark:text-black">
 						Trade History
 					</p>
-					{ state?.trades && <RecentTradesSection trades={state.trades} /> }
+					{state?.trades && <RecentTradesSection trades={state.trades} />}
 				</div>
-				<div className="col-span-2 p-5" style={{ backgroundColor: "#f5f5f5", padding: "20px" }}>
+				<div
+					className="col-span-2 p-5"
+					style={{ backgroundColor: "#f5f5f5", padding: "20px" }}
+				>
 					<p className="mb-4 font-extrabold leading-none tracking-tight text-gray-900 md:text-2xl lg:text-4xl dark:text-black">
 						Value of Stocks Owned
 					</p>
