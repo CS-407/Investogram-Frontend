@@ -15,6 +15,7 @@ import DeleteButton from "@/components/profile/deleteButton";
 export default function profile() {
 	const { user } = useContext(AuthContext);
 	const [state, setState] = useState<TradeInfo>();
+
 	useEffect(() => {
 		axios
 			.get(`${BASE_URL}/api/user/trades/${user?._id}`, {
@@ -37,7 +38,7 @@ export default function profile() {
 				if (err.response && err.response.data && err.response.data.msg) {
 					console.log(err.response.data.msg);
 				} else {
-					// console.log("Trouble Contacting Server");
+					console.log("Trouble Contacting Server");
 				}
 			});
 	}, []);
@@ -124,7 +125,10 @@ export default function profile() {
 									href={"/profile/requests"}
 									style={{ textDecoration: "none" }}
 								>
-									See Follow Requests
+									See Follow Requests{" "}
+									{user?.requests &&
+										user?.requests?.length > 0 &&
+										`(${user?.requests.length})`}
 								</Link>
 							</button>
 						</div>
