@@ -40,7 +40,7 @@ export default function PopularStocks() {
 				{stockData.map((stockObj, index) => (
 					<tr
 						key={index}
-						className="max-w-sm overflow-hidden mb-3 p-3 mt-3 rounded-lg"
+						className="max-w-sm text-center overflow-hidden mb-3 p-3 mt-3 rounded-lg"
 					>
 						<td className="inline bg-blue-100 rounded-full px-3 py-1 text-sm text-center font-semibold text-white-700 mr-2 mb-2">
 							<Link href={`/stock/${stockObj._id?.stock_id}`}>
