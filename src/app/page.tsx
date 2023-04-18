@@ -36,7 +36,7 @@ export default function Home() {
       <div className="flex flex-row">
 		{/* start of popular stocks component */}
 		<div
-			className="flex-none h-1/3 w-2/3 flex justify-center items-center flex-col rounded-lg shadow-lg p-5"
+			className="flex-none h-1/3 w-2/3 flex justify-center items-center flex-col rounded-lg shadow-lg p-5 col-md-8"
 			style={{ backgroundColor: "#fbebaa"}}>
             <h1
 				className="text-2xl text-center font-bold mt-4 mb-2 p-3"
@@ -47,9 +47,10 @@ export default function Home() {
           </div>
 		  {/* end of popular stocks component */}
 
+		  <div className="flex flex-col w-1/3 h-2/3">
 		  {/* start of profile component */}
-        <div
-			className="flex-none h-1/3 w-1/3 p-4 flex justify-center items-center flex-col rounded-lg shadow-lg p-5 ml-3 mr-3"
+        	<div
+			className="flex-none h-2/3 flex justify-center items-center flex-col rounded-lg shadow-lg p-50 ml-3 mb-3"
 			style={{ backgroundColor: "#FDE698"}}>
 				<h1
 				className="text-2xl text-center font-bold mt-4 mb-2 p-3"
@@ -105,11 +106,26 @@ export default function Home() {
 							{"Leaderboard Position: "}
 							</h1>
             			</div>
-						
+
+       				 </div>
+					{/* end of profile component */}
+				
+
 			
-        </div>
-		{/* end of profile component */}
-		</div>
-    </main>
+				<div
+			className="flex-none h-2/3 flex justify-center items-center rounded-lg shadow-lg p-25 ml-3"
+			style={{ backgroundColor: "#FDE698"}}>
+				<h1
+				className="text-2xl text-center font-bold mt-4 mb-2 p-3"
+				style={{ color: "#364F6B" }}
+				>My Feed</h1>
+				<Feed></Feed>
+
+
+						</div> 
+						</div>
+						</div>
+					
+    			</main>
   )
 }

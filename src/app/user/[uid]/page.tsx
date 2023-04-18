@@ -106,6 +106,7 @@ const User = () => {
 					>
 						<img
 							src={"/images/default_profile.jpg"}
+							// src={user?.avatar}
 							alt={`${user?.username}'s avatar`}
 							className={"flex-center"}
 							style={{

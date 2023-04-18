@@ -58,6 +58,8 @@ export default function profile() {
 					>
 						<img
 							src={"/images/avatar_1.png"}
+							//uncomment this once avatar choosing functionality is added
+							// src={user?.avatar}
 							alt={`${user?.username}'s avatar`}
 							className={"flex-center"}
 							style={{
