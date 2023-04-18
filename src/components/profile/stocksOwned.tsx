@@ -24,6 +24,8 @@ const StocksOwned = (
 				</p>
 			</div>
 			{stocks.map((stock) => {
+				if (stock.owned <= 0) return null;
+				
 				return (
 					<div
 						key={stock._id}
