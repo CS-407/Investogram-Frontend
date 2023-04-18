@@ -25,6 +25,10 @@ const AuthContext = React.createContext({
 	forgot: async (email: string) => {},
 	resetPassword: async (user: Partial<User>) => {},
 	resetUsername: async (user: Partial<User>) => {},
+	updatePassword: async (user: Partial<User>) => {},
+	updateUsername: async (user: Partial<User>) => {},
+	acceptFollowRequest: async (otherUser: string) => {},
+	rejectFollowRequest: async (otherUser: string) => {},
 });
 
 export const AuthContextProvider = (props: React.PropsWithChildren<{}>) => {
@@ -33,11 +37,11 @@ export const AuthContextProvider = (props: React.PropsWithChildren<{}>) => {
 	useEffect(() => {
 		let userdatastring: string | null = "";
 		let userData = null;
-        let lsToken = null;
+		let lsToken = null;
 
 		if (typeof window !== "undefined") {
 			userdatastring = localStorage.getItem("userdata");
-            lsToken = localStorage.getItem("token");
+			lsToken = localStorage.getItem("token");
 		}
 
 		if (userdatastring) {
@@ -86,7 +90,7 @@ export const AuthContextProvider = (props: React.PropsWithChildren<{}>) => {
 			const data = res.data;
 
 			localStorage.setItem("token", data.token);
-            localStorage.setItem("userdata", JSON.stringify(data.user));
+			localStorage.setItem("userdata", JSON.stringify(data.user));
 
 			setState({
 				isAuth: true,
@@ -151,6 +155,113 @@ export const AuthContextProvider = (props: React.PropsWithChildren<{}>) => {
 		}
 	};
 
+	const updatePasswordHandler = async (user: Partial<User>) => {
+		try {
+			await axios.patch("/api/auth/updatepass", user, {
+				headers: {
+					"Content-Type": "application/json",
+					Authorization: `Bearer ${state.token}`,
+				},
+			});
+		} catch (err: any) {
+			if (err.response) {
+				throw err.response.data.msg;
+			}
+			throw err.message;
+		}
+	};
+
+	const updateUsernameHandler = async (user: Partial<User>) => {
+		axios
+			.patch("/api/auth/updateuser", user, {
+				headers: {
+					"Content-Type": "application/json",
+					Authorization: `Bearer ${state.token}`,
+				},
+			})
+			.then((res) => {
+				localStorage.setItem("userdata", JSON.stringify(res.data.user));
+				setState({
+					isAuth: true,
+					user: res.data.user,
+					token: state.token,
+				});
+			})
+			.catch((err: any) => {
+				if (err.response) {
+					throw err.response.data.msg;
+				}
+				throw err.message;
+			});
+	};
+
+	const acceptFollowRequestHandler = async (otherUser: string) => {
+		try {
+			await axios.post(
+				`${BASE_URL}/api/user/follow/accept/${otherUser}`,
+				{},
+				{
+					headers: {
+						Authorization: "Bearer " + localStorage.getItem("token"),
+						"Content-Type": "application/json",
+					},
+				}
+			);
+
+			setState({
+				...state,
+				user: {
+					...state.user,
+					followers: state.user?.followers
+						? state.user.followers + 1
+						: state.user?.followers,
+					followers_list: state.user?.followers_list && [
+						...state.user.followers_list,
+						otherUser,
+					],
+					requests:
+						state.user?.requests &&
+						state.user.requests.filter((user: string) => user !== otherUser),
+				},
+			});
+		} catch (err: any) {
+			if (err.response && err.response.data && err.response.data.msg) {
+				throw err.response.data.msg;
+			}
+			throw err.message;
+		}
+	};
+
+	const rejectFollowRequestHandler = async (otherUser: string) => {
+		try {
+			await axios.post(
+				`${BASE_URL}/api/user/follow/reject/${otherUser}`,
+				{},
+				{
+					headers: {
+						Authorization: "Bearer " + localStorage.getItem("token"),
+						"Content-Type": "application/json",
+					},
+				}
+			);
+
+			setState({
+				...state,
+				user: {
+					...state.user,
+					requests:
+						state.user?.requests &&
+						state.user.requests.filter((user: string) => user !== otherUser),
+				},
+			});
+		} catch (err: any) {
+			if (err.response && err.response.data && err.response.data.msg) {
+				throw err.response.data.msg;
+			}
+			throw err.message;
+		}
+	};
+
 	const logoutHandler = async () => {
 		localStorage.removeItem("token");
 		localStorage.removeItem("userdata");
@@ -174,6 +285,10 @@ export const AuthContextProvider = (props: React.PropsWithChildren<{}>) => {
 				logout: logoutHandler,
 				resetPassword: resetPasswordHandler,
 				resetUsername: resetUsernameHandler,
+				updatePassword: updatePasswordHandler,
+				updateUsername: updateUsernameHandler,
+				acceptFollowRequest: acceptFollowRequestHandler,
+				rejectFollowRequest: rejectFollowRequestHandler,
 			}}
 		>
 			{props.children}
