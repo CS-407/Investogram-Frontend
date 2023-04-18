@@ -7,7 +7,7 @@ axios.defaults.baseURL = BASE_URL;
 
 interface InitState {
 	isAuth: boolean;
-	user: Partial<User> | null;
+	user: User | null;
 	token: string | null;
 }
 
@@ -25,8 +25,8 @@ const AuthContext = React.createContext({
 	forgot: async (email: string) => {},
 	resetPassword: async (user: Partial<User>) => {},
 	resetUsername: async (user: Partial<User>) => {},
-	updatePassword: async (user: Partial<User>) => {},
-	updateUsername: async (user: Partial<User>) => {},
+	updatePassword: async (new_password: string, new_password_2: string) => {},
+	updateUsername: async (new_username: string) => {},
 	acceptFollowRequest: async (otherUser: string) => {},
 	rejectFollowRequest: async (otherUser: string) => {},
 });
@@ -155,9 +155,12 @@ export const AuthContextProvider = (props: React.PropsWithChildren<{}>) => {
 		}
 	};
 
-	const updatePasswordHandler = async (user: Partial<User>) => {
+	const updatePasswordHandler = async (new_password: string, new_password_2: string) => {
 		try {
-			await axios.patch("/api/auth/updatepass", user, {
+			await axios.patch("/api/auth/updatepass", {
+				new_password: new_password,
+				new_password_2: new_password_2,
+			}, {
 				headers: {
 					"Content-Type": "application/json",
 					Authorization: `Bearer ${state.token}`,
@@ -171,28 +174,31 @@ export const AuthContextProvider = (props: React.PropsWithChildren<{}>) => {
 		}
 	};
 
-	const updateUsernameHandler = async (user: Partial<User>) => {
-		axios
-			.patch("/api/auth/updateuser", user, {
+	const updateUsernameHandler = async (new_username: string) => {
+		try {
+			await axios.patch("/api/auth/updateusername", {
+				new_username: new_username,
+			}, {
 				headers: {
 					"Content-Type": "application/json",
 					Authorization: `Bearer ${state.token}`,
 				},
-			})
-			.then((res) => {
-				localStorage.setItem("userdata", JSON.stringify(res.data.user));
-				setState({
-					isAuth: true,
-					user: res.data.user,
-					token: state.token,
-				});
-			})
-			.catch((err: any) => {
-				if (err.response) {
-					throw err.response.data.msg;
-				}
-				throw err.message;
 			});
+
+			setState({
+				...state,
+				user: state.user && {
+					...state.user,
+					username: new_username,
+				}
+			});
+		} catch (err: any) {
+			console.log(err);
+			if (err.response && err.response.data && err.response.data.msg) {
+				throw err.response.data.msg;
+			}
+			throw err.message;
+		}
 	};
 
 	const acceptFollowRequestHandler = async (otherUser: string) => {
@@ -210,18 +216,11 @@ export const AuthContextProvider = (props: React.PropsWithChildren<{}>) => {
 
 			setState({
 				...state,
-				user: {
+				user: state.user && {
 					...state.user,
-					followers: state.user?.followers
-						? state.user.followers + 1
-						: state.user?.followers,
-					followers_list: state.user?.followers_list && [
-						...state.user.followers_list,
-						otherUser,
-					],
-					requests:
-						state.user?.requests &&
-						state.user.requests.filter((user: string) => user !== otherUser),
+					followers: state.user.followers + 1,
+					followers_list: [...state.user.followers_list, otherUser],
+					requests: state.user.requests.filter((user: string) => user !== otherUser),
 				},
 			});
 		} catch (err: any) {
@@ -247,11 +246,9 @@ export const AuthContextProvider = (props: React.PropsWithChildren<{}>) => {
 
 			setState({
 				...state,
-				user: {
+				user: state.user && {
 					...state.user,
-					requests:
-						state.user?.requests &&
-						state.user.requests.filter((user: string) => user !== otherUser),
+					requests: state.user.requests.filter((user: string) => user !== otherUser),
 				},
 			});
 		} catch (err: any) {
