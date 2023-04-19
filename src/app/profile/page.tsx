@@ -52,7 +52,7 @@ export default function profile() {
 						style={{ backgroundColor: "#FDE698" }}
 					>
 						<img
-							src={"/images/avatar_1.png"}
+							src={user ? `/images/avatar_${user?.profile_pic}.png` : "/images/default_profile.jpg"}
 							alt={`${user?.username}'s avatar`}
 							className={"flex-center"}
 							style={{

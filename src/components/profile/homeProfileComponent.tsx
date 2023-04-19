@@ -47,7 +47,7 @@ export default function homeProfileComponent() {
 						style={{ backgroundColor: "#f5f5f5", padding: "20px" }}
 					>
 						<img
-							src={"/images/default_profile.jpg"}
+							src={user ? `/images/avatar_${user?.profile_pic}.png` : "/images/default_profile.jpg"}
 							alt={`${user?.username}'s avatar`}
 							className={"flex-center"}
 							style={{

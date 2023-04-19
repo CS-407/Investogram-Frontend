@@ -11,6 +11,7 @@ export interface User {
 	password?: string;
 	password2?: string;
 	reset_token?: number;
+	profile_pic: string;
 }
 
 export interface Stock {

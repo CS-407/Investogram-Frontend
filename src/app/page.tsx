@@ -43,7 +43,7 @@ export default function Home() {
 						My Profile
 					</h1>
 					<img
-						src={"/images/avatar_1.png"}
+						src={user ? `/images/avatar_${user?.profile_pic}.png` : "/images/default_profile.jpg"}
 						alt={`${"your"}'s avatar`}
 						className="flex-center rounded-full object-cover h-36 w-36"
 					/>
