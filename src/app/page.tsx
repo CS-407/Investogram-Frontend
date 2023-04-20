@@ -22,7 +22,7 @@ export default function Home() {
 			</div>
 			{/* end of title */}
 
-			<div className="flex flex-row ">
+			<div>
 				<FriendsTrades />
 			</div>
 
