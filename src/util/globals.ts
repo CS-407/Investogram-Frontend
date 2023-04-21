@@ -1,1 +1,1 @@
-export const BASE_URL = "https://investogram-backend-git-prod-investogram.vercel.app";
+export const BASE_URL = "https://investogram-backend.vercel.app";
