@@ -54,13 +54,7 @@ export default function profile() {
 						<img
 							src={user ? `/images/avatar_${user?.profile_pic}.png` : "/images/default_profile.jpg"}
 							alt={`${user?.username}'s avatar`}
-							className={"flex-center"}
-							style={{
-								borderRadius: "50%",
-								width: "150px",
-								height: "150px",
-								objectFit: "cover",
-							}}
+							className="flex-center rounded-full object-cover h-36 w-36"
 						/>
 						<h1
 							className="text-2xl font-bold mt-4 mb-2"
@@ -141,8 +135,8 @@ export default function profile() {
 						className="flex-grow w-2/3 p-4 shadow-lg bg-white mx-auto align-middle rounded-lg ml-3"
 						style={{ backgroundColor: "#FDE698" }}
 					>
-						{state?.trades && (
-							<LossGainSection monetaryInfo={state.monetary_info} />
+						{state?.trades && user && (
+							<LossGainSection monetaryInfo={state.monetary_info} stocks={state.stock_info} user={user!}/>
 						)}
 					</div>
 				</div>

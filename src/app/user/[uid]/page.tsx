@@ -160,9 +160,9 @@ const User = () => {
 						>
 						<div>
 							{following ? (
-								state?.monetary_info && (
+								state?.monetary_info && user && (
 									
-									<LossGainSection monetaryInfo={state.monetary_info} />
+									<LossGainSection monetaryInfo={state.monetary_info} stocks={state.stock_info} user={user!}/>
 								)
 							) : (
 								<p
