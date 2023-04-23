@@ -105,15 +105,9 @@ const User = () => {
 						style={{ backgroundColor: "#FDE698", padding: "20px" }}
 					>
 						<img
-							src={"/images/default_profile.jpg"}
+							src={user ? `/images/avatar_${user?.profile_pic}.png` : "/images/default_profile.jpg"}
 							alt={`${user?.username}'s avatar`}
-							className={"flex-center"}
-							style={{
-								borderRadius: "50%",
-								width: "150px",
-								height: "150px",
-								objectFit: "cover",
-							}}
+							className="flex-center rounded-full object-cover h-36 w-36"
 						/>
 						<h1
 							className="text-2xl font-bold mt-4 mb-2"
@@ -166,9 +160,9 @@ const User = () => {
 						>
 						<div>
 							{following ? (
-								state?.monetary_info && (
+								state?.monetary_info && user && (
 									
-									<LossGainSection monetaryInfo={state.monetary_info} />
+									<LossGainSection monetaryInfo={state.monetary_info} stocks={state.stock_info} user={user!}/>
 								)
 							) : (
 								<p

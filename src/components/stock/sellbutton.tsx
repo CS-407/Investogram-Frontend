@@ -125,17 +125,25 @@ export default function SellButton(props: BuySellButtonProps) {
 		}
 	}
 
+	const removeButtonsStyle = '[appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none';
+
+	const updateOrderAmt = (e: any) => {
+		if (e.target.value < 0) setOrderAmt(0);
+		else if (e.target.value > currentStockOwned) setOrderAmt(currentStockOwned);
+		else setOrderAmt(e.target.value);
+	}
+
 	function amtButtons() {
 		return (
 			<div className="flex justify-center">
 				{decreaseButton()}
-				<div className="px-4 text-2xl bold">{orderAmt}</div>
+				<input type="number" className={`${removeButtonsStyle} block w-8 mx-2 text-center bg-gray-200 text-gray-700 border border-gray-200 rounded focus:outline-none focus:bg-white focus:border-gray-500`} value={orderAmt} onChange={updateOrderAmt}/>
 				{increaseButton()}
 			</div>
 		);
 	}
 
-	function remainingStock() {
+	const remainingStock = () => {
 		let remaining = currentStockOwned - orderAmt;
 		return (
 			<div className="text-sm italic p-1">
