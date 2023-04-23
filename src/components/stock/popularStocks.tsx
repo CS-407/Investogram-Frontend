@@ -11,17 +11,19 @@ export default function PopularStocks() {
 	const [stockData, setStockData] = useState<Partial<PopularStock>[]>([]);
 
 	useEffect(() => {
-		axios.get(`${BASE_URL}/api/stock/popularstocks`).then((response) => {
-			const data = response.data;
-			if (data.msg === "Success") {
-				let stockData = data.data;
-				//console.log(stockData);
+		axios
+			.get(`${BASE_URL}/api/stock/popularstocks`)
+			.then((response) => {
+				const data = response.data;
 				setStockData(data.data);
-			} else {
-				console.log("Error");
-				console.log(data);
-			}
-		});
+			})
+			.catch((err: any) => {
+				if (err.response && err.response.data && err.response.data.msg) {
+					console.log(err.response.data.msg);
+				} else {
+					console.log("Trouble contacting server");
+				}
+			});
 	}, []);
 
 	return (

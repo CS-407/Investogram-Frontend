@@ -6,6 +6,7 @@ import { TradeList } from "./tradeList"
 export function FriendsTrades(props: any) {
     
     const [friendData, setFriendData] = useState<any[]>([]);
+    
     useEffect(() => {
 		axios
 			.get(`${BASE_URL}/api/user/friendsTrades/`, {
@@ -18,8 +19,12 @@ export function FriendsTrades(props: any) {
 				const data = response.data.data;
 				setFriendData(data);
 			})
-			.catch((err) => {
-				alert("Error getting friend data")
+			.catch((err: any) => {
+				if (err.response && err.response.data && err.response.data.message) {
+                    console.log(err.response.data.msg);
+                } else {
+                    console.log("Error getting friend data");
+                }
 			});
 	}, []);
 
