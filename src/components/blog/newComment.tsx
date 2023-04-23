@@ -22,7 +22,7 @@ const newComment = (props: React.PropsWithChildren<{ addComment: (comment: strin
 				<div className="px-4 py-2 bg-white rounded-t-lg dark:bg-gray-800">
 					<textarea
 						rows={4}
-						className="block w-full p-2 text-sm text-gray-800 bg-white border-0 dark:bg-gray-800 focus:ring-0 dark:text-white dark:placeholder-gray-400"
+						className="block w-full p-2 text-sm text-gray-800 bg-white border-0 dark:bg-gray-800 dark:text-white dark:placeholder-gray-400"
 						placeholder="Write a comment..."
 						required
                         onChange={handleChange}
