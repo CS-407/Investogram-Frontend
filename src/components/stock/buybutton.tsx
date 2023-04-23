@@ -72,9 +72,9 @@ export default function BuyButton(props: BuySellButtonProps) {
 
 	const [orderAmt, setOrderAmt] = useState(0);
 
-	function availableBalance() {
-		return balance - orderAmt * (price ? price : 0);
-	}
+	const  availableBalance = () => { return balance - orderAmt * (price ? price : 0); }
+
+	const validBuy = (suggestedPrice: number) => { return balance - (suggestedPrice) >= 0 }
 
 	function decreaseButton() {
 		if (orderAmt > 0) {
@@ -90,7 +90,7 @@ export default function BuyButton(props: BuySellButtonProps) {
 	}
 
 	function increaseButton() {
-		if (availableBalance() - (price ? price : 0) >= 0) {
+		if (validBuy(price ? price * (orderAmt+1) : 0)) {
 			// Enough funds
 			return (
 				<button
@@ -103,12 +103,22 @@ export default function BuyButton(props: BuySellButtonProps) {
 		}
 	}
 
+	const maxOrderAmt = Math.floor(balance / price);
+
+	const updateOrderAmt = (e: any) => {
+		if (e.target.value < 0) setOrderAmt(0);
+		else if (!validBuy(e.target.value * price)) setOrderAmt(maxOrderAmt);
+		else setOrderAmt(e.target.value);
+	}
+
+	const removeButtonsStyle = '[appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none';
+
 	function amtButtons() {
 		return (
 			<div className="flex justify-center">
 				{decreaseButton()}
-				<div className="px-4 text-2xl bold">{orderAmt}</div>
-				{increaseButton()}
+				<input type="number" className={`${removeButtonsStyle} block w-8 mx-2 text-center bg-gray-200 text-gray-700 border border-gray-200 rounded focus:outline-none focus:bg-white focus:border-gray-500`} value={orderAmt} onChange={updateOrderAmt}/>
+  				{increaseButton()}
 			</div>
 		);
 	}

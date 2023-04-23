@@ -11,7 +11,10 @@ export function TradeList(props: any) {
 
     const trades = props.trades
 
-    const lessTrades = trades.slice(0, 1)
+    const cutoff = 3 // Change me to get different length of trades to display
+
+    const showingAll = trades.length <= cutoff
+    const lessTrades = showingAll ? trades : trades.slice(0, cutoff)
 
     function Divider() {
         const dividerStyle = 'border-b-2 border-gray-300 my-1'
@@ -35,11 +38,13 @@ export function TradeList(props: any) {
                 }
             </div>
             <div className="flex justify-center">
-                <button 
-                    className="flex items-center justify-center px-2 py-1 text-base font-medium leading-6 text-white whitespace-no-wrap bg-black border-2 border-transparent rounded-full shadow-sm hover:bg-transparent hover:text-black hover:border-black focus:outline-none"
-                    onClick={() => setShowAll(!showAll)}>
-                    {showAll ? "Show Less" : "Show All Trades" }
-                </button>
+                {!showingAll &&
+                    <button 
+                        className="flex items-center justify-center px-2 py-1 text-base font-medium leading-6 text-white whitespace-no-wrap bg-black border-2 border-transparent rounded-full shadow-sm hover:bg-transparent hover:text-black hover:border-black focus:outline-none"
+                        onClick={() => setShowAll(!showAll)}>
+                        {showAll ? "Show Less" : "Show All Trades" }
+                    </button>
+                }
             </div>
         </div>
             
