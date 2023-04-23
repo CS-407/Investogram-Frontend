@@ -94,5 +94,9 @@ export interface Leaderboard {
 		_id: string;
 		username: string;
 	}
-	
+	position: number;
+	loss: number;
+	revenue: number;
+	profit: number;
+	num_trades: number;
 }
