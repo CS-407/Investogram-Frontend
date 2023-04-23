@@ -60,13 +60,22 @@ export interface TradeInfo {
 	monetary_info: MonetaryInfo;
 }
 
+export interface Comment {
+	_id: string;
+	user_id: Partial<User>;
+	post_id: string;
+	content: string;
+	timestamp: number;
+}
+
 export interface Post {
-	userId: string;
+	_id: string;
+	user_id: string;
 	type: string;
 	content: string;
 	likes: number;
-	timestamp: string;
-	comments: any[];
+	timestamp: number;
+	comments: Comment[];
 }
 
 export interface PopularStock {
@@ -76,4 +85,13 @@ export interface PopularStock {
 		stock_ticker: string;
 	};
 	totalTransactions: number;
+}
+
+export interface Leaderboard {
+	_id: string;
+	user_id: {
+		_id: string;
+		username: string;
+	}
+	
 }
