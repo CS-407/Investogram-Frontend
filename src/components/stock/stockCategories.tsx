@@ -27,11 +27,11 @@ export function StockCategories(props: any) {
 	const categorySection = (category: any) => {
 		return (
 			<div className="inline-block p-1 bg-blue-100 mx-1 rounded-lg shadow-lg">
-				<h1 className="font-bold text-xl">{category.category}</h1>
-				<p className="text-lg">
+				<h1 className="font-bold text-xl mb-1">{category.category} ({category.count})</h1>
+				{/* <p className="text-lg">
 					{category.count} stock{category.count > 1 ? "s" : ""}
-				</p>
-				<div className="overflow-y-auto h-64">
+				</p> */}
+				<div className="overflow-y-auto overflow-x-hidden h-64">
 					{category.stocks.map((stock: any) => (
 						<div>
 							<Link
@@ -51,7 +51,7 @@ export function StockCategories(props: any) {
 
 	return (
 		<div className="rounded-md p-2 bg-investogram_yellow my-2 text-investogram_navy">
-			<h3 className="font-bold text-2xl">Stock Categories</h3>
+			<h3 className="font-bold text-2xl mb-2">Stock Categories</h3>
 			{!categoryData && <p>Loading Category Data</p>}
 			<div className="flex flex-row overflow-scroll">
 				{categoryData.length > 0 &&

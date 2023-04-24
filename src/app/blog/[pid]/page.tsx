@@ -7,38 +7,16 @@ import { usePathname } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
 import NewComment from "@/components/blog/newComment";
+import { dateConverter, dateToString } from "@/util/HelperFunctions";
 
 const initialPost: Post = {
 	_id: "64416b0d14cac46eff9fde61",
 	user_id: "642493784def0c7b76c40167",
 	type: "Experience",
-	content:
-		"I joined this site a few days back and have had a great time so far! Although I definitely need to get better to figuring out when and how much money to invest. Additionally, it looks like stocks are fluctuating a lot due to the current economic siege.",
+	content: "",
 	likes: 0,
 	timestamp: 0,
-	comments: [
-		{
-			_id: "64416b0d14cac46eff9fde62",
-			user_id: {
-				_id: "642493784def0c7b76c40167",
-				username: "johndoe",
-			},
-			post_id: "64416b0d14cac46eff9fde61",
-			content:
-				"I agree! I'm also new to this site and I'm having a great time!",
-			timestamp: 0,
-		},
-		{
-			_id: "64416b0d14cac46egg9fde12",
-			user_id: {
-				_id: "642493784de12d7b76c40167",
-				username: "samsmith",
-			},
-			post_id: "64416b0d14cac46eff9fde61",
-			content: "Welcome to the site! Hope you have a great time!",
-			timestamp: 0,
-		},
-	],
+	comments: []
 };
 
 const page = () => {
@@ -47,25 +25,30 @@ const page = () => {
 	const params = usePathname();
 	const pid = params ? params.split("/")[2] : "";
 
-	// useEffect(() => {
-	// 	axios
-	// 		.get(`${BASE_URL}/api/blog/${pid}`)
-	// 		.then((res) => {
-	// 			console.log(res.data);
-	// 		})
-	// 		.catch((err) => {
-	// 			if (err.response && err.response.data && err.response.data.msg) {
-	// 				console.log(err.response.data.msg);
-	// 			} else {
-	// 				console.log("Trouble contacting server");
-	// 			}
-	// 		});
-	// }, []);
+	useEffect(() => {
+		axios
+			.get(`${BASE_URL}/api/blog/${pid}`, {
+				headers: {
+					'Authorization': 'Bearer ' + localStorage.getItem('token')
+				}
+			})
+			.then((res) => {
+				console.log(res.data.post);
+				setPost(res.data.post);
+			})
+			.catch((err) => {
+				if (err.response && err.response.data && err.response.data.msg) {
+					console.log(err.response.data.msg);
+				} else {
+					console.log("Trouble contacting server");
+				}
+			});
+	}, []);
 
 	const addComment = (comment: string) => {
 		axios
 			.post(
-				`${BASE_URL}/api/blog/${pid}/comment`,
+				`${BASE_URL}/api/blog/comment/${pid}`,
 				{
 					content: comment,
 				},
@@ -106,7 +89,7 @@ const page = () => {
 									{comment.user_id.username}
 								</p>
 								<p className="text-sm text-gray-400 dark:text-gray-400">
-									<time>April 10, 2023</time>
+									<time>{dateToString(dateConverter(comment.timestamp))}</time>
 								</p>
 							</div>
 						</footer>

@@ -12,8 +12,8 @@ const newComment = (props: React.PropsWithChildren<{ addComment: (comment: strin
 	const handleSubmit = (e: React.FormEvent) => {
 		e.preventDefault();
         
-        props.addComment(comment);
         setComment('');
+        props.addComment(comment);
 	};
 
 	return (
