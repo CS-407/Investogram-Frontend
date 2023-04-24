@@ -6,6 +6,7 @@ import { TradeList } from "./tradeList"
 export function FriendsTrades(props: any) {
     
     const [friendData, setFriendData] = useState<any[]>([]);
+    
     useEffect(() => {
 		axios
 			.get(`${BASE_URL}/api/user/friendsTrades/`, {
@@ -18,8 +19,12 @@ export function FriendsTrades(props: any) {
 				const data = response.data.data;
 				setFriendData(data);
 			})
-			.catch((err) => {
-				alert("Error getting friend data")
+			.catch((err: any) => {
+				if (err.response && err.response.data && err.response.data.message) {
+                    console.log(err.response.data.msg);
+                } else {
+                    console.log("Error getting friend data");
+                }
 			});
 	}, []);
 
@@ -35,8 +40,8 @@ export function FriendsTrades(props: any) {
     }
 
     return (
-        <div className="rounded-md p-2 bg-investogram_yellow my-2">
-            <h3 className="font-bold text-2xl">Your Friends' Most Recent Trades</h3>
+        <div className="rounded-md p-5 bg-investogram_gray my-2">
+            <h3 className="font-bold text-2xl p-1">Your Friends' Most Recent Trades</h3>
             {friendData.length === 0 && <p>No friends to display 😔</p>}
             <div className="flex flex-row overflow-scroll">
                 {friendData.length > 0 && friendData.map((friend: any) => friendSection(friend))}

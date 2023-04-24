@@ -11,6 +11,7 @@ import RecentTradesSection from "../../components/profile/recentTradesSection";
 import LossGainSection from "@/components/profile/lossGainSection";
 import StocksOwned from "@/components/profile/stocksOwned";
 import DeleteButton from "@/components/profile/deleteButton";
+import FollowRequests from "@/components/profile/followRequests";
 
 export default function profile() {
 	const { user } = useContext(AuthContext);
@@ -48,8 +49,8 @@ export default function profile() {
 			<main className="p-5" style={{ backgroundColor: "#f5f5f5" }}>
 				<div className="flex flex-row">
 					<div
-						className="flex-none w-1/3 p-4 flex justify-center items-center flex-col rounded-lg shadow-lg p-5"
-						style={{ backgroundColor: "#FDE698" }}
+						className="flex-none w-1/3 p-4 flex justify-center items-center flex-col rounded-lg shadow-lg p-5 bg-investogram_lightblue"
+						
 					>
 						<img
 							src={user ? `/images/avatar_${user?.profile_pic}.png` : "/images/default_profile.jpg"}
@@ -119,11 +120,11 @@ export default function profile() {
 									href={"/profile/requests"}
 									style={{ textDecoration: "none" }}
 								>
-									See Follow Requests{" "}
-									{user?.requests &&
-										user?.requests?.length > 0 &&
-										`(${user?.requests.length})`}
+									See Follow Requests
 								</Link>
+								<span className="inline-flex items-center justify-center w-4 h-4 ml-2 text-xs font-semibold text-blue-800 bg-blue-50 rounded-full">
+								{FollowRequests.length}
+  								</span>
 							</button>
 						</div>
 					</div>
