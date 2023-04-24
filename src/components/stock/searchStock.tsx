@@ -62,8 +62,8 @@ const SearchStock = () => {
 					</Link>
 				</th>
 				<td className="px-6 py-4">{obj.stock_name}</td>
-				<td className="px-6 py-4">{`$${currencyConverter(obj.price)}` }</td>
-				{/* <td className="px-6 py-4">{"$100"}</td> */}
+				{/* <td className="px-6 py-4">{`$${currencyConverter(obj.price)}` }</td> */}
+				<td className="px-6 py-4">{"$100"}</td>
 			</tr>
 		));
 	};
