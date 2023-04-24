@@ -6,7 +6,6 @@ import { useRouter } from "next/navigation";
 import AuthContext from "@/context/AuthContext";
 
 import "../authStyles.css";
-import { NextPage } from "next";
 import Link from "next/link";
 
 interface Fields {
@@ -16,7 +15,7 @@ interface Fields {
 	password2: string;
 }
 
-const SignUp: NextPage = () => {
+function SignUp() {
 	const initialValues: Fields = {
 		username: "",
 		email: "",

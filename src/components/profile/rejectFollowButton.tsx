@@ -1,5 +1,7 @@
 "use client";
+import AuthContext from "@/context/AuthContext";
 import axios from "axios";
+import { useContext } from "react";
 import { BASE_URL } from "../../util/globals";
 import { FollowButtonProps } from "./acceptFollowButton";
 
@@ -7,21 +9,16 @@ export default function RejectFollowButton(props: FollowButtonProps) {
 	const otherUser = props.otherUser;
 	const updateStatus = props.updateStatus;
 
-	const rejectUser = () => {
-		axios
-			.post(`${BASE_URL}/api/user/follow/reject/${otherUser}`, null, {
-				headers: {
-					Authorization: "Bearer " + localStorage.getItem("token"),
-					"Content-Type": "application/json",
-				},
-			})
-			.then((response) => {
-				const data = response.data;
-				updateStatus(otherUser, true);
-			})
-			.catch((err) => {
-				updateStatus(otherUser, false);
-			});
+	const { rejectFollowRequest } = useContext(AuthContext);
+
+	const rejectUser = async () => {
+		try {
+			await rejectFollowRequest(otherUser);
+			updateStatus(otherUser, true);
+		} catch (err: any) {
+			console.log(err);
+			updateStatus(otherUser, false);
+		}
 	};
 
 	return (

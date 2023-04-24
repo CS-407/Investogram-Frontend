@@ -1,22 +1,23 @@
 "use client";
 
-import { useState, useContext } from "react";
+import { useContext, useState } from "react";
 import AuthContext from "@/context/AuthContext";
-import { useRouter } from "next/navigation";
-import Link from "next/link";
 
-import "../authStyles.css";
+import { useRouter } from "next/navigation";
 
 interface Fields {
-	username: string;
 	password: string;
+	password2: string;
 }
 
-function Login() {
-	const initialValues: Fields = { username: "", password: "" };
-	const router = useRouter();
+function updatePasswordPage() {
+	const initialValues: Fields = {
+		password: "",
+		password2: "",
+	};
 
-	const { login } = useContext(AuthContext);
+	const { updatePassword } = useContext(AuthContext);
+	const router = useRouter();
 
 	const [formValues, setFormValues] = useState<Fields>(initialValues);
 	const [formErrors, setFormErrors] = useState<Fields>(initialValues);
@@ -28,22 +29,19 @@ function Login() {
 
 	const handleSubmit = (e: React.FormEvent) => {
 		e.preventDefault();
-		
+
 		if (validate()) {
 			return;
 		}
 
-		loginUser();
+		resetPass();
 	};
 
-	const loginUser = async () => {
+	const resetPass = async () => {
 		try {
-			await login({
-				username: formValues.username,
-				password: formValues.password,
-			});
-			alert("Successfully Logged In");
-			router.push("/");
+			await updatePassword(formValues.password, formValues.password2);
+			alert("Password updated successfully");
+			router.push("/profile");
 		} catch (err: any) {
 			alert(err);
 		}
@@ -51,10 +49,11 @@ function Login() {
 
 	const validate = () => {
 		const errors: Fields = initialValues;
-		const regex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
 
 		if (formValues.password.length < 6 || formValues.password.length > 10) {
 			errors.password = "Password must be between 6 and 10 characters";
+		} else if (formValues.password2 !== formValues.password) {
+			errors.password2 = "Passwords must match";
 		}
 
 		if (errors == initialValues) {
@@ -62,57 +61,49 @@ function Login() {
 		}
 
 		setFormErrors(errors);
+
 		return true;
 	};
 
 	return (
-		<div className="formPage">
-			<div className="container">
+		<div className="flex h-screen">
+			<div className="m-auto border-4 p-6">
 				<form onSubmit={handleSubmit}>
 					<div className="text-center">
-						<h1 className="text-2xl mb-4">Login Form</h1>
+						<h1 className="text-2xl mb-4">Update Password</h1>
 					</div>
 					<div className="ui form">
 						<div className="form">
-							<label className="block font-bold mb-2">Username</label>
-							<input
-								className="border rounded w-full py-2 px-3 text-gray-700 mb-3"
-								type="text"
-								name="username"
-								required
-								placeholder="johndoe"
-								value={formValues.username}
-								onChange={handleChange}
-							/>
-						</div>
-						<p>{formErrors.username}</p>
-						<div className="form">
-							<label className="block font-bold mb-2">Password </label>
+							<label className="block font-bold mb-2">Enter New Password</label>
 							<input
 								className="border rounded w-full py-2 px-3 text-gray-700 mb-3"
 								type="password"
 								name="password"
-								placeholder="123456"
+								required
+								placeholder="new-password"
 								value={formValues.password}
 								onChange={handleChange}
 							/>
 						</div>
 						<p>{formErrors.password}</p>
+						<div className="form">
+							<label className="block font-bold mb-2">
+								Retype New Password
+							</label>
+							<input
+								className="border rounded w-full py-2 px-3 text-gray-700 mb-3"
+								type="password"
+								name="password2"
+								required
+								placeholder="new-password"
+								value={formValues.password2}
+								onChange={handleChange}
+							/>
+						</div>
+						<p>{formErrors.password2}</p>
 						<button className="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded mb-3">
 							Submit
 						</button>
-						<div className="flex flex-col text-center mt-2">
-							<Link href={"/auth/signup"}>
-								<p className="font-medium text-blue-600 dark:text-blue-500 hover:underline mb-2">
-									Sign up for an account
-								</p>
-							</Link>
-							<Link href={"/auth/forgot"}>
-								<p className="font-medium text-blue-600 dark:text-blue-500 hover:underline mb-2">
-									Forgot username or password
-								</p>
-							</Link>
-						</div>
 					</div>
 				</form>
 			</div>
@@ -120,4 +111,4 @@ function Login() {
 	);
 }
 
-export default Login;
+export default updatePasswordPage;

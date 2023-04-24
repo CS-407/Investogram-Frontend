@@ -28,7 +28,7 @@ export default function stock() {
 			})
 			.catch((err) => {
 				if (err.response && err.response.data && err.response.data.msg) {
-					alert(err.response.data.msg);
+					console.log(err.response.data.msg);
 				} else {
 					console.log("getStock", err);
 				}
@@ -46,25 +46,39 @@ export default function stock() {
 			})
 			.catch((err) => {
 				if (err.response && err.response.data && err.response.data.msg) {
-					alert(err.response.data.msg);
+					console.log(err.response.data.msg);
 				} else {
 					console.log("getPrice", err);
 				}
 			});
 	}, []);
 
+	interface CategoriesProps { categories: string[] }
+	const CategoriesRow = (props: CategoriesProps) => {
+		const { categories } = props;
+		return (
+			<div className="flex flex-row flex-wrap">
+				{ categories.map((category: string) => {
+					return (
+						<div className="rounded-full shadow-lg p-1 px-2 mx-1 bg-blue-100"> 
+							<p>{category}</p>
+						</div>
+					)
+				})}
+			</div>
+		);
+	}
+
 	return (
 		<main className="p-5">
-			<div
-				className="flex-none flex justify-center items-center flex-col rounded-lg shadow-lg p-5 mb-5"
-						style={{ backgroundColor: "#FDE698"}}
-			>
-			<h1 className="text-5xl m-3 font-bold" style={{ color: "#364F6B"}}>
-				{stock ? `${stock.stock_name} (${stock.stock_ticker})` : ""}
-			</h1>
-			<h2 className="inline bg-blue-100 rounded-full px-3 py-1 text-xl font-semibold text-gray-700 p-5 ml-5 mr-2 mb-2">
-				{price ? `$${currencyConverter(price.current_price)}` : ""}
-			</h2>
+			<div className="flex-none flex justify-center items-center flex-col rounded-lg shadow-lg p-5 mb-5 bg-investogram_yellow text-investogram_navy">
+				<h1 className="text-5xl m-3 font-bold " >
+					{stock ? `${stock.stock_name} (${stock.stock_ticker})` : ""}
+				</h1>
+				<h2 className="inline bg-blue-100 rounded-full px-3 py-1 text-xl font-semibold text-gray-700 p-5 mb-2">
+					{price ? `$${currencyConverter(price.current_price)}` : ""}
+				</h2>
+				{stock ? <CategoriesRow categories={stock.categories}/>: ""}
 			</div>
 
 			<div className="flex">
