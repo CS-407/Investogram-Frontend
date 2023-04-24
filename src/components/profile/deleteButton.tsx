@@ -25,7 +25,7 @@ export default function DeleteButton() {
                     'Content-Type': 'application/json'
                 },
                 data: JSON.stringify({
-                    user_id: user?._id,
+                    username: user?.username,
                     password: password
                 })
             })
