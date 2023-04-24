@@ -1,1 +1,1 @@
-export const BASE_URL = "https://investogram-backend-azure2.azurewebsites.net";
+export const BASE_URL = "http://localhost:5000";
