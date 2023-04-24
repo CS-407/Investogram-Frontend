@@ -1,5 +1,6 @@
 import SearchStock from "@/components/stock/searchStock";
 import { StockCategories } from "@/components/stock/stockCategories";
+import Link from "next/link";
 
 export default function globalstocks() {
 	return (
@@ -13,7 +14,11 @@ export default function globalstocks() {
 					stock!
 				</p>
 			</div>
-			<StockCategories />
+			<div className="flex flex-row">
+				<Link href={"/stockCategories"}>
+					<p>View Stock Categories</p>
+				</Link>
+			</div>
 			<SearchStock />
 		</main>
 	);
