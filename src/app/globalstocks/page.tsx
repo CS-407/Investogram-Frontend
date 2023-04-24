@@ -8,8 +8,8 @@ export default function globalstocks() {
 				<h1 className="text-5xl font-bold mt-4 mb-4">
 					Global Stocks
 				</h1>
-				<p>
-					Navigate to a stock page you see here or use the search bar to find a
+				<p className="text-gray-500">
+					Click on the stock ticker to navigate to a stock page or use the search bar to find a
 					stock!
 				</p>
 			</div>
