@@ -88,6 +88,13 @@ export interface PopularStock {
 	totalTransactions: number;
 }
 
+export interface StockList {
+	_id: string;
+	list_name: string;
+	list_owner: User;
+	stocks: any[];
+}
+
 export interface Leaderboard {
 	_id: string;
 	user_id: {

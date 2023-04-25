@@ -1,17 +1,30 @@
 "use client";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { Inter } from "@next/font/google";
 import Link from "next/link";
 import AuthContext from "@/context/AuthContext";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import PopularStocks from "@/components/stock/popularStocks";
 import { FriendsTrades } from "@/components/transaction/friendsTrades";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
+	const router = useRouter();
+
 	const pathname = usePathname();
-	const { user } = useContext(AuthContext);
+	const { isAuth, user } = useContext(AuthContext);
+
+	useEffect(() => {
+		if (!isAuth) {
+			router.push("/auth/login");
+		}
+	}, [isAuth])
+
+	if (!isAuth) {
+		return <div></div>;
+	}
+
 	return (
 		<main className="p-5 bg-white text-investogram_navy">
 			{/* start of title */}
@@ -22,9 +35,7 @@ export default function Home() {
 			</div>
 			{/* end of title */}
 
-			<div>
-				<FriendsTrades />
-			</div>
+			
 
 			<div className="flex flex-row">
 				{/* start of popular stocks component */}
@@ -38,7 +49,7 @@ export default function Home() {
 				{/* end of popular stocks component */}
 
 				{/* start of profile component */}
-				<div className="flex-none h-1/3 w-1/3 p-4 mx-3 flex justify-center items-center flex-col rounded-lg shadow-lg bg-investogram_yellow">
+				<div className="flex-none h-1/3 w-1/3 p-4 mx-3 flex justify-center items-center flex-col rounded-lg shadow-lg bg-investogram_lightblue">
 					<h1 className="text-2xl text-center font-bold mt-4 mb-2 p-3 ">
 						My Profile
 					</h1>
@@ -83,6 +94,10 @@ export default function Home() {
 					</div>
 				</div>
 				{/* end of profile component */}
+				
+			</div>
+			<div>
+				<FriendsTrades />
 			</div>
 		</main>
 	);

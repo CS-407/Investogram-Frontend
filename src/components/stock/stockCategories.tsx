@@ -4,6 +4,7 @@ import { BASE_URL } from "@/util/globals";
 import axios from "axios";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { StockRow } from "./stockRow";
 
 export function StockCategories(props: any) {
 	const [categoryData, setCategoryData] = useState<any[]>([]);
@@ -26,23 +27,14 @@ export function StockCategories(props: any) {
 
 	const categorySection = (category: any) => {
 		return (
-			<div className="inline-block p-1 bg-blue-100 mx-1 rounded-lg shadow-lg">
-				<h1 className="font-bold text-xl mb-1">{category.category} ({category.count})</h1>
+			<div className="p-1 bg-blue-100 m-3 rounded-lg shadow-lg">
+				<h1 className="font-bold text-xl mb-1 ml-2 mt-2">{category.category} ({category.count})</h1>
 				{/* <p className="text-lg">
 					{category.count} stock{category.count > 1 ? "s" : ""}
 				</p> */}
-				<div className="overflow-y-auto overflow-x-hidden h-64">
+				<div className="overflow-y-auto overflow-x-hidden h-64 m-2">
 					{category.stocks.map((stock: any) => (
-						<div>
-							<Link
-								href={`/stock/${stock._id}`}
-								className="block w-64 px-1 py-1 rounded-lg hover:bg-investogram_yellow"
-							>
-								<p className="hover:underline">
-									{stock.stock_name} ({stock.stock_ticker})
-								</p>
-							</Link>
-						</div>
+						<StockRow stock={stock} />
 					))}
 				</div>
 			</div>
@@ -50,10 +42,9 @@ export function StockCategories(props: any) {
 	};
 
 	return (
-		<div className="rounded-md p-2 bg-investogram_yellow my-2 text-investogram_navy">
-			<h3 className="font-bold text-2xl mb-2">Stock Categories</h3>
+		<div className="m-2 flex flex-row flex-wrap">
 			{!categoryData && <p>Loading Category Data</p>}
-			<div className="flex flex-row overflow-scroll">
+			<div className="flex flex-row flex-wrap">
 				{categoryData.length > 0 &&
 					categoryData.map((friend: any) => categorySection(friend))}
 			</div>

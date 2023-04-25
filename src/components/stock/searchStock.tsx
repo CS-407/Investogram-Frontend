@@ -10,7 +10,7 @@ import { Stock } from "../../util/types";
 const SearchStock = () => {
 	const [stocks, setStocks] = useState<Stock[]>([]);
 	const [filteredStocks, setFilteredStocks] = useState<Stock[]>([]);
-
+	
 	useEffect(() => {
 		if (stocks.length == 0) {
 			axios
@@ -28,6 +28,7 @@ const SearchStock = () => {
 					}
 				});
 		}
+	
 	}, []);
 
 	const handleFilter = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -42,7 +43,7 @@ const SearchStock = () => {
 			setFilteredStocks(tmp);
 		}
 	};
-
+	
 	return (
 		<div>
 			<div className="relative m-4">
@@ -70,6 +71,7 @@ const SearchStock = () => {
 					onChange={handleFilter}
 				/>
 			</div>
+
 			<div className="flex flex-row flex-wrap">
 				{filteredStocks.map((stock: Stock) => (
 					<div key={stock._id} className="max-w-sm rounded overflow-hidden shadow-lg m-3">

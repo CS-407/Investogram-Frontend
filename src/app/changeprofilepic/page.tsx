@@ -1,9 +1,53 @@
 'use client';
 import AuthContext from "@/context/AuthContext";
-import { useContext, useState } from "react";
+import { BASE_URL } from "@/util/globals";
+import axios from "axios";
+import { useContext, useEffect, useState } from "react";
 
 export default function ChangeProfilePic() {
-    const { user } = useContext(AuthContext);
+    const [loadedProfilePic, setLoadedProfilePic] = useState<number>();
+	async function loadProfilePic() {
+		axios
+			.get(`${BASE_URL}/api/user/getProfilePic`, {
+				headers: {
+					Authorization: "Bearer " + localStorage.getItem("token"),
+				},
+			})
+			.then((res) => {
+				setLoadedProfilePic(res.data.data);
+			})
+			.catch((err) => {
+				alert("Trouble fetching current profile picture");
+			});
+	}
+
+	const changeProfilePic = (choice: number) => {
+		const headers_obj = {
+			"Content-Type": "application/json",
+			Authorization: "Bearer " + localStorage.getItem("token"),
+		};
+		console.log(headers_obj)
+		axios
+			.post(`${BASE_URL}/api/user/updateProfilePic/${choice}`, {},
+				{
+					headers: headers_obj
+				}
+        	)
+			.then(() => {
+				alert("Profile picture updated!");
+			})
+			.catch((err: any) => {
+				if (err.response && err.response.data && err.response.data.msg) {
+					alert(err.response.data.msg);
+				} else {
+					alert("Trouble contacting server");
+				}
+			});
+	}
+
+	useEffect(() => {
+		loadProfilePic();
+	}, []);
 
     const otherOptions = () => {
         let out = Array.from(Array(4), (_, index) => index + 1);
@@ -11,7 +55,7 @@ export default function ChangeProfilePic() {
         return out;
     }
 
-	const setPic = user?.profile_pic || 1;
+	const setPic = loadedProfilePic || 1;
 	const [selected, setSelected] = useState<number>(setPic);
 	const differentChoice = () => {
 		if (selected === setPic) return false;
@@ -19,7 +63,7 @@ export default function ChangeProfilePic() {
 	}
 	const resetSelection = () => setSelected(setPic);
 
-    
+    if (!loadedProfilePic) return <div>Loading...</div>;
 	return (
 		<main className="p-5 bg-white">
 			<div className="flex-none flex justify-center items-center flex-col rounded-lg shadow-lg bg-investogram_yellow py-4 text-investogram_navy">
@@ -30,16 +74,14 @@ export default function ChangeProfilePic() {
 					<div className="inline-block text-center px-4">
 						<h1 className="text-lg font-bold mx-2">Current Profile Picture:</h1>
 						<img
-							src={user ? `/images/avatar_${setPic}.png` : "/images/default_profile.jpg"}
-							alt={`${user?.username}'s avatar`}
+							src={`/images/avatar_${setPic}.png`}
 							className="flex-center rounded-full object-cover h-36 w-36 mx-auto"
 						/>
 					</div>
 					<div className="text-center px-4">
 						<h1 className="text-lg font-bold mx-2">New Profile Picture:</h1>
 						<img
-							src={user ? `/images/avatar_${selected}.png` : "/images/default_profile.jpg"}
-							alt={`${user?.username}'s avatar`}
+							src={`/images/avatar_${selected}.png`}
 							className="flex-center rounded-full object-cover h-36 w-36 mx-auto"
 						/>
 					</div>
@@ -56,8 +98,7 @@ export default function ChangeProfilePic() {
 									onClick={() => setSelected(x)}
 								>
 									<img
-										src={user ? `/images/avatar_${x}.png` : "/images/default_profile.jpg"}
-										alt={`${user?.username}'s avatar`}
+										src={`/images/avatar_${x}.png`}
 										className="flex-center rounded-full object-cover h-36 w-36 mx-auto"
 									/>
 									Option {x}
@@ -70,6 +111,7 @@ export default function ChangeProfilePic() {
 					<button
 						className="flex items-center justify-center mx-2 px-2 py-1 text-base font-medium leading-6 text-white whitespace-no-wrap enabled:bg-black border-2 border-transparent rounded-full shadow-sm hover:bg-transparent disabled:bg-gray-400 disabled enabled:hover:text-black enabled:hover:border-black enabled:hover:bg-white focus:outline-none"
 						disabled={!differentChoice()}
+						onClick={() => changeProfilePic(selected)}
 					>
 						Save Choice
 					</button>

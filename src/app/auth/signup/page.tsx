@@ -13,6 +13,7 @@ interface Fields {
 	email: string;
 	password: string;
 	password2: string;
+	profilePicture: number;
 }
 
 function SignUp() {
@@ -21,6 +22,7 @@ function SignUp() {
 		email: "",
 		password: "",
 		password2: "",
+		profilePicture: 1,
 	};
 	const router = useRouter();
 
@@ -51,6 +53,7 @@ function SignUp() {
 				email: formValues.email,
 				password: formValues.password,
 				password2: formValues.password2,
+				profile_pic: formValues.profilePicture,
 			});
 			alert("Signed In Successfully");
 			router.push("/");
@@ -80,6 +83,53 @@ function SignUp() {
 		setFormErrors(errors);
 		return true;
 	};
+
+	function updateProfilePic(choice: number) {
+		setFormValues({ ...formValues, profilePicture: choice });
+	}
+	interface PictureProps { 
+		picture: number;
+		updatePicture: Function
+	}
+	const ProfilePicSection = (props: PictureProps) => {
+		const currentSelection = props.picture;
+		const updatePicture = props.updatePicture;
+		let options = Array.from(Array(4), (_, index) => index + 1);
+		return(
+			<div>
+				<h3 className="font-bold">Choose a profile picture</h3>
+				<div className="flex flex-row">
+					{options.map((x) => {
+						if (x === currentSelection) return (
+							<button 
+								className="text-center px-2 font-bold bg-blue-50 p-1 rounded-lg"
+								key={x}
+							>
+								<img
+									src={`/images/avatar_${x}.png`}
+									className="flex-center rounded-full object-cover h-16 w-16 mx-auto"
+								/>
+								Selected Option {x}
+							</button>
+						);
+						else return (
+							<button 
+								className="text-center px-2 hover:bg-blue-50 p-1 rounded-lg"
+								onClick={() => updatePicture(x)}
+								key={x}
+							>
+								<img
+									src={`/images/avatar_${x}.png`}
+									className="flex-center rounded-full object-cover h-16 w-16 mx-auto"
+								/>
+								Option {x}
+							</button>
+						)
+					})}
+				</div>
+			</div>
+		);
+	}
 
 	return (
 		<div className="formPage">
@@ -140,6 +190,7 @@ function SignUp() {
 								onChange={handleChange}
 							/>
 						</div>
+						<ProfilePicSection picture={formValues.profilePicture} updatePicture={updateProfilePic} />
 						<p>{formErrors.password2}</p>
 						<button className="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded mb-3">
 							Submit
