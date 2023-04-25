@@ -1,17 +1,30 @@
 "use client";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { Inter } from "@next/font/google";
 import Link from "next/link";
 import AuthContext from "@/context/AuthContext";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import PopularStocks from "@/components/stock/popularStocks";
 import { FriendsTrades } from "@/components/transaction/friendsTrades";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
+	const router = useRouter();
+
 	const pathname = usePathname();
-	const { user } = useContext(AuthContext);
+	const { isAuth, user } = useContext(AuthContext);
+
+	useEffect(() => {
+		if (!isAuth) {
+			router.push("/auth/login");
+		}
+	}, [isAuth])
+
+	if (!isAuth) {
+		return <div></div>;
+	}
+
 	return (
 		<main className="p-5 bg-white text-investogram_navy">
 			{/* start of title */}

@@ -10,7 +10,6 @@ import { BASE_URL } from "@/util/globals";
 import RecentTradesSection from "../../components/profile/recentTradesSection";
 import LossGainSection from "@/components/profile/lossGainSection";
 import StocksOwned from "@/components/profile/stocksOwned";
-import DeleteButton from "@/components/profile/deleteButton";
 import FollowRequests from "@/components/profile/followRequests";
 
 export default function profile() {
@@ -112,9 +111,7 @@ export default function profile() {
 						</div>
 						<div className="text-black-500 mt-2">
 							<button
-								className={
-									"flex items-center justify-center px-2 py-1 text-base font-medium leading-6 text-white whitespace-no-wrap bg-black border-2 border-transparent rounded-full shadow-sm hover:bg-transparent hover:text-black hover:border-black focus:outline-none"
-								}
+								className="flex items-center justify-center mt-2 px-2 py-1 text-base font-medium leading-6 text-white whitespace-no-wrap bg-black border-2 border-transparent rounded-full shadow-sm hover:bg-transparent hover:text-black hover:border-black focus:outline-none"
 							>
 								<Link
 									href={"/profile/requests"}
@@ -123,7 +120,7 @@ export default function profile() {
 									See Follow Requests
 								</Link>
 								<span className="inline-flex items-center justify-center w-4 h-4 ml-2 text-xs font-semibold text-blue-800 bg-blue-50 rounded-full">
-								{FollowRequests.length}
+									{user?.requests && user.requests.length}
   								</span>
 							</button>
 						</div>
