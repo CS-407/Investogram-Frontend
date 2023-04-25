@@ -33,6 +33,18 @@ const SortedStocks = () => {
 					Sort stocks by current value or number of shares traded!
 				</p>
 			</div>
+			<div className="mt-2 w-full flex flex-row justify-center rounded-lg shadow-lg bg-investogram_navy py-4">
+				<Link className="mr-2" href={"/stockCategories"}>
+					<p className="bg-gray-100 hover:bg-gray-300 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2">
+						View Stock Categories
+					</p>
+				</Link>
+				<Link className="ml-2" href={"/globalstocks"}>
+					<p className="bg-gray-100 hover:bg-gray-300 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2">
+						View Global Stocks
+					</p>
+				</Link>
+			</div>
 			{/* table displayed stocks with filter */}
 			<div className="relative overflow-x-auto m-3 p-2 text-center">
 				<table className="table-auto mt-3 w-full text-sm text-left text-gray-500 dark:text-gray-400 p-5 bg-investogram_gray">
