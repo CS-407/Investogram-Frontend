@@ -101,8 +101,8 @@ const User = () => {
 			>
 				<div className="flex flex-row">
 					<div
-						className="flex-none w-1/3 p-4 flex justify-center items-center flex-col rounded-lg shadow-lg"
-						style={{ backgroundColor: "#FDE698", padding: "20px" }}
+						className="flex-none w-1/3 p-4 flex justify-center items-center flex-col rounded-lg shadow-lg bg-investogram_lightblue p-5"
+						
 					>
 						<img
 							src={user ? `/images/avatar_${user?.profile_pic}.png` : "/images/default_profile.jpg"}
