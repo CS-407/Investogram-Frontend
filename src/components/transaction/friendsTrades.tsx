@@ -29,6 +29,8 @@ export function FriendsTrades(props: any) {
 	}, []);
 
     const friendSection = (friend: any) => {
+        if (friend.trades.length === 0) return (<></>);
+        
         return (
             <div className="p-1 bg-blue-100 mx-1 rounded-lg shadow-lg" key={friend.friend._id}>
                 <h1 className="font-bold">{friend.friend.username}</h1>
