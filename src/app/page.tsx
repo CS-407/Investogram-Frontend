@@ -35,9 +35,7 @@ export default function Home() {
 			</div>
 			{/* end of title */}
 
-			<div>
-				<FriendsTrades />
-			</div>
+			
 
 			<div className="flex flex-row">
 				{/* start of popular stocks component */}
@@ -51,7 +49,7 @@ export default function Home() {
 				{/* end of popular stocks component */}
 
 				{/* start of profile component */}
-				<div className="flex-none h-1/3 w-1/3 p-4 mx-3 flex justify-center items-center flex-col rounded-lg shadow-lg bg-investogram_yellow">
+				<div className="flex-none h-1/3 w-1/3 p-4 mx-3 flex justify-center items-center flex-col rounded-lg shadow-lg bg-investogram_lightblue">
 					<h1 className="text-2xl text-center font-bold mt-4 mb-2 p-3 ">
 						My Profile
 					</h1>
@@ -96,6 +94,10 @@ export default function Home() {
 					</div>
 				</div>
 				{/* end of profile component */}
+				
+			</div>
+			<div>
+				<FriendsTrades />
 			</div>
 		</main>
 	);

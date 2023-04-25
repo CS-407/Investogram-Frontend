@@ -42,8 +42,8 @@ export function FriendsTrades(props: any) {
     }
 
     return (
-        <div className="rounded-md p-2 bg-investogram_yellow my-2">
-            <h3 className="font-bold text-2xl">Your Friends' Most Recent Trades</h3>
+        <div className="rounded-md p-5 bg-investogram_gray my-2">
+            <h3 className="font-bold text-2xl p-1">Your Friends' Most Recent Trades</h3>
             {friendData.length === 0 && <p>No friends to display 😔</p>}
             <div className="flex flex-row overflow-scroll">
                 {friendData.length > 0 && friendData.map((friend: any) => friendSection(friend))}
