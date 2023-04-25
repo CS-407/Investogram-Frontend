@@ -79,13 +79,25 @@ export default function Home() {
 							Leaderboard Position: 
 						</h1>
 					</div>
+
+					<div
+					className="col-span-2 p-5"
+				>
+					<Link href={"/blog"}>
+						<p className="flex items-center justify-center px-2 py-1 text-base font-medium leading-6 text-white whitespace-no-wrap bg-black border-2 border-transparent rounded-full shadow-sm hover:bg-transparent hover:text-black hover:border-black focus:outline-none">
+							My Blog
+						</p>
+					</Link>
+				</div>
 				</div>
 				{/* end of profile component */}
 				
 			</div>
+			
 			<div>
 				<FriendsTrades />
 			</div>
+
 		</main>
 	);
 }
