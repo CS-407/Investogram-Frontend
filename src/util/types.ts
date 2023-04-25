@@ -93,6 +93,7 @@ export interface StockList {
 	list_name: string;
 	list_owner: User;
 	stocks: any[];
+}
 
 export interface Leaderboard {
 	_id: string;
