@@ -56,6 +56,14 @@ export default function ProfileDropdown(props: ProfileDropdown) {
 					</li>
 					<li>
 						<Link
+							href={"/profile/changeprofilepic"}
+							className="block px-4 py-2 hover:bg-gray-200"
+						>
+							Change Avatar
+						</Link>
+					</li>
+					<li>
+						<Link
 							href={"/profile/delete"}
 							className="block px-4 py-2 hover:bg-red-200"
 						>
