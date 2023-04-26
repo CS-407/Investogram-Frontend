@@ -7,45 +7,49 @@ import React, { useContext, useState } from "react";
 import axios from "axios";
 import AuthContext from "@/context/AuthContext";
 import { BASE_URL } from "@/util/globals";
-
+import { usePathname } from "next/navigation";
 import { useRouter } from "next/navigation";
 
-export default function upvoteButton() {
-    function VisibleButton() {
-        const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-            const { name, value } = e.target;
-        };
+const UpvoteButton = (props: React.PropsWithChildren<{ upvoteBlog: (like: number) => void }>) => {
+    const [like, setLike] = useState(0),
+    [isLike, setisLike] = useState(false);
 
-        const handleSubmit = (e: React.FormEvent) => {
-            e.preventDefault();
-        };
+    const params = usePathname();
+	const pid = params ? params.split("/")[2] : "";
 
-        return (
-            <div className="flex-col py-2 px-2">
-                <h1>Delete Account</h1>
-                <div className="ui divider"></div>
-                <div className="ui form">
-                    <div className="form">
-                        <label className="block font-bold mb-2">User password</label>
-                        <input
-                            type="text"
-                            name="password"
-                            placeholder="Verify password"
-                            className="border w-full py-2 px-3 text-gray-700 mb-3"
-                            onChange={handleChange}
-                        />
-                    </div>
-                    <button
-                        className="flex-row items-center justify-center px-4 py-2 text-2xl font-semibold leading-6 text-white whitespace-no-wrap bg-green-500 border-2 border-transparent rounded-full shadow-sm hover:bg-transparent hover:text-green-500 hover:border-green-500 focus:outline-none"
-                        onClick={() => {
-                            console.log("Delete Account");
-                            executeUpvote();
-                        }}
-                    >
-                        <div className="flex justify-center">Delete</div>
-                    </button>
-                </div>
-            </div>
-        );
-    }
+    const getNumLikes = () => {
+        axios
+			.get(`${BASE_URL}/api/blog/countLikes/${pid}`, {
+				headers: {
+					'Authorization': 'Bearer ' + localStorage.getItem('token')
+				}
+			})
+			.then((res) => {
+				setLike(res.data.numLikes);
+			})
+			.catch((err) => {
+				if (err.response && err.response.data && err.response.data.msg) {
+					console.log(err.response.data.msg);
+				} else {
+					console.log("Trouble contacting server");
+				}
+			});
+	};
+
+    const handleChange = () => {
+        setLike(like + (isLike ? -1 : 1));
+        setisLike(!isLike);
+        getNumLikes();
+    };
+    return (
+        <div className="flex items-center justify-between px-3 py-2 border-t dark:border-gray-600">
+            <button type = "button" className="inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-white bg-green-700 rounded-lg focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-900 hover:bg-blue-500"
+					onClick={handleChange}>
+                Like = {like} 
+            </button>
+        </div>
+    )
 }
+
+// instead of Like = {like}, do Like = {calcNumlikes}, so it calculates new number everytime
+export default UpvoteButton;

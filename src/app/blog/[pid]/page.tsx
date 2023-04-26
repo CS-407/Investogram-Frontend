@@ -7,6 +7,7 @@ import { usePathname } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
 import NewComment from "@/components/blog/newComment";
+import UpvoteButton from "@/components/blog/upvote";
 import { dateConverter, dateToString } from "@/util/HelperFunctions";
 
 const initialPost: Post = {
@@ -71,6 +72,32 @@ const page = () => {
 			});
 	};
 
+	const upvoteBlog = (like: number) => {
+		axios
+			.post(
+				`${BASE_URL}/api/blog/like/${pid}`,
+				{
+					content: like,
+				},
+				{
+					headers: {
+						"Content-Type": "application/json",
+						Authorization: "Bearer " + localStorage.getItem("token"),
+					},
+				}
+			)
+			.then((res) => {
+				setPost({ ...post, likes: like });
+			})
+			.catch((err) => {
+				if (err.response && err.response.data && err.response.data.msg) {
+					alert(err.response.data.msg);
+				} else {
+					alert("Trouble contacting server");
+				}
+			});
+	};
+
 	return (
 		<div className="p-4">
 			{/* Blog Content */}
@@ -102,6 +129,7 @@ const page = () => {
 
 			{/* Form to add a new comment */}
 			<NewComment addComment={addComment} />
+			<UpvoteButton upvoteBlog={upvoteBlog} />
 		</div>
 	);
 };
