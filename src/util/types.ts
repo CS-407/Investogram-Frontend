@@ -95,6 +95,14 @@ export interface StockList {
 	stocks: any[];
 }
 
+export interface SortedStock {
+	stock_id: string;
+	num_shares: number;
+	stock_ticker: string;
+	stock_name: string;
+	current_price: number;
+}
+
 export interface Leaderboard {
 	_id: string;
 	user_id: {
