@@ -39,7 +39,7 @@ export default function Home() {
 
 			<div className="flex flex-row">
 				{/* start of popular stocks component */}
-				<div className="flex-none h-1/3 w-2/3 flex justify-center items-center flex-col rounded-lg shadow-lg p-5 bg-investogram_yellow">
+				<div className="flex-none h-1/3 w-2/3 flex justify-center items-center flex-col rounded-lg shadow-lg p-5 bg-investogram_yellow mb-3">
 					<h1 className="text-2xl text-center font-bold mt-4 mb-2 p-3 ">
 						Popular Stocks
 					</h1>
@@ -92,13 +92,25 @@ export default function Home() {
 							Leaderboard Position: 
 						</h1>
 					</div>
+
+					<div
+					className="col-span-2 p-5"
+				>
+					<Link href={"/blog"}>
+						<p className="flex items-center justify-center px-2 py-1 text-base font-medium leading-6 text-white whitespace-no-wrap bg-black border-2 border-transparent rounded-full shadow-sm hover:bg-transparent hover:text-black hover:border-black focus:outline-none">
+							My Blog
+						</p>
+					</Link>
+				</div>
 				</div>
 				{/* end of profile component */}
 				
 			</div>
+			
 			<div>
 				<FriendsTrades />
 			</div>
+
 		</main>
 	);
 }
