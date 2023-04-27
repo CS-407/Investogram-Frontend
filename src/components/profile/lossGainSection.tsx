@@ -92,22 +92,17 @@ export default function LossGainSection(props: LossGainSectionProps) {
 					<div className="px-1 mx-2 rounded-lg">
 
 						<div className="font-semibold text-lg text-white p-1">Current Portfolio Value</div>
-						<h3 className="text-2xl font-semibold text-blue-100">
-							${portfolioValue}
+						<h3 className="text-2xl font-semibold text-blue-100 mb-5">
+							${currencyConverter(portfolioValue)}
 						</h3>
-
 						<div>
-							<h3 className="font-semibold text-lg">Current Portfolio Value:</h3>
-							<h3 className="text-2xl font-semibold">
-								${currencyConverter(portfolioValue)}
-							</h3>
-						</div>
-						<div>
-						<h3 className="font-semibold text-lg">Overall Change:</h3>
+						
+						<h3 className="inline bg-blue-100 rounded-full px-3 py-1 text-2xl font-semibold text-lg text-investogram_navy p-1 mt-3 mr-2 mb-2">Overall Change</h3>
 							<h3 className={`text-2xl font-semibold ${differenceFromOriginal >= 0 ? "text-green-500" : "text-red-500"}`}>
 								{differenceFromOriginal >= 0 ? '+' : ''}${currencyConverter(differenceFromOriginal)}
 							</h3>
 						</div>
+					
 
 					</div>
 
@@ -116,7 +111,7 @@ export default function LossGainSection(props: LossGainSectionProps) {
 
 					{/* <ProfitSection /> */}
 					<div>
-						<div className="font-semibold text-lg text-white p-1">Total Profit:</div>
+						<div className="font-semibold text-lg text-white p-1">Total Profit</div>
 						<div className={`text-2xl font-semibold ${profit >= 0 ? "text-green-500" : "text-red-500"}`}>
 							${currencyConverter(profit)}
 						</div>
@@ -128,7 +123,7 @@ export default function LossGainSection(props: LossGainSectionProps) {
 					<h3 className="align-middle text-white p-1">+</h3>
 
 					<div className="px-1 mx-2">
-						<div className="font-semibold text-lg text-white p-1">Stock Value:</div>
+						<div className="font-semibold text-lg text-white p-1">Stock Value</div>
 						<h3 className="text-2xl font-semibold text-blue-100">
 							${stockValue()}
 						</h3>
@@ -137,7 +132,7 @@ export default function LossGainSection(props: LossGainSectionProps) {
 					<h3 className="align-middle text-white p-1">+</h3>
 
 					<div className="px-1 mx-2">
-						<div className="font-semibold text-lg text-white p-1">Current Balance:</div>
+						<div className="font-semibold text-lg text-white p-1">Current Balance</div>
 						<h3 className="text-2xl font-semibold text-blue-100 align-center">
 							${currencyConverter(user.current_balance)}
 						</h3>
