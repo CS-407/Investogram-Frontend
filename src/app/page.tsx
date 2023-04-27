@@ -6,8 +6,10 @@ import AuthContext from "@/context/AuthContext";
 import { usePathname, useRouter } from "next/navigation";
 import PopularStocks from "@/components/stock/popularStocks";
 import { FriendsTrades } from "@/components/transaction/friendsTrades";
+import CurrentStockValue from "@/components/profile/currentStockValue";
 
 const inter = Inter({ subsets: ["latin"] });
+
 
 export default function Home() {
 	const router = useRouter();
@@ -89,7 +91,7 @@ export default function Home() {
 
 					<div>
 						<h1 className="text-3l font-bold mt-4 mb-2 ">
-							Leaderboard Position: 
+							Leaderboard Position:
 						</h1>
 					</div>
 

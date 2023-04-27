@@ -15,6 +15,7 @@ export default function LossGainSection(props: LossGainSectionProps) {
 
 	const stocks = props.stocks;
 	const user = props.user;
+	
 
 	const stockValue = () => {
 		let total = 0;
@@ -25,6 +26,7 @@ export default function LossGainSection(props: LossGainSectionProps) {
 		return currencyConverter(total);
 	}
 
+	const totalstockValue = stockValue();
 	const loss = currencyConverter(props.monetaryInfo.loss);
 	const revenue = currencyConverter(props.monetaryInfo.revenue);
 	const profit = props.monetaryInfo.profit;
@@ -37,6 +39,8 @@ export default function LossGainSection(props: LossGainSectionProps) {
 
 	const ProfitSection = () => {
 		return (
+
+
 			<div className="px-1">
 
 				<div>
@@ -85,13 +89,13 @@ export default function LossGainSection(props: LossGainSectionProps) {
 			<div className="flex my-auto align-center rounded-lg flex-row p-5 text-investogram_navy">
 
 					<div className="px-1 mx-2 rounded-lg">
-						<div className="font-semibold text-lg">Current Portfolio Value:</div>
+						<div className="font-semibold text-lg">Current Portfolio Value</div>
 						<h3 className="text-2xl font-semibold">
 							${portfolioValue()}
 						</h3>
 					</div>
 
-					<h3 className="align-middle">=</h3>
+					<h3 className="align-middle"> = </h3>
 
 					<ProfitSection />
 
@@ -123,3 +127,4 @@ export default function LossGainSection(props: LossGainSectionProps) {
 		);
 	}
 }
+
