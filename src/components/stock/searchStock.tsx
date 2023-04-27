@@ -5,10 +5,6 @@ import axios from "axios";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 
-import { currencyConverter } from "@/util/HelperFunctions";
-
-
-
 import { Stock } from "../../util/types";
 
 const SearchStock = () => {
@@ -48,26 +44,6 @@ const SearchStock = () => {
 		}
 	};
 	
-
-	const handlefilteredStocks = () => {
-		return filteredStocks.map((obj: Stock) => (
-			<tr
-				className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
-				key={obj._id}
-			>
-				
-				<th className="px-6 py-4 font-large text-gray-900 whitespace-nowrap dark:text-white">
-					<Link href={`/stock/${obj._id}`}>
-						<p className="hover:underline">{obj.stock_ticker}</p>
-					</Link>
-				</th>
-				<td className="px-6 py-4">{obj.stock_name}</td>
-				{/* <td className="px-6 py-4">{`$${currencyConverter(obj.price)}` }</td> */}
-				<td className="px-6 py-4">{"$100"}</td>
-			</tr>
-		));
-	};
-
 	return (
 		<div>
 			<div className="relative m-4">
