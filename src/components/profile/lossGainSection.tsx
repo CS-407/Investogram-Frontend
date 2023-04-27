@@ -33,7 +33,12 @@ export default function LossGainSection(props: LossGainSectionProps) {
 	const purchases = props.monetaryInfo.purchases;
 	const sales = props.monetaryInfo.sales;
 
+<<<<<<< Updated upstream
 	const portfolioValue = user.current_balance + props.monetaryInfo.profit + Number(stockValue());
+=======
+	const portfolioValue = currencyConverter(user.current_balance + props.monetaryInfo.profit + Number(stockValue()));
+	
+>>>>>>> Stashed changes
 
 	const ProfitSection = () => {
 		return (
@@ -93,7 +98,7 @@ export default function LossGainSection(props: LossGainSectionProps) {
 
 						<div className="font-semibold text-lg text-white p-1">Current Portfolio Value</div>
 						<h3 className="text-2xl font-semibold text-blue-100">
-							${portfolioValue()}
+							${portfolioValue}
 						</h3>
 
 						<div>
