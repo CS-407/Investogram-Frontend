@@ -131,15 +131,28 @@ export default function profile() {
 								</span>
 							</button>
 						</div>
-						<div className="text-black-500 mt-2">
+						<div className="flex flex-row p-1">
+						<div className="text-black-500 mt-2 p-1">
 							<button className="flex items-center justify-center mt-2 px-2 py-1 text-base font-medium leading-6 text-white whitespace-no-wrap bg-black border-2 border-transparent rounded-full shadow-sm hover:bg-transparent hover:text-black hover:border-black focus:outline-none">
 								<Link
 									href={"/blog"}
 									style={{ textDecoration: "none" }}
 								>
-									My Blog
+									Blog
 								</Link>
 							</button>
+						</div>
+						
+						<div className="text-black-500 mt-2 p-1">
+							<button className="flex items-center justify-center mt-2 px-2 py-1 text-base font-medium leading-6 text-white whitespace-no-wrap bg-black border-2 border-transparent rounded-full shadow-sm hover:bg-transparent hover:text-black hover:border-black focus:outline-none">
+								<Link
+									href={"/list"}
+									style={{ textDecoration: "none" }}
+								>
+									Lists
+								</Link>
+							</button>
+						</div>
 						</div>
 
 					</div>

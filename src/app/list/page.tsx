@@ -77,7 +77,7 @@ const ListPage = () => {
 				/>
 				<button className="bg-investogram_navy hover:bg-gray-400 text-investogram_yellow py-2 px-4 rounded ml-3" type="submit">Create New List</button>
 			</form>
-			<h1 className="font-extrabold text-2xl leading-none tracking-tight text-gray-900 m-3">Lists</h1>
+			
 			<div className="flex flex-row flex-wrap">
 				{lists?.map((list: StockList) => (
 					<div className="m-2 flex flex-col border-rounded p-2" key={list._id}>

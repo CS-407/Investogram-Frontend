@@ -152,7 +152,7 @@ export default function LossGainSection(props: LossGainSectionProps) {
 							money remaining on my account
 						</p>
 					</div>
-					<span className="align-right inline bg-blue-100 rounded-full px-3 py-1 text-2xl font-extrabold text-investogram_navy mr-2 mb-2">
+					<span className="inline bg-blue-100 rounded-full px-3 py-1 text-2xl font-extrabold text-investogram_navy mr-2 mb-2">
 						$ {user.current_balance.toFixed(2)}
 					</span>
 				</div>
