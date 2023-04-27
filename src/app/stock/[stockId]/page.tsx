@@ -3,6 +3,8 @@ import SellButton from "@/components/stock/sellbutton";
 import BuyButton from "@/components/stock/buybutton";
 import UserTradesSection from "@/components/stock/userTradesSection";
 import StockGraph from "@/components/stock/stockGraph";
+import FriendsList from "@/components/stock/friendsList";
+import { Purchase } from "@/util/types";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { currencyConverter } from "@/util/HelperFunctions";
@@ -53,6 +55,24 @@ export default function stock() {
 			});
 	}, []);
 
+	const [purchases, setPurchases] = useState<Partial<Purchase>[]>([]);
+	useEffect(() => {
+		axios
+			.get(`${BASE_URL}/api/stock/purchases/${stockId}`)
+			.then((response) => {
+				let purchases = response.data.data;
+				console.log("purchases", purchases);
+				setPurchases(purchases);
+			})
+			.catch((err) => {
+				if (err.response && err.response.data && err.response.data.msg) {
+					alert(err.response.data.msg);
+				} else {
+					console.log("getPurchases", err);
+				}
+			});
+	}, []);
+
 	return (
 		<main className="p-5">
 			<div
@@ -65,6 +85,17 @@ export default function stock() {
 			<h2 className="inline bg-blue-100 rounded-full px-3 py-1 text-xl font-semibold text-gray-700 p-5 ml-5 mr-2 mb-2">
 				{price ? `$${currencyConverter(price.current_price)}` : ""}
 			</h2>
+			{purchases.length > 0 && (
+            <h2 className="inline bg-blue-100 rounded-full px-3 py-1 text-xl font-semibold text-gray-700 p-5 ml-5 mr-2 mb-2">
+                Purchases: {purchases ? `${purchases[0].purchases}` : ""}
+            </h2>
+            )}
+            {purchases.length === 0 && (
+            <h2 className="inline bg-blue-100 rounded-full px-3 py-1 text-xl font-semibold text-gray-700 p-5 ml-5 mr-2 mb-2">
+                No purchases yet 
+            </h2>
+            )}
+
 			</div>
 
 			<div className="flex">
@@ -82,6 +113,8 @@ export default function stock() {
 			</div>
 
 			<UserTradesSection stockId={stockId} />
+			<FriendsList stockId={stockId} />
+
 		</main>
 	);
 }

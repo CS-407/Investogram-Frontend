@@ -30,7 +30,7 @@ export default function PopularStocks() {
     <tr className="max-w-sm overflow-hidden shadow-lg mt-3 mb-2 p-3 rounded-lg" style={{backgroundColor:"#364F6B", color:"#fff"}}>
         <th className="py-2 px-4 uppercase tracking-wider">Stock Ticker</th>
       <th className="py-2 px-4 uppercase tracking-wider">Stock Name</th>
-      <th className="py-2 px-4 uppercase tracking-wider">Shares</th>
+      <th className="py-2 px-4 uppercase tracking-wider">Shares Traded</th>
     </tr>
   </thead>
   <tbody>

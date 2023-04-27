@@ -77,3 +77,15 @@ export interface PopularStock {
 	};
 	totalTransactions: number;
 }
+
+export interface Purchase {
+	purchases: number;
+}
+
+export interface FriendList {
+	_id: {
+		user_id: string;
+		username: string;
+	};
+	stock: string;
+}
