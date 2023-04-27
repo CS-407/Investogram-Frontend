@@ -20,15 +20,23 @@ const ListPage = () => {
 
     useEffect(() => {
 		axios
-			.get(`${BASE_URL}/api/list/get/${listId}`)
+			.get(`${BASE_URL}/api/list/get/${listId}`, {
+                headers: {
+                    'Authorization': 'Bearer ' + localStorage.getItem('token')
+                }
+            })
 			.then((response) => {
 				setList(response.data);
 			})
 			.catch((err) => {
+                if (err.response && err.response.data && err.response.data.msg) {
+                    console.log(err.response.data.msg);
+                } else {
+                    console.log("Trouble contacting server");
+                }
 				alert("Error getting list");
 			});
 	}, []);
-
 
     const StocksSection = () => {
         if (list?.stocks.length === 0) return <p>No stocks</p>;
