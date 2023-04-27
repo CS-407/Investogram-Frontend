@@ -7,6 +7,7 @@ import { usePathname, useRouter } from "next/navigation";
 import PopularStocks from "@/components/stock/popularStocks";
 import { FriendsTrades } from "@/components/transaction/friendsTrades";
 import CurrentStockValue from "@/components/profile/currentStockValue";
+import AggregateStocks from "@/components/stock/aggregateStocks";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -112,6 +113,16 @@ export default function Home() {
 			<div>
 				<FriendsTrades />
 			</div>
+
+			{/* start of popular stocks component */}
+			<div className="flex-none h-1/3 w-2/3 flex justify-center items-center flex-col rounded-lg shadow-lg p-5 bg-investogram_yellow mb-3">
+					<h1 className="text-2xl text-center font-bold mt-4 mb-2 p-3 ">
+						Stocks your friends have purchased
+					</h1>
+
+					<AggregateStocks />
+				</div>
+				{/* end of popular stocks component */}
 
 		</main>
 	);

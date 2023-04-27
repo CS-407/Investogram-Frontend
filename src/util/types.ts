@@ -127,3 +127,12 @@ export interface FriendList {
 	};
 	stock: string;
 }
+
+export interface Aggregate {
+	_id: { 
+		stock_id: string; 
+		stock_name: string;
+		stock_ticker: string;
+	};
+	stock: string;
+}
