@@ -14,6 +14,7 @@ const SortedStocks = () => {
 		axios
 			.get(`${BASE_URL}/api/global/tradeinfo`)
 			.then((res: AxiosResponse) => {
+				console.log(res.data.stock_info)
 				setSortedStocks(res.data.stock_info);
 			})
 			.catch((err: AxiosError) => {
