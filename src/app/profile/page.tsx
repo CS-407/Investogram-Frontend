@@ -151,7 +151,7 @@ export default function profile() {
 						className="flex-grow w-1/3 p-4 shadow-lg bg-white mx-auto align-middle rounded-lg ml-3"
 						style={{ backgroundColor: "#FDE698" }}
 					>
-							<p className="mb-4 font-extrabold leading-none tracking-tight text-gray-900 md:text-2xl lg:text-4xl dark:text-black" style={{color:"#c7a73e"}}>
+					<p className="text-investogram_navy mb-4 font-extrabold leading-none tracking-tight md:text-2xl lg:text-4xl dark:text-investogram_navy">
 						User Stats
 					</p>
 						{state?.trades && user && (
