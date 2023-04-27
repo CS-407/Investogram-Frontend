@@ -7,14 +7,22 @@ import AuthContext from "@/context/AuthContext";
 import { TradeInfo } from "@/util/types";
 import { BASE_URL } from "@/util/globals";
 
+
 import RecentTradesSection from "../../components/profile/recentTradesSection";
 import LossGainSection from "@/components/profile/lossGainSection";
 import StocksOwned from "@/components/profile/stocksOwned";
 import FollowRequests from "@/components/profile/followRequests";
+import NewPost from "@/components/blog/newPost";
 
 export default function profile() {
 	const { user } = useContext(AuthContext);
+
 	const [state, setState] = useState<TradeInfo>();
+	const [showNewPost, setShowNewPost] = useState(false);
+
+	function handleNewPostClick() {
+		setShowNewPost(true);
+	}
 
 	useEffect(() => {
 		axios
@@ -47,12 +55,13 @@ export default function profile() {
 		<div>
 			<main className="p-5" style={{ backgroundColor: "#f5f5f5" }}>
 				<div className="flex flex-row">
-					<div
-						className="flex-none w-1/3 p-4 flex justify-center items-center flex-col rounded-lg shadow-lg p-5 bg-investogram_lightblue"
-						
-					>
+					<div className="flex-none w-1/3 p-4 flex justify-center items-center flex-col rounded-lg shadow-lg p-5 bg-investogram_lightblue">
 						<img
-							src={user ? `/images/avatar_${user?.profile_pic}.png` : "/images/default_profile.jpg"}
+							src={
+								user
+									? `/images/avatar_${user?.profile_pic}.png`
+									: "/images/default_profile.jpg"
+							}
 							alt={`${user?.username}'s avatar`}
 							className="flex-center rounded-full object-cover h-36 w-36"
 						/>
@@ -110,9 +119,7 @@ export default function profile() {
 							</div>
 						</div>
 						<div className="text-black-500 mt-2">
-							<button
-								className="flex items-center justify-center mt-2 px-2 py-1 text-base font-medium leading-6 text-white whitespace-no-wrap bg-black border-2 border-transparent rounded-full shadow-sm hover:bg-transparent hover:text-black hover:border-black focus:outline-none"
-							>
+							<button className="flex items-center justify-center mt-2 px-2 py-1 text-base font-medium leading-6 text-white whitespace-no-wrap bg-black border-2 border-transparent rounded-full shadow-sm hover:bg-transparent hover:text-black hover:border-black focus:outline-none">
 								<Link
 									href={"/profile/requests"}
 									style={{ textDecoration: "none" }}
@@ -121,22 +128,41 @@ export default function profile() {
 								</Link>
 								<span className="inline-flex items-center justify-center w-4 h-4 ml-2 text-xs font-semibold text-blue-800 bg-blue-50 rounded-full">
 									{user?.requests && user.requests.length}
-  								</span>
+								</span>
 							</button>
 						</div>
+						<div className="text-black-500 mt-2">
+							<button className="flex items-center justify-center mt-2 px-2 py-1 text-base font-medium leading-6 text-white whitespace-no-wrap bg-black border-2 border-transparent rounded-full shadow-sm hover:bg-transparent hover:text-black hover:border-black focus:outline-none">
+								<Link
+									href={"/blog"}
+									style={{ textDecoration: "none" }}
+								>
+									My Blog
+								</Link>
+							</button>
+						</div>
+
 					</div>
 					{/* useful metrics on profile	
 								- remaining wallet
 								- profit/loss
 								- total value of stock */}
 					<div
-						className="flex-grow w-2/3 p-4 shadow-lg bg-white mx-auto align-middle rounded-lg ml-3"
+						className="flex-grow w-1/3 p-4 shadow-lg bg-white mx-auto align-middle rounded-lg ml-3"
 						style={{ backgroundColor: "#FDE698" }}
 					>
+							<p className="mb-4 font-extrabold leading-none tracking-tight text-gray-900 md:text-2xl lg:text-4xl dark:text-black" style={{color:"#c7a73e"}}>
+						User Stats
+					</p>
 						{state?.trades && user && (
-							<LossGainSection monetaryInfo={state.monetary_info} stocks={state.stock_info} user={user!}/>
+							<LossGainSection
+								monetaryInfo={state.monetary_info}
+								stocks={state.stock_info}
+								user={user!}
+							/>
 						)}
 					</div>
+
 				</div>
 			</main>
 			<div
@@ -161,6 +187,8 @@ export default function profile() {
 					</p>
 					{state?.stock_info && <StocksOwned stocks={state.stock_info} />}
 				</div>
+				
+					
 			</div>
 		</div>
 	);
