@@ -10,11 +10,13 @@ import { useContext, useEffect, useState } from "react";
 import RecentTradesSection from "@/components/profile/recentTradesSection";
 import LossGainSection from "@/components/profile/lossGainSection";
 import StocksOwned from "@/components/profile/stocksOwned";
+import Link from "next/link";
 
 const User = () => {
 	const [user, setUser] = useState<User>();
 	const [state, setState] = useState<TradeInfo>();
 	const [following, setFollowing] = useState<boolean>(false);
+	const [lists, setLists] = useState<any[]>();
 
 	const authCtx = useContext(AuthContext);
 
@@ -30,8 +32,10 @@ const User = () => {
 				setUser(response.data.user);
 				if (
 					curUser &&
-					curUser.following_list &&
-					curUser.following_list.includes(response.data.user._id)
+					(
+						(curUser.following_list && curUser.following_list.includes(response.data.user._id))
+						|| (curUser._id === response.data.user._id)
+					)
 				) {
 					setFollowing(true);
 				}
@@ -43,6 +47,21 @@ const User = () => {
 					console.log("Trouble contacting server");
 				}
 			});
+		
+		axios
+			.get(`${BASE_URL}/api/list/getLists/${uid}`)
+			.then((response) => {
+				console.log(response.data)
+				setLists(response.data)
+			})
+			.catch((err) => {
+				if (err.response && err.response.data && err.response.data.msg) {
+					console.log(err.response.data.msg);
+				} else {
+					console.log("Trouble contacting server");
+				}
+			});
+
 	}, []);
 
 	useEffect(() => {
@@ -92,6 +111,31 @@ const User = () => {
 				}
 			});
 	};
+
+	const UsersListsSection = () => {
+		return (
+			<div className="">
+				<h1 className=" font-extrabold text-4xl">{user?.username}'s Lists</h1>
+				{!lists && <h1 className="font-extrabold text-4xl">Lists Loading</h1>}
+				{lists && lists.length == 0 && <h1 className="font-extrabold text-4xl">No Lists</h1>}
+				{lists &&
+					<div>
+						{
+							lists.map((list) => {
+								return (
+									<Link href={`/list/${list._id}`}>
+										<div className="flex flex-row hover:underline">
+											<h1 className="text-lg">{list.list_name}</h1>
+										</div>
+									</Link>
+								)
+							})
+						}
+					</div>
+				}
+			</div>
+		)
+	}
 
 	return (
 		<div>
@@ -177,21 +221,26 @@ const User = () => {
 				</div>
 			</main>
 			{following && (
-				<div className="grid grid-cols-4 p-4" style={{ backgroundColor: "#f5f5f5", padding: "20px" }}>
-				<div className="col-span-2" style={{ backgroundColor: "#f5f5f5", padding: "20px" }}>
+				<div className="bg-investogram_dark_white">
+					<div className="grid grid-cols-4 p-5">
+						<div className="col-span-2" style={{ backgroundColor: "#f5f5f5", padding: "20px" }}>
 
-					<p className="mb-4 font-extrabold leading-none tracking-tight text-gray-900 md:text-2xl lg:text-4xl dark:text-black">
-						Trade History
-					</p>
-					{ state?.trades && <RecentTradesSection trades={state.trades} /> }
+							<p className="mb-4 font-extrabold leading-none tracking-tight text-gray-900 md:text-2xl lg:text-4xl dark:text-black">
+								Trade History
+							</p>
+							{ state?.trades && <RecentTradesSection trades={state.trades} /> }
+						</div>
+						<div className="col-span-2" style={{ backgroundColor: "#f5f5f5", padding: "20px" }}>
+							<p className="mb-4 font-extrabold leading-none tracking-tight text-gray-900 md:text-2xl lg:text-4xl dark:text-black">
+								Value of Stocks Owned
+							</p>
+							{state?.stock_info && <StocksOwned stocks={state.stock_info} />}
+						</div>
+					</div>
+					<div className="p-8">
+						<UsersListsSection />
+					</div>
 				</div>
-				<div className="col-span-2" style={{ backgroundColor: "#f5f5f5", padding: "20px" }}>
-					<p className="mb-4 font-extrabold leading-none tracking-tight text-gray-900 md:text-2xl lg:text-4xl dark:text-black">
-						Value of Stocks Owned
-					</p>
-					{state?.stock_info && <StocksOwned stocks={state.stock_info} />}
-				</div>
-			</div>
 			)}
 		</div>
 
