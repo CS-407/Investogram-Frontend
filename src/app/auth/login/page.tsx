@@ -8,12 +8,12 @@ import Link from "next/link";
 import "../authStyles.css";
 
 interface Fields {
-	email: string;
+	username: string;
 	password: string;
 }
 
 function Login() {
-	const initialValues: Fields = { email: "", password: "" };
+	const initialValues: Fields = { username: "", password: "" };
 	const router = useRouter();
 
 	const { login } = useContext(AuthContext);
@@ -39,7 +39,7 @@ function Login() {
 	const loginUser = async () => {
 		try {
 			await login({
-				email: formValues.email,
+				username: formValues.username,
 				password: formValues.password,
 			});
 			alert("Successfully Logged In");
@@ -53,14 +53,8 @@ function Login() {
 		const errors: Fields = initialValues;
 		const regex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
 
-		if (!regex.test(formValues.email)) {
-			errors.email = "This is not a valid email format!";
-		}
-		
-		if (formValues.password.length < 4) {
-			errors.password = "Password must be more than 4 characters";
-		} else if (formValues.password.length > 10) {
-			errors.password = "Password cannot exceed more than 10 characters";
+		if (formValues.password.length < 6 || formValues.password.length > 10) {
+			errors.password = "Password must be between 6 and 10 characters";
 		}
 
 		if (errors == initialValues) {
@@ -80,18 +74,18 @@ function Login() {
 					</div>
 					<div className="ui form">
 						<div className="form">
-							<label className="block font-bold mb-2">Email </label>
+							<label className="block font-bold mb-2">Username</label>
 							<input
 								className="border rounded w-full py-2 px-3 text-gray-700 mb-3"
 								type="text"
-								name="email"
+								name="username"
 								required
-								placeholder="jdoe@gmail.com"
-								value={formValues.email}
+								placeholder="johndoe"
+								value={formValues.username}
 								onChange={handleChange}
 							/>
 						</div>
-						<p>{formErrors.email}</p>
+						<p>{formErrors.username}</p>
 						<div className="form">
 							<label className="block font-bold mb-2">Password </label>
 							<input

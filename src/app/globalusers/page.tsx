@@ -13,7 +13,7 @@ export default function globalusers() {
 				>
 					Global Users
 				</h1>
-				<p>
+				<p className="text-gray-500">
 					Navigate to a user page you see here or use the search bar to find
 					your friend!
 				</p>

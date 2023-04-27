@@ -11,6 +11,7 @@ export interface User {
 	password?: string;
 	password2?: string;
 	reset_token?: number;
+	profile_pic: number;
 }
 
 export interface Stock {
@@ -60,13 +61,22 @@ export interface TradeInfo {
 	monetary_info: MonetaryInfo;
 }
 
+export interface Comment {
+	_id: string;
+	user_id: Partial<User>;
+	post_id: string;
+	content: string;
+	timestamp: number;
+}
+
 export interface Post {
-	userId: string;
+	_id: string;
+	user_id: string;
 	type: string;
 	content: string;
 	likes: number;
-	timestamp: string;
-	comments: any[];
+	timestamp: number;
+	comments: Comment[];
 }
 
 export interface PopularStock {
@@ -88,4 +98,32 @@ export interface FriendList {
 		username: string;
 	};
 	stock: string;
+}
+
+export interface StockList {
+	_id: string;
+	list_name: string;
+	list_owner: User;
+	stocks: any[];
+}
+
+export interface SortedStock {
+	stock_id: string;
+	num_shares: number;
+	stock_ticker: string;
+	stock_name: string;
+	current_price: number;
+}
+
+export interface Leaderboard {
+	_id: string;
+	user_id: {
+		_id: string;
+		username: string;
+	}
+	position: number;
+	loss: number;
+	revenue: number;
+	profit: number;
+	num_trades: number;
 }
