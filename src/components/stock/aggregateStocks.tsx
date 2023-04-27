@@ -40,9 +40,13 @@ export default function AggregateStocks() {
 
         <table className="border-collapse w-full rounded-lg">
             {stockData.length === 0 && (
-				<p className="text-lg mb-2" style={{ color: "#364F6B", padding: "20px" }}>
-				Your friends have not purchased any stocks
-				</p>
+                <thead>
+                    <tr>
+                    <td className="text-lg mb-2" style={{ color: "#364F6B", padding: "20px" }}>
+                    Your friends have not purchased any stocks
+                    </td>
+                    </tr>
+                </thead>
             )}
 
             {stockData.length > 0 && (
