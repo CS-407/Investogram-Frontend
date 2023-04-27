@@ -31,7 +31,14 @@ const page = () => {
 	}, []);
 
 	return (
-		<div className="flex flex-col">
+		<div className="flex flex-col align-middle">
+			<div className="flex flex-row p-5">
+							<Link href={"/blog/new"}>
+								<button className="flex items-center justify-center px-4 py-2 text-base font-medium leading-6 text-white bg-black border border-transparent rounded-full shadow-sm hover:bg-transparent hover:text-black hover:border-black focus:outline-none">
+									Create New Post
+								</button>
+							</Link>
+						</div>
 			{blogPosts.map((post) => (
 				<div
 					key={post._id}

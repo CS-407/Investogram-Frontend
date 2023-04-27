@@ -131,6 +131,17 @@ export default function profile() {
 								</span>
 							</button>
 						</div>
+						<div className="text-black-500 mt-2">
+							<button className="flex items-center justify-center mt-2 px-2 py-1 text-base font-medium leading-6 text-white whitespace-no-wrap bg-black border-2 border-transparent rounded-full shadow-sm hover:bg-transparent hover:text-black hover:border-black focus:outline-none">
+								<Link
+									href={"/blog"}
+									style={{ textDecoration: "none" }}
+								>
+									My Blog
+								</Link>
+							</button>
+						</div>
+
 					</div>
 					{/* useful metrics on profile	
 								- remaining wallet
@@ -151,6 +162,7 @@ export default function profile() {
 							/>
 						)}
 					</div>
+
 				</div>
 			</main>
 			<div
@@ -175,30 +187,7 @@ export default function profile() {
 					</p>
 					{state?.stock_info && <StocksOwned stocks={state.stock_info} />}
 				</div>
-				{/* <div
-						className="flex-grow p-4 shadow-lg bg-white mx-auto align-middle rounded-lg ml-3"
-						style={{ backgroundColor: "#FDE698" }}
-					>
-							<p className="mb-4 font-extrabold leading-none tracking-tight text-gray-900 md:text-2xl lg:text-4xl dark:text-black" style={{color:"#c7a73e"}}>
-								My Blog
-							</p>
-							<div className="flex flex-row">
-							<Link href={"/blog"}>
-								<button className="flex items-center justify-center px-4 py-2 text-base font-medium leading-6 text-white bg-black border border-transparent rounded-full shadow-sm hover:bg-transparent hover:text-black hover:border-black focus:outline-none">
-									Click here to view full blog!
-								</button>
-							</Link>
-						</div>
-						<div className="flex flex-col justify-between bg-white dark:bg-gray-800 rounded-lg shadow-md p-6">
-							<button
-								className="flex items-center justify-center px-4 py-2 text-base font-medium leading-6 text-white bg-black border border-transparent rounded-full shadow-sm hover:bg-transparent hover:text-black hover:border-black focus:outline-none mb-4"
-								onClick={handleNewPostClick}
-							>
-								Create New Post
-							</button>
-							{showNewPost && <NewPost />}
-						</div>
-						</div> */}
+				
 					
 			</div>
 		</div>
