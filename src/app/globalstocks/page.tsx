@@ -1,5 +1,4 @@
 import SearchStock from "@/components/stock/searchStock";
-import { StockCategories } from "@/components/stock/stockCategories";
 import Link from "next/link";
 
 export default function globalstocks() {
@@ -14,10 +13,14 @@ export default function globalstocks() {
 			</div>
 			<div className="mt-2 w-full flex flex-row justify-center rounded-lg shadow-lg bg-investogram_navy py-4">
 				<Link className="mr-2" href={"/stockCategories"}>
-					<p className="bg-gray-100 hover:bg-gray-300 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2">View Stock Categories</p>
+					<p className="bg-gray-100 hover:bg-gray-300 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2">
+						View Stock Categories
+					</p>
 				</Link>
 				<Link className="ml-2" href={"/sortedStocks"}>
-					<p className="bg-gray-100 hover:bg-gray-300 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2">View Sorted Stocks</p>
+					<p className="bg-gray-100 hover:bg-gray-300 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2">
+						View Sorted Stocks
+					</p>
 				</Link>
 			</div>
 			<SearchStock />

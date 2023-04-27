@@ -1,55 +1,51 @@
 "use client";
+import AuthContext from "@/context/AuthContext";
 import { BASE_URL } from "@/util/globals";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 
 export default function ChangeProfilePic() {
+	const { updateProfilePic, user } = useContext(AuthContext);
+
 	const [loadedProfilePic, setLoadedProfilePic] = useState<number>();
 
-	async function loadProfilePic() {
-		axios
-			.get(`${BASE_URL}/api/user/getProfilePic`, {
-				headers: {
-					Authorization: "Bearer " + localStorage.getItem("token"),
-				},
-			})
-			.then((res) => {
-				setLoadedProfilePic(res.data.data);
-			})
-			.catch((err) => {
-				alert("Trouble fetching current profile picture");
-			});
-	}
+	useEffect(() => {
+		if (user) {
+			setLoadedProfilePic(user.profile_pic);
+		}
+	}, [user])
 
-	const changeProfilePic = (choice: number) => {
-		const headers_obj = {
-			"Content-Type": "application/json",
-			Authorization: "Bearer " + localStorage.getItem("token"),
-		};
-		console.log(headers_obj);
-		axios
-			.post(
-				`${BASE_URL}/api/user/updateProfilePic/${choice}`,
-				{},
-				{
-					headers: headers_obj,
-				}
-			)
-			.then(() => {
-				alert("Profile picture updated!");
-			})
-			.catch((err: any) => {
-				if (err.response && err.response.data && err.response.data.msg) {
-					alert(err.response.data.msg);
-				} else {
-					alert("Trouble contacting server");
-				}
-			});
+	// async function loadProfilePic() {
+	// 	axios
+	// 		.get(`${BASE_URL}/api/user/getProfilePic`, {
+	// 			headers: {
+	// 				Authorization: "Bearer " + localStorage.getItem("token"),
+	// 			},
+	// 		})
+	// 		.then((res) => {
+	// 			setLoadedProfilePic(res.data.data);
+	// 		})
+	// 		.catch((err) => {
+	// 			alert("Trouble fetching current profile picture");
+	// 		});
+	// }
+
+	const changeProfilePic = async (choice: number) => {
+		try {
+			await updateProfilePic(choice);
+			setLoadedProfilePic(choice);
+		} catch (err: any) {
+			if (err.response && err.response.data && err.response.data.msg) {
+				alert(err.response.data.msg);
+			} else {
+				alert("Trouble contacting server");
+			}
+		}
 	};
 
-	useEffect(() => {
-		loadProfilePic();
-	}, []);
+	// useEffect(() => {
+	// 	loadProfilePic();
+	// }, []);
 
 	const otherOptions = () => {
 		let out = Array.from(Array(4), (_, index) => index + 1);
@@ -66,6 +62,7 @@ export default function ChangeProfilePic() {
 	const resetSelection = () => setSelected(setPic);
 
 	if (!loadedProfilePic) return <div>Loading...</div>;
+
 	return (
 		<main className="p-5 bg-white">
 			<div className="flex-none flex justify-center items-center flex-col rounded-lg shadow-lg bg-investogram_yellow py-4 text-investogram_navy">
