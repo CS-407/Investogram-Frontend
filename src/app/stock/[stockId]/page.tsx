@@ -4,6 +4,7 @@ import BuyButton from "@/components/stock/buybutton";
 import UserTradesSection from "@/components/stock/userTradesSection";
 import StockGraph from "@/components/stock/stockGraph";
 import FriendsList from "@/components/stock/friendsList";
+import PopularStats from "@/components/stock/popularStats";
 import { Purchase } from "@/util/types";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -126,6 +127,7 @@ export default function stock() {
 			</div>
 
 			<UserTradesSection stockId={stockId} />
+			<PopularStats stockId={stockId} />
 			<FriendsList stockId={stockId} />
 		</main>
 	);
