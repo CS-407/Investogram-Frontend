@@ -26,11 +26,13 @@ const SortedStocks = () => {
 	};
 
 	return (
-		<div>
+		<main className="p-5 bg-white">
 			<div className="flex-none flex justify-center items-center flex-col rounded-lg shadow-lg bg-investogram_yellow py-4 text-investogram_navy">
-				<h1 className="text-5xl font-bold mt-4 mb-4">Sorted Stocks</h1>
-				<p className="text-gray-500">
-					Sort stocks by current value or number of shares traded!
+				<h1 className="text-5xl font-bold mt-4 mb-4">
+					Sorted Stocks
+				</h1>
+				<p>
+				Sort stocks by current value or number of shares traded!
 				</p>
 			</div>
 			{/* table displayed stocks with filter */}
@@ -46,7 +48,7 @@ const SortedStocks = () => {
 					<tbody>{handlefilteredStocks()}</tbody>
 				</table>
 			</div>
-		</div>
+		</main>
 	);
 };
 
