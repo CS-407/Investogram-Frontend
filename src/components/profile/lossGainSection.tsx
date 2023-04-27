@@ -31,9 +31,7 @@ export default function LossGainSection(props: LossGainSectionProps) {
 	const purchases = props.monetaryInfo.purchases;
 	const sales = props.monetaryInfo.sales;
 
-	const portfolioValue = () => {
-		return currencyConverter(user.current_balance + props.monetaryInfo.profit + Number(stockValue()));
-	}
+	const portfolioValue = user.current_balance + props.monetaryInfo.profit + Number(stockValue());
 
 	const ProfitSection = () => {
 		return (
@@ -48,12 +46,11 @@ export default function LossGainSection(props: LossGainSectionProps) {
 						on {purchases + sales} trades
 					</div>
 				</div>
-
+				{/*
 				<h3 className="text-center">=</h3>
 				
 				<div>
 					<div className="font-semibold text-lg">Total Revenue:</div>
-					{/* <p className="text-sm">How much stock has been sold on the app</p> */}
 					<div>
 						<div className="text-2xl font-semibold text-green-500">
 							${revenue}
@@ -68,7 +65,6 @@ export default function LossGainSection(props: LossGainSectionProps) {
 				
 				<div>
 					<div className="font-semibold text-lg">Total Loss:</div>
-					{/* <p className="text-sm">How much stock has been bought on the app</p> */}
 					<div className="">
 						<div className="text-2xl font-semibold text-red-500">${loss}</div>
 						<div className="text-sm font-semibold text-red-500">
@@ -76,19 +72,31 @@ export default function LossGainSection(props: LossGainSectionProps) {
 						</div>
 					</div>
 				</div>
+				*/}
 			</div>
 		)
 	}
+
+	const startingBalance = 25000;
+	const differenceFromOriginal = portfolioValue - startingBalance;
 
 	if (props.monetaryInfo) {
 		return (
 			<div className="flex my-auto align-center rounded-lg flex-row p-5 text-investogram_navy">
 
 					<div className="px-1 mx-2 rounded-lg">
-						<div className="font-semibold text-lg">Current Portfolio Value:</div>
-						<h3 className="text-2xl font-semibold">
-							${portfolioValue()}
-						</h3>
+						<div>
+							<h3 className="font-semibold text-lg">Current Portfolio Value:</h3>
+							<h3 className="text-2xl font-semibold">
+								${currencyConverter(portfolioValue)}
+							</h3>
+						</div>
+						<div>
+						<h3 className="font-semibold text-lg">Overall Change:</h3>
+							<h3 className={`text-2xl font-semibold ${differenceFromOriginal >= 0 ? "text-green-500" : "text-red-500"}`}>
+								{differenceFromOriginal >= 0 ? '+' : ''}${currencyConverter(differenceFromOriginal)}
+							</h3>
+						</div>
 					</div>
 
 					<h3 className="align-middle">=</h3>
