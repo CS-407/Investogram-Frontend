@@ -59,6 +59,14 @@ const ListPage = () => {
 	};
 
 	return (
+		<div className="p-5">
+			<div className="flex-none flex justify-center items-center flex-col rounded-lg shadow-lg bg-investogram_yellow py-4 text-investogram_navy mb-3">
+				<h1 className="text-5xl font-bold mt-4 mb-4">InvestoLists</h1>
+				<p className="text-investogram_navy">
+					Click on a list to check it out or create your own!
+				</p>
+			</div>
+		
 		<div className="">
 			<form className="mb-2 p-2 flex flex-row" onSubmit={handleSubmit}>
 				<input
@@ -67,7 +75,7 @@ const ListPage = () => {
 					placeholder="New List Name..."
 					onChange={handleChange}
 				/>
-				<button className="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded ml-3" type="submit">Create New List</button>
+				<button className="bg-investogram_navy hover:bg-gray-400 text-investogram_yellow py-2 px-4 rounded ml-3" type="submit">Create New List</button>
 			</form>
 			<h1 className="font-extrabold text-2xl leading-none tracking-tight text-gray-900 m-3">Lists</h1>
 			<div className="flex flex-row flex-wrap">
@@ -82,6 +90,7 @@ const ListPage = () => {
 				))}
 			</div>
 		</div>
+	</div>
 	);
 };
 
