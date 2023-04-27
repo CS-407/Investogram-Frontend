@@ -33,16 +33,19 @@ export default function PopularStats(props: PopularStatsProps) {
 	}, []);
 
 	return (
-		<div className="p-3">
-            <div className="text-center">
+
+		<div className="">
+            <div className="font-semibold text-lg text-investogram_navy p-1">
 				Shares Traded:
 			</div>
-            <div className="text-center">
+			<p className="text-sm font-semibold text-investogram_dark_yellow p-1">
+				Shares traded of this stock in total sitewide
+			</p>
+            <div className="font-semibold text-lg text-investogram_navy p-1">
 				{stockData.map((stockObj, index) => (
 					<div
 						key={index}
-						className="text-center"
-					>
+						className="font-semibold text-lg text-investogram_navy p-1">
 						    {stockObj.totalTransactions}
 
 					</div>

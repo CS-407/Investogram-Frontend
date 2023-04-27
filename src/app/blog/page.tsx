@@ -31,6 +31,14 @@ const page = () => {
 	}, []);
 
 	return (
+		<main className="p-5">
+			<div className="flex-none flex justify-center items-center flex-col rounded-lg shadow-lg bg-investogram_yellow py-4 text-investogram_navy">
+				<h1 className="text-5xl font-bold mt-4 mb-4">InvestoBlog</h1>
+				<p className="text-investogram_navy">
+					Click on a post to see the discussion or create a new post here!
+				</p>
+			</div>
+
 		<div className="flex flex-col align-middle">
 			<div className="flex flex-row p-5">
 							<Link href={"/blog/new"}>
@@ -56,6 +64,7 @@ const page = () => {
 				</div>
 			))}
 		</div>
+		</main>
 	);
 };
 
