@@ -97,7 +97,7 @@ export default function LossGainSection(props: LossGainSectionProps) {
 						</h3>
 						<div>
 						
-						<h3 className="inline bg-blue-100 rounded-full px-3 py-1 text-2xl font-semibold text-lg text-investogram_navy p-1 mt-3 mr-2 mb-2">Overall Change</h3>
+						<h3 className="text-2xl font-semibold text-lg text-white">Overall Change</h3>
 							<h3 className={`text-2xl p-1 font-semibold ${differenceFromOriginal >= 0 ? "text-green-500" : "text-red-500"}`}>
 								{differenceFromOriginal >= 0 ? '+' : ''}${currencyConverter(differenceFromOriginal)}
 							</h3>
@@ -145,14 +145,14 @@ export default function LossGainSection(props: LossGainSectionProps) {
 						className="w-auto h-auto p-3"
 					/>
 					<div className="flex flex-col">
-						<p className="text-2xl font-bold text-white">
+						<p className="text-2xl font-bold text-white mr-8">
 							My Wallet
 						</p>
 						<p className="text-sm font-semibold text-investogram_yellow">
 							money remaining on my account
 						</p>
 					</div>
-					<span className="inline bg-blue-100 rounded-full px-3 py-1 text-2xl font-extrabold text-investogram_navy mr-2 mb-2">
+					<span className="ml-8 inline bg-blue-100 rounded-full px-3 py-1 text-2xl font-extrabold text-investogram_navy mr-2 mb-2">
 						$ {user.current_balance.toFixed(2)}
 					</span>
 				</div>

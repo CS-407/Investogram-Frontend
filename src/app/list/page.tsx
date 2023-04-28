@@ -68,7 +68,7 @@ const ListPage = () => {
 			</div>
 		
 		<div className="">
-			<form className="mb-2 p-2 flex flex-row" onSubmit={handleSubmit}>
+			<form className="mb-2 p-5 flex flex-row" onSubmit={handleSubmit}>
 				<input
                     className="border rounded py-2 px-3 text-gray-700 mr-2"
 					type="text"
@@ -80,12 +80,21 @@ const ListPage = () => {
 			
 			<div className="flex flex-row flex-wrap">
 				{lists?.map((list: StockList) => (
-					<div className="m-2 flex flex-col border-rounded p-2" key={list._id}>
-						<h2>{list.list_name}</h2>
-						<p>{list.stocks.length} stocks</p>
-                        <Link href={`/list/${list._id}`}>
-                            Visit List Page
-                        </Link>
+					<div className="max-w-sm rounded overflow-hidden shadow-lg m-3" key={list._id}>
+						<div className="px-4 py-2">
+						<div className="font-bold text-l mb-2">{list.list_name}</div>
+						<p className="text-gray-700 text-base text-sm">
+							{list.stocks.length} stocks</p>
+						</div>
+						<div className="px-4 py-2">
+					
+							<Link href={`/list/${list._id}`}>
+								<button className="flex items-center justify-center px-4 py-2 text-base font-medium leading-6 text-white bg-black border border-transparent rounded-full shadow-sm hover:bg-transparent hover:text-black hover:border-black focus:outline-none">
+								Visit List Page
+								</button>
+							</Link>
+						</div>
+
 					</div>
 				))}
 			</div>
