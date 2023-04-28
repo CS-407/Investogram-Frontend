@@ -36,6 +36,7 @@ const page = () => {
 			.then((res) => {
 				console.log(res.data.post);
 				setPost(res.data.post);
+				console.log(post.likes);
 			})
 			.catch((err) => {
 				if (err.response && err.response.data && err.response.data.msg) {
@@ -87,7 +88,7 @@ const page = () => {
 				}
 			)
 			.then((res) => {
-				setPost({ ...post, likes: like });
+				setPost({ ...post, likes: res.data.like });
 			})
 			.catch((err) => {
 				if (err.response && err.response.data && err.response.data.msg) {
@@ -126,10 +127,12 @@ const page = () => {
 					</div>
 				))}
 			</div>
-
 			{/* Form to add a new comment */}
 			<NewComment addComment={addComment} />
-			<UpvoteButton upvoteBlog={upvoteBlog} />
+			<UpvoteButton upvoteBlog={upvoteBlog}/>
+			<div>
+				{post.likes}
+			</div>
 		</div>
 	);
 };
