@@ -52,13 +52,13 @@ const NewPost = () => {
 			<h1 className="text-2xl h-full mb-4 font-bold">New Post</h1>
 				<form className="" onSubmit={handleSubmit}>
 					<textarea
-						className="block w-full h-full p-1 text-sm text-gray-100 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 h-full resize"
+						className="block p-5 w-full h-full text-sm text-gray-100 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 h-full resize"
 						placeholder="Share your thoughts here..."
 						value={content}
 						onChange={handleChange}
 					/>
 					<button
-						className="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded m-3 transition-colors duration-300 ease-in-out"
+						className="bg-investogram_navy text-white hover:bg-blue-500 py-2 px-4 rounded m-3 transition-colors duration-300 ease-in-out"
 						type="submit"
 					>
 						Create
