@@ -71,7 +71,7 @@ export interface Comment {
 
 export interface Post {
 	_id: string;
-	user_id: string;
+	user_id: Partial<User>;
 	type: string;
 	content: string;
 	likes: number;

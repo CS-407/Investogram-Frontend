@@ -121,7 +121,6 @@ export default function Home() {
 			<div>
 				<FriendsTrades />
 			</div>
-
 		</main>
 	);
 }

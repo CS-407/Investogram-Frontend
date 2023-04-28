@@ -22,6 +22,7 @@ export default function PopularStats(props: PopularStatsProps) {
 			.then((response) => {
 				const data = response.data;
 				setStockData(data.data);
+                //console.log(stockData.length);
 			})
 			.catch((err: any) => {
 				if (err.response && err.response.data && err.response.data.msg) {
@@ -38,9 +39,12 @@ export default function PopularStats(props: PopularStatsProps) {
             <div className="font-semibold text-lg text-investogram_navy p-1">
 				Shares Traded:
 			</div>
-			<p className="text-sm font-semibold text-investogram_dark_yellow p-1">
-				Shares traded of this stock in total sitewide
-			</p>
+            {stockData.length == 0 && (
+            <div className="font-semibold text-lg text-investogram_navy p-1">
+				0	
+            </div>
+            )}
+            {stockData.length > 0 && (
             <div className="font-semibold text-lg text-investogram_navy p-1">
 				{stockData.map((stockObj, index) => (
 					<div
@@ -51,6 +55,10 @@ export default function PopularStats(props: PopularStatsProps) {
 					</div>
 				))}
             </div>
+            )}
+			<p className="text-sm font-semibold text-investogram_dark_yellow p-1">
+				Shares traded of this stock in total sitewide
+			</p>
 		</div>
 	);
 }
