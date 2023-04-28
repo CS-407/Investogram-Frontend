@@ -119,13 +119,13 @@ const User = () => {
 				{!lists && <h1 className="font-extrabold text-4xl">Lists Loading</h1>}
 				{lists && lists.length == 0 && <h1 className="font-extrabold text-4xl">No Lists</h1>}
 				{lists &&
-					<div>
+					<div className="m-3">
 						{
 							lists.map((list) => {
 								return (
 									<Link href={`/list/${list._id}`}>
-										<div className="flex flex-row hover:underline">
-											<h1 className="text-lg">{list.list_name}</h1>
+										<div className="flex flex-row bg-investogram_navy hover:underline max-w-sm rounded overflow-hidden shadow-lg mb-3 p-3">
+											<h1 className="text-lg text-white">{list.list_name}</h1>
 										</div>
 									</Link>
 								)

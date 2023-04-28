@@ -129,8 +129,8 @@ export default function Home() {
 			</div>
 
 			{/* start of popular stocks component */}
-			<div className="flex-none h-1/3 w-2/3 flex justify-center items-center flex-col rounded-lg shadow-lg p-5 bg-investogram_yellow mb-3">
-					<h1 className="text-2xl text-center font-bold mt-4 mb-2 p-3 ">
+			<div className="flex-none h-1/3 w-2/3 flex justify-center items-center flex-col rounded-lg shadow-sm p-5 bg-investogram_yellow mt-5 mb-5">
+					<h1 className="text-2xl text-center font-bold mt-3 mb-2 p-3 ">
 						Stocks your friends have purchased
 					</h1>
 
