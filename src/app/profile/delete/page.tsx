@@ -28,20 +28,17 @@ function deleteUserPage() {
 	const deleteAcc = async () => {
 		axios
 			.delete(`${BASE_URL}/api/user/deleteAcc`, {
-        data: {
-          user_id: user?._id,
-          password: password,
-        },
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': 'Bearer ' + localStorage.getItem('token')
-        }
-      })
+				data: {
+					password: password,
+				},
+				headers: {
+					"Content-Type": "application/json",
+					Authorization: "Bearer " + localStorage.getItem("token"),
+				},
+			})
 			.then((res: any) => {
-				if (res.data.msg === "Success") {
-					logout();
-					router.push("/auth/login");
-				}
+				logout();
+				router.push("/auth/login");
 			})
 			.catch((err: any) => {
 				if (err.response && err.response.data && err.response.data.msg) {
