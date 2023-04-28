@@ -94,7 +94,6 @@ const ListPage = () => {
 								</button>
 							</Link>
 						</div>
-
 					</div>
 				))}
 			</div>
