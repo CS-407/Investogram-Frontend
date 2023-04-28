@@ -67,7 +67,7 @@ const ListPage = () => {
                     <div className="px-4 py-2 m-5">
                     <Link href={`/editlist/${listId}`}>
                         <p className="inline-block bg-gray-200 hover:bg-gray-100 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2">
-                            Edit List
+                        ⚙︎ Edit List
                         </p>
                     </Link>
                 </div>
@@ -75,7 +75,11 @@ const ListPage = () => {
                 
             </div>
             <Link href={`/user/${list?.list_owner._id}`}>
-                <h3 className="inline bg-blue-100 rounded-full px-3 py-1 mr-1 text-sm font-semibold text-white-700 p-5 m-2">{list?.list_owner.username}</h3>
+                <h1 className="text-sm text-gray-800 font-bold m-5 mb-2">
+					Posted by <p className="inline bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 ml-1 mr-2">{list?.list_owner.username}
+                    </p>
+				</h1>
+                
             </Link>
             <div>
                 <StocksSection />
