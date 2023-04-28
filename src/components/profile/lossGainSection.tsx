@@ -140,9 +140,9 @@ export default function LossGainSection(props: LossGainSectionProps) {
 				</div>
 				<div className="flex align-center p-5 rounded-lg bg-investogram_navy br-5">
 					<img
-						src="public/images/my_wallet.png"
+						src="/images/my_wallet.png"
 						alt="wallet"
-						className="w-auto h-auto p-3"
+						className="w-auto h-12 w-12 p-3"
 					/>
 					<div className="flex flex-col">
 						<p className="text-2xl font-bold text-white mr-8">
