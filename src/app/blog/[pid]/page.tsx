@@ -11,12 +11,15 @@ import { dateConverter, dateToString } from "@/util/HelperFunctions";
 
 const initialPost: Post = {
 	_id: "64416b0d14cac46eff9fde61",
-	user_id: "642493784def0c7b76c40167",
+	user_id: {
+		_id: "64416b0d14cac46eff9fde61",
+		username: "test",
+	},
 	type: "Experience",
 	content: "",
 	likes: 0,
 	timestamp: 0,
-	comments: []
+	comments: [],
 };
 
 const page = () => {
@@ -29,8 +32,8 @@ const page = () => {
 		axios
 			.get(`${BASE_URL}/api/blog/${pid}`, {
 				headers: {
-					'Authorization': 'Bearer ' + localStorage.getItem('token')
-				}
+					Authorization: "Bearer " + localStorage.getItem("token"),
+				},
 			})
 			.then((res) => {
 				console.log(res.data.post);
@@ -75,7 +78,9 @@ const page = () => {
 		<div className="p-4">
 			{/* Blog Content */}
 			<div className="m-4">
-				<h1 className="text-sm text-gray-800 font-bold mb-2">Posted on July 23, 2022</h1>
+				<h1 className="text-sm text-gray-800 font-bold mb-2">
+					Posted by <p className="inline bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 ml-1 mr-2">{post.user_id.username}</p> on {dateToString(dateConverter(post.timestamp))}
+				</h1>
 				<p className="">{post.content}</p>
 			</div>
 
