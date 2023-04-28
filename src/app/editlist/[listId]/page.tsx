@@ -56,7 +56,8 @@ const EditListPage = () => {
 	const StocksSection = () => {
 		if (list?.stocks.length === 0) return <p>No stocks</p>;
 		return (
-			<div>
+			<div className="bg-investogram_yellow rounded-lg m-3 p-3">
+                <h3 className="text-2xl font-bold my-auto m-5 p-1 text-investogram_navy">Current Stocks:</h3>
 				{list?.stocks.map((stock) => (
 					<div className="flex flex-row my-2">
 						<StockRow stock={stock} />
@@ -82,7 +83,7 @@ const EditListPage = () => {
 				<div className="flex flex-row justify-between my-auto">
 					<h2 className="text-xl font-bold my-auto">Other Stocks:</h2>
 					<button
-						className="block w-42 h-12 my-2 p-1 bg-blue-500 text-white rounded-lg hover:text-blue-500 hover:bg-white hover:border-2 hover:border-blue-500"
+						className="block w-30 h-12 px-4 py-2 font-medium my-2 p-1 bg-investogram_navy text-white rounded-full hover:text-investogram_navy hover:bg-white hover:border-2 hover:border-investogram_navy"
 						onClick={() => setShowingOtherStocks(false)}
 					>
 						Hide Other Stocks
@@ -129,10 +130,10 @@ const EditListPage = () => {
 		<div className="mx-16">
 			<div className="flex justify-between">
 				<div>
-					<h1 className="font-bold text-2xl">List Name:</h1>
+					<h1 className="font-bold text-2xl m-3">List Name:</h1>
 					<input
 						type="text"
-						className="block p-4 border border-gray-300 rounded-lg bg-gray-50 sm:text-md focus:ring-blue-500 focus:border-blue-500"
+						className="m-3 block p-4 border border-gray-300 rounded-lg bg-gray-50 sm:text-md focus:ring-blue-500 focus:border-blue-500"
 						value={list?.list_name}
 						onChange={(e) => setList({ ...list, list_name: e.target.value })}
 					/>
@@ -140,12 +141,13 @@ const EditListPage = () => {
 				<div className="flex flex-row my-auto">
 					<Link href={`/list/${listId}`}>
 						<button
-							className="block w-48 h-12 my-auto mx-2 p-1 bg-blue-500 text-white rounded-lg hover:text-blue-500 hover:bg-white hover:border-2 hover:border-blue-500"
-							onClick={() => submitChanges}
-						>
-							Back to the List Page
-						</button>
+						className="block w-30 h-12 px-4 py-2 font-medium my-2 p-1 bg-investogram_navy text-white rounded-full hover:text-investogram_navy hover:bg-white hover:border-2 hover:border-investogram_navy"
+						onClick={() => submitChanges}
+					>
+						Back to List Page
+					</button>
 					</Link>
+					
 					<button
 						className="block w-16 h-12 my-auto mx-2 p-1 bg-green-500 text-white rounded-lg hover:text-green-500 hover:bg-white hover:border-2 hover:border-green-500"
 						onClick={() => submitChanges()}
@@ -155,15 +157,16 @@ const EditListPage = () => {
 				</div>
 			</div>
 			<div>
-				<h2 className="text-xl font-bold">Current Stocks:</h2>
+				
 				<StocksSection />
 				{!showingOtherStocks && (
 					<button
-						className="block w-42 h-12 my-2 p-1 bg-blue-500 text-white rounded-lg hover:text-blue-500 hover:bg-white hover:border-2 hover:border-blue-500"
-						onClick={() => setShowingOtherStocks(true)}
-					>
-						Show Other Stocks
-					</button>
+					className="block w-30 h-12 px-4 py-2 font-medium my-2 p-1 bg-investogram_navy text-white rounded-full hover:text-investogram_navy hover:bg-white hover:border-2 hover:border-investogram_navy"
+					onClick={() => setShowingOtherStocks(true)}
+				>
+					Show Other Stocks
+				</button>
+
 				)}
 				{showingOtherStocks && <OtherStocks />}
 			</div>

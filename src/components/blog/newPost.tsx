@@ -45,14 +45,7 @@ const NewPost = () => {
 							back to blog
 						</button>
 					</Link>
-				</div>
-				<div className="flex mb-3">
-					<Link href={"/profile"}>
-						<button className="flex items-center justify-center px-4 py-2 text-base font-medium leading-6 text-white bg-black border border-transparent rounded-full shadow-sm hover:bg-transparent hover:text-black hover:border-black focus:outline-none">
-							back to profile
-						</button>
-					</Link>
-				</div>
+			</div>
 			</div>
 
 			<div className="m-4">

@@ -41,7 +41,8 @@ const ListPage = () => {
     const StocksSection = () => {
         if (list?.stocks.length === 0) return <p>No stocks</p>;
         return (
-            <div>
+            <div className="bg-investogram_yellow rounded-lg m-3 p-3">
+                <h3 className="text-2xl font-bold my-auto m-5 p-1 text-investogram_navy">Stocks:</h3>
                 {list?.stocks.map((stock) => (
                     <StockRow stock={stock} />
                 ))}
@@ -60,23 +61,23 @@ const ListPage = () => {
 	return (
 		<div>
             <div className="flex flex-row">
-                <h1 className="text-2xl font-bold my-auto">{list?.list_name}</h1>
+                <h1 className="text-2xl font-bold my-auto m-5">{list?.list_name}</h1>
                 {user?._id === list?.list_owner._id && (
+
+                    <div className="px-4 py-2 m-5">
                     <Link href={`/editlist/${listId}`}>
-                        <button
-                            className="block w-42 h-12 my-2 mx-4 p-1 bg-blue-500 text-white rounded-lg hover:text-blue-500 hover:bg-white hover:border-2 hover:border-blue-500" 
-                        >
+                        <p className="inline-block bg-gray-200 hover:bg-gray-100 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2">
                             Edit List
-                        </button>
+                        </p>
                     </Link>
+                </div>
                 )}
                 
             </div>
             <Link href={`/user/${list?.list_owner._id}`}>
-                <h3 className="text-large underline">{list?.list_owner.username}</h3>
+                <h3 className="inline bg-blue-100 rounded-full px-3 py-1 mr-1 text-sm font-semibold text-white-700 p-5 m-2">{list?.list_owner.username}</h3>
             </Link>
             <div>
-                <h2 className="text-xl font-bold">Stocks:</h2>
                 <StocksSection />
             </div>
 		</div>
