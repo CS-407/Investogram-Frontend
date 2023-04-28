@@ -6,7 +6,6 @@ import axios from "axios";
 import { usePathname } from "next/navigation";
 import React, { useContext, useEffect, useState } from "react";
 
-
 import NewComment from "@/components/blog/newComment";
 import { dateConverter, dateToString } from "@/util/HelperFunctions";
 import AuthContext from "@/context/AuthContext";
@@ -142,10 +141,7 @@ const page = () => {
 					</div>
 				))}
 			</div>
-<<<<<<< HEAD
 			
-=======
->>>>>>> e07431e7bbb0661d24b26caa0ce3c8071e2bd783
 			{/* Form to add a new comment */}
 			
 			<div className="flex items-center justify-space-around px-3 py-2 dark:border-gray-600">
@@ -157,19 +153,9 @@ const page = () => {
 				>
 					{isLiked ? "Unlike" : "Like"}
 				</button>
-				
 			</div>
 			<NewComment addComment={addComment} />
-			<div className="flex items-center justify-between px-3 py-2 border-t dark:border-gray-600">
-				<button
-					type="button"
-					className="inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-white bg-green-700 rounded-lg focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-900 hover:bg-blue-500"
-					onClick={upvoteBlog}
-				>
-					{isLiked ? "Unlike" : "Like"}
-				</button>
-			</div>
-			<div>{post.likes}</div>
+			
 		</div>
 	);
 };
