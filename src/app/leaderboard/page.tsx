@@ -92,7 +92,7 @@ function Leaderboard() {
 				>
 					Leaderboard
 				</h1>
-				<p>
+				<p className="text-investogram_navy">
 					View the top performers of the week! Visit their profile by clicking
 					on their username.
 				</p>

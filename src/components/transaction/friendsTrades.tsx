@@ -1,7 +1,9 @@
 import { BASE_URL } from "@/util/globals";
 import axios from "axios";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import { TradeList } from "./tradeList"
+import AggregateStocks from "../stock/aggregateStocks";
 
 export function FriendsTrades(props: any) {
     
@@ -45,9 +47,10 @@ export function FriendsTrades(props: any) {
         <div className="rounded-md p-5 bg-investogram_gray my-2">
             <h3 className="font-bold text-2xl p-1">Your Friends' Most Recent Trades</h3>
             {friendData.length === 0 && <p>No friends to display 😔</p>}
-            <div className="flex flex-row overflow-scroll">
+            <div className="flex flex-row overflow-scroll mb-3">
                 {friendData.length > 0 && friendData.map((friend: any) => friendSection(friend))}
             </div>
+            <Link href="/friendsStocks" className="p-5 px-2 py-1 font-semibold rounded-full inline bg-investogram_yellow hover:underline">See more stocks your friends have bought</Link>
         </div>
             
     )

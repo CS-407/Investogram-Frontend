@@ -23,7 +23,7 @@ export default function ProfileDropdown(props: ProfileDropdown) {
 				<p
 					className={`block ${
 						pathname == "/profile" ? "font-bold" : ""
-					} hover:underline py-2 pl-3 pr-4 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 md:dark:text-blue-500`}
+					} hover:underline py-2 pl-3 pr-4 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 md:dark:text-investogram_yellow`}
 				>
 					Profile
 				</p>
@@ -52,6 +52,14 @@ export default function ProfileDropdown(props: ProfileDropdown) {
 							className="block px-4 py-2 hover:bg-gray-200"
 						>
 							Change Password
+						</Link>
+					</li>
+					<li>
+						<Link
+							href={"/profile/changeprofilepic"}
+							className="block px-4 py-2 hover:bg-gray-200"
+						>
+							Change Avatar
 						</Link>
 					</li>
 					<li>

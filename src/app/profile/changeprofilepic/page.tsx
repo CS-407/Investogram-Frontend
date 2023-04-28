@@ -1,69 +1,68 @@
-'use client';
+"use client";
 import AuthContext from "@/context/AuthContext";
 import { BASE_URL } from "@/util/globals";
 import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 
 export default function ChangeProfilePic() {
-    const [loadedProfilePic, setLoadedProfilePic] = useState<number>();
-	async function loadProfilePic() {
-		axios
-			.get(`${BASE_URL}/api/user/getProfilePic`, {
-				headers: {
-					Authorization: "Bearer " + localStorage.getItem("token"),
-				},
-			})
-			.then((res) => {
-				setLoadedProfilePic(res.data.data);
-			})
-			.catch((err) => {
-				alert("Trouble fetching current profile picture");
-			});
-	}
+	const { updateProfilePic, user } = useContext(AuthContext);
 
-	const changeProfilePic = (choice: number) => {
-		const headers_obj = {
-			"Content-Type": "application/json",
-			Authorization: "Bearer " + localStorage.getItem("token"),
-		};
-		console.log(headers_obj)
-		axios
-			.post(`${BASE_URL}/api/user/updateProfilePic/${choice}`, {},
-				{
-					headers: headers_obj
-				}
-        	)
-			.then(() => {
-				alert("Profile picture updated!");
-			})
-			.catch((err: any) => {
-				if (err.response && err.response.data && err.response.data.msg) {
-					alert(err.response.data.msg);
-				} else {
-					alert("Trouble contacting server");
-				}
-			});
-	}
+	const [loadedProfilePic, setLoadedProfilePic] = useState<number>();
 
 	useEffect(() => {
-		loadProfilePic();
-	}, []);
+		if (user) {
+			setLoadedProfilePic(user.profile_pic);
+		}
+	}, [user])
 
-    const otherOptions = () => {
-        let out = Array.from(Array(4), (_, index) => index + 1);
-        out = out.filter((x) => x !== selected);
-        return out;
-    }
+	// async function loadProfilePic() {
+	// 	axios
+	// 		.get(`${BASE_URL}/api/user/getProfilePic`, {
+	// 			headers: {
+	// 				Authorization: "Bearer " + localStorage.getItem("token"),
+	// 			},
+	// 		})
+	// 		.then((res) => {
+	// 			setLoadedProfilePic(res.data.data);
+	// 		})
+	// 		.catch((err) => {
+	// 			alert("Trouble fetching current profile picture");
+	// 		});
+	// }
+
+	const changeProfilePic = async (choice: number) => {
+		try {
+			await updateProfilePic(choice);
+			setLoadedProfilePic(choice);
+		} catch (err: any) {
+			if (err.response && err.response.data && err.response.data.msg) {
+				alert(err.response.data.msg);
+			} else {
+				alert("Trouble contacting server");
+			}
+		}
+	};
+
+	// useEffect(() => {
+	// 	loadProfilePic();
+	// }, []);
+
+	const otherOptions = () => {
+		let out = Array.from(Array(4), (_, index) => index + 1);
+		out = out.filter((x) => x !== selected);
+		return out;
+	};
 
 	const setPic = loadedProfilePic || 1;
 	const [selected, setSelected] = useState<number>(setPic);
 	const differentChoice = () => {
 		if (selected === setPic) return false;
 		return true;
-	}
+	};
 	const resetSelection = () => setSelected(setPic);
 
-    if (!loadedProfilePic) return <div>Loading...</div>;
+	if (!loadedProfilePic) return <div>Loading...</div>;
+
 	return (
 		<main className="p-5 bg-white">
 			<div className="flex-none flex justify-center items-center flex-col rounded-lg shadow-lg bg-investogram_yellow py-4 text-investogram_navy">
@@ -85,15 +84,14 @@ export default function ChangeProfilePic() {
 							className="flex-center rounded-full object-cover h-36 w-36 mx-auto"
 						/>
 					</div>
-
 				</div>
-                
+
 				<div>
 					<h2 className="text-xl font-bold text-center">Other options:</h2>
 					<div className="flex flex-row">
 						{otherOptions().map((x) => {
 							return (
-								<button 
+								<button
 									className="text-center px-2 font-bold hover:bg-blue-50 p-1 rounded-lg"
 									onClick={() => setSelected(x)}
 								>
@@ -103,7 +101,7 @@ export default function ChangeProfilePic() {
 									/>
 									Option {x}
 								</button>
-							)
+							);
 						})}
 					</div>
 				</div>

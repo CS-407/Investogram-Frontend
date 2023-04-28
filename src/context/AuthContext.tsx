@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import { User } from "@/util/types";
 import { BASE_URL } from "@/util/globals";
 
@@ -27,6 +27,7 @@ const AuthContext = React.createContext({
 	resetUsername: async (user: Partial<User>) => {},
 	updatePassword: async (new_password: string, new_password_2: string) => {},
 	updateUsername: async (new_username: string) => {},
+	updateProfilePic: async (choice: number) => {},
 	acceptFollowRequest: async (otherUser: string) => {},
 	rejectFollowRequest: async (otherUser: string) => {},
 });
@@ -201,6 +202,46 @@ export const AuthContextProvider = (props: React.PropsWithChildren<{}>) => {
 		}
 	};
 
+	const updateProfilePicHandler = async (choice: number) => {
+		try {
+			const headers_obj = {
+				"Content-Type": "application/json",
+				Authorization: "Bearer " + localStorage.getItem("token"),
+			};
+
+			axios
+				.post(
+					`${BASE_URL}/api/user/updateProfilePic/${choice}`,
+					{},
+					{
+						headers: headers_obj,
+					}
+				)
+				.then(() => {
+					setState({
+						...state,
+						user: state.user && {
+							...state.user,
+							profile_pic: choice
+						}
+					});
+				})
+				.catch((err: any) => {
+					if (err.response && err.response.data && err.response.data.msg) {
+						alert(err.response.data.msg);
+					} else {
+						alert("Trouble contacting server");
+					}
+				});
+		} catch (err: any) {
+			console.log(err);
+			if (err.response && err.response.data && err.response.data.msg) {
+				throw err.response.data.msg;
+			}
+			throw err.message;
+		}
+	}
+
 	const acceptFollowRequestHandler = async (otherUser: string) => {
 		try {
 			await axios.post(
@@ -284,6 +325,7 @@ export const AuthContextProvider = (props: React.PropsWithChildren<{}>) => {
 				resetUsername: resetUsernameHandler,
 				updatePassword: updatePasswordHandler,
 				updateUsername: updateUsernameHandler,
+				updateProfilePic: updateProfilePicHandler,
 				acceptFollowRequest: acceptFollowRequestHandler,
 				rejectFollowRequest: rejectFollowRequestHandler,
 			}}

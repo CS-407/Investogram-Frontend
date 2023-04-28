@@ -71,12 +71,13 @@ export interface Comment {
 
 export interface Post {
 	_id: string;
-	user_id: string;
+	user_id: Partial<User>;
 	type: string;
 	content: string;
 	likes: number;
 	timestamp: number;
 	comments: Comment[];
+	userlikes: string[];
 }
 
 export interface PopularStock {
@@ -95,6 +96,14 @@ export interface StockList {
 	stocks: any[];
 }
 
+export interface SortedStock {
+	stock_id: string;
+	num_shares: number;
+	stock_ticker: string;
+	stock_name: string;
+	current_price: number;
+}
+
 export interface Leaderboard {
 	_id: string;
 	user_id: {
@@ -106,4 +115,25 @@ export interface Leaderboard {
 	revenue: number;
 	profit: number;
 	num_trades: number;
+}
+
+export interface Purchase {
+	purchases: number;
+}
+
+export interface FriendList {
+	_id: {
+		user_id: string;
+		username: string;
+	};
+	stock: string;
+}
+
+export interface Aggregate {
+	_id: { 
+		stock_id: string; 
+		stock_name: string;
+		stock_ticker: string;
+	};
+	stock: string;
 }
