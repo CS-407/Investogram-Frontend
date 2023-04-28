@@ -20,15 +20,23 @@ const ListPage = () => {
 
     useEffect(() => {
 		axios
-			.get(`${BASE_URL}/api/list/get/${listId}`)
+			.get(`${BASE_URL}/api/list/get/${listId}`, {
+                headers: {
+                    'Authorization': 'Bearer ' + localStorage.getItem('token')
+                }
+            })
 			.then((response) => {
 				setList(response.data);
 			})
 			.catch((err) => {
+                if (err.response && err.response.data && err.response.data.msg) {
+                    console.log(err.response.data.msg);
+                } else {
+                    console.log("Trouble contacting server");
+                }
 				alert("Error getting list");
 			});
 	}, []);
-
 
     const StocksSection = () => {
         if (list?.stocks.length === 0) return <p>No stocks</p>;
@@ -42,17 +50,26 @@ const ListPage = () => {
     }
 
     if (list === null || list === undefined) return <div>Loading...</div>;
+    if (!user) return <div>You must be logged in to view lists</div>
+    if (!list.list_owner.followers_list.includes(user._id) && list.list_owner._id !== user._id) return (
+        <div className="text-center">
+            <h1 className="text-4xl font-bold">You are not authorized to view this list</h1>
+            <h2 className="text-xl">You must follow the list owner to view this list.</h2>
+        </div>
+    )
 	return (
 		<div>
             <div className="flex flex-row">
                 <h1 className="text-2xl font-bold my-auto">{list?.list_name}</h1>
-                <Link href={`/editlist/${listId}`}>
-                    <button
-                        className="block w-42 h-12 my-2 mx-4 p-1 bg-blue-500 text-white rounded-lg hover:text-blue-500 hover:bg-white hover:border-2 hover:border-blue-500" 
-                    >
-                        Edit List
-                    </button>
-                </Link>
+                {user?._id === list?.list_owner._id && (
+                    <Link href={`/editlist/${listId}`}>
+                        <button
+                            className="block w-42 h-12 my-2 mx-4 p-1 bg-blue-500 text-white rounded-lg hover:text-blue-500 hover:bg-white hover:border-2 hover:border-blue-500" 
+                        >
+                            Edit List
+                        </button>
+                    </Link>
+                )}
                 
             </div>
             <Link href={`/user/${list?.list_owner._id}`}>

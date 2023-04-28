@@ -37,7 +37,7 @@ const Navbar = () => {
 						<p
 							className={`block ${
 								pathname == "/globalstocks" ? "font-bold" : ""
-							} hover:underline py-2 pl-3 pr-4 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 md:dark:text-blue-500`}
+							} hover:underline py-2 pl-3 pr-4 mt-2 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 md:dark:text-investogram_yellow`}
 						>
 							Global Stocks
 						</p>
@@ -48,7 +48,7 @@ const Navbar = () => {
 						<p
 							className={`block ${
 								pathname == "/globalusers" ? "font-bold" : ""
-							} hover:underline py-2 pl-3 pr-4 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 md:dark:text-blue-500`}
+							} hover:underline py-2 pl-3 pr-4 mt-2 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 md:dark:text-investogram_yellow`}
 						>
 							Global Users
 						</p>
@@ -59,7 +59,7 @@ const Navbar = () => {
 						<p
 							className={`block ${
 								pathname == "/leaderboard" ? "font-bold" : ""
-							} hover:underline py-2 pl-3 pr-4 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 md:dark:text-blue-500`}
+							} hover:underline py-2 pl-3 pr-4 mt-2 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 md:dark:text-investogram_yellow`}
 						>
 							Leaderboard
 						</p>
@@ -80,7 +80,7 @@ const Navbar = () => {
 						</li>
 						<li>
 							<button
-								className="text-white bg-blue-700 hover:bg-blue-500 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center mr-3 md:mr-0 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+								className="text-white bg-investogram_navy hover:bg-blue-500 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center mr-3 md:mr-0 dark:bg-investogram_navy text-investogram_yellow dark:hover:bg-investogram_lightblue dark:focus:ring-blue-800"
 								onClick={() => {
 									authCtx.logout();
 									router.push("/auth/login");

@@ -14,6 +14,7 @@ const SortedStocks = () => {
 		axios
 			.get(`${BASE_URL}/api/global/tradeinfo`)
 			.then((res: AxiosResponse) => {
+				console.log(res.data.stock_info)
 				setSortedStocks(res.data.stock_info);
 			})
 			.catch((err: AxiosError) => {
@@ -64,11 +65,13 @@ const SortedStocks = () => {
 	};
 
 	return (
-		<div>
+		<main className="p-5 bg-white">
 			<div className="flex-none flex justify-center items-center flex-col rounded-lg shadow-lg bg-investogram_yellow py-4 text-investogram_navy">
-				<h1 className="text-5xl font-bold mt-4 mb-4">Sorted Stocks</h1>
-				<p className="text-gray-500">
-					Sort stocks by current value or number of shares traded!
+				<h1 className="text-5xl font-bold mt-4 mb-4">
+					Sorted Stocks
+				</h1>
+				<p>
+				Sort stocks by current value or number of shares traded!
 				</p>
 			</div>
 			<div className="mt-2 w-full flex flex-row justify-center rounded-lg shadow-lg bg-investogram_navy py-4">
@@ -108,7 +111,7 @@ const SortedStocks = () => {
 					<tbody>{handlefilteredStocks()}</tbody>
 				</table>
 			</div>
-		</div>
+		</main>
 	);
 };
 

@@ -115,3 +115,24 @@ export interface Leaderboard {
 	profit: number;
 	num_trades: number;
 }
+
+export interface Purchase {
+	purchases: number;
+}
+
+export interface FriendList {
+	_id: {
+		user_id: string;
+		username: string;
+	};
+	stock: string;
+}
+
+export interface Aggregate {
+	_id: { 
+		stock_id: string; 
+		stock_name: string;
+		stock_ticker: string;
+	};
+	stock: string;
+}

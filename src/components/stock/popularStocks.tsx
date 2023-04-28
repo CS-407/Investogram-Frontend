@@ -35,7 +35,7 @@ export default function PopularStocks() {
 				>
 					<th className="py-2 px-4 uppercase tracking-wider">Stock Ticker</th>
 					<th className="py-2 px-4 uppercase tracking-wider">Stock Name</th>
-					<th className="py-2 px-4 uppercase tracking-wider">Shares</th>
+					<th className="py-2 px-4 uppercase tracking-wider">Shares Traded</th>
 				</tr>
 			</thead>
 			<tbody>
