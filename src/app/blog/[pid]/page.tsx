@@ -4,11 +4,11 @@ import { BASE_URL } from "@/util/globals";
 import { Post } from "@/util/types";
 import axios from "axios";
 import { usePathname } from "next/navigation";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 
 import NewComment from "@/components/blog/newComment";
-import UpvoteButton from "@/components/blog/upvote";
 import { dateConverter, dateToString } from "@/util/HelperFunctions";
+import AuthContext from "@/context/AuthContext";
 
 const initialPost: Post = {
 	_id: "64416b0d14cac46eff9fde61",
@@ -21,10 +21,14 @@ const initialPost: Post = {
 	likes: 0,
 	timestamp: 0,
 	comments: [],
+	userlikes: [],
 };
 
 const page = () => {
 	const [post, setPost] = useState<Post>(initialPost);
+	const [isLiked, setIsLiked] = useState(false);
+
+	const { user } = useContext(AuthContext);
 
 	const params = usePathname();
 	const pid = params ? params.split("/")[2] : "";
@@ -37,9 +41,12 @@ const page = () => {
 				},
 			})
 			.then((res) => {
-				console.log(res.data.post);
 				setPost(res.data.post);
-				console.log(post.likes);
+
+				const likes_array: string[] = res.data.post.userlikes;
+				if (user) {
+					likes_array.includes(user._id) ? setIsLiked(true) : setIsLiked(false);
+				}
 			})
 			.catch((err) => {
 				if (err.response && err.response.data && err.response.data.msg) {
@@ -76,22 +83,20 @@ const page = () => {
 			});
 	};
 
-	const upvoteBlog = (like: number) => {
+	const upvoteBlog = () => {
 		axios
 			.post(
 				`${BASE_URL}/api/blog/like/${pid}`,
-				{
-					content: like,
-				},
+				{},
 				{
 					headers: {
-						"Content-Type": "application/json",
 						Authorization: "Bearer " + localStorage.getItem("token"),
 					},
 				}
 			)
 			.then((res) => {
 				setPost({ ...post, likes: res.data.like });
+				setIsLiked(!isLiked);
 			})
 			.catch((err) => {
 				if (err.response && err.response.data && err.response.data.msg) {
@@ -107,7 +112,11 @@ const page = () => {
 			{/* Blog Content */}
 			<div className="m-4">
 				<h1 className="text-sm text-gray-800 font-bold mb-2">
-					Posted by <p className="inline bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 ml-1 mr-2">{post.user_id.username}</p> on {dateToString(dateConverter(post.timestamp))}
+					Posted by{" "}
+					<p className="inline bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 ml-1 mr-2">
+						{post.user_id.username}
+					</p>{" "}
+					on {dateToString(dateConverter(post.timestamp))}
 				</h1>
 				<p className="">{post.content}</p>
 			</div>
@@ -134,10 +143,16 @@ const page = () => {
 			</div>
 			{/* Form to add a new comment */}
 			<NewComment addComment={addComment} />
-			<UpvoteButton upvoteBlog={upvoteBlog}/>
-			<div>
-				{post.likes}
+			<div className="flex items-center justify-between px-3 py-2 border-t dark:border-gray-600">
+				<button
+					type="button"
+					className="inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-white bg-green-700 rounded-lg focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-900 hover:bg-blue-500"
+					onClick={upvoteBlog}
+				>
+					{isLiked ? "Unlike" : "Like"}
+				</button>
 			</div>
+			<div>{post.likes}</div>
 		</div>
 	);
 };
