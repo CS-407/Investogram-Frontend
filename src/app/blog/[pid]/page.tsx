@@ -6,6 +6,7 @@ import axios from "axios";
 import { usePathname } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
+
 import NewComment from "@/components/blog/newComment";
 import { dateConverter, dateToString } from "@/util/HelperFunctions";
 
@@ -81,7 +82,7 @@ const page = () => {
 				<h1 className="text-sm text-gray-800 font-bold mb-2">
 					Posted by <p className="inline bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 ml-1 mr-2">{post.user_id.username}</p> on {dateToString(dateConverter(post.timestamp))}
 				</h1>
-				<p className="">{post.content}</p>
+				<p className="text-2xl font-semibold p-5">{post.content}</p>
 			</div>
 
 			{/* List of comments */}
@@ -104,8 +105,20 @@ const page = () => {
 					</div>
 				))}
 			</div>
-
+			
 			{/* Form to add a new comment */}
+			
+			<div className="flex items-center justify-space-around px-3 py-2 dark:border-gray-600">
+			<div className="inline bg-blue-100 px-2 py-1 rounded-full m-3">{post.likes} likes</div>
+				<button
+					type="button"
+					className="inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-white bg-green-700 rounded-lg focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-900 hover:bg-blue-500"
+					onClick={upvoteBlog}
+				>
+					{isLiked ? "Unlike" : "Like"}
+				</button>
+				
+			</div>
 			<NewComment addComment={addComment} />
 		</div>
 	);
