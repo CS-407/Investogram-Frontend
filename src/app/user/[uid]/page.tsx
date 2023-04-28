@@ -16,7 +16,6 @@ const User = () => {
 	const [user, setUser] = useState<User>();
 	const [state, setState] = useState<TradeInfo>();
 	const [following, setFollowing] = useState<boolean>(false);
-	const [lists, setLists] = useState<any[]>();
 
 	const authCtx = useContext(AuthContext);
 
@@ -32,10 +31,9 @@ const User = () => {
 				setUser(response.data.user);
 				if (
 					curUser &&
-					(
-						(curUser.following_list && curUser.following_list.includes(response.data.user._id))
-						|| (curUser._id === response.data.user._id)
-					)
+					((curUser.following_list &&
+						curUser.following_list.includes(response.data.user._id)) ||
+						curUser._id === response.data.user._id)
 				) {
 					setFollowing(true);
 				}
@@ -47,21 +45,6 @@ const User = () => {
 					console.log("Trouble contacting server");
 				}
 			});
-		
-		axios
-			.get(`${BASE_URL}/api/list/getLists/${uid}`)
-			.then((response) => {
-				console.log(response.data)
-				setLists(response.data)
-			})
-			.catch((err) => {
-				if (err.response && err.response.data && err.response.data.msg) {
-					console.log(err.response.data.msg);
-				} else {
-					console.log("Trouble contacting server");
-				}
-			});
-
 	}, []);
 
 	useEffect(() => {
@@ -112,31 +95,6 @@ const User = () => {
 			});
 	};
 
-	const UsersListsSection = () => {
-		return (
-			<div className="">
-				<h1 className=" font-extrabold text-4xl">{user?.username}'s Lists</h1>
-				{!lists && <h1 className="font-extrabold text-4xl">Lists Loading</h1>}
-				{lists && lists.length == 0 && <h1 className="font-extrabold text-4xl">No Lists</h1>}
-				{lists &&
-					<div className="m-3">
-						{
-							lists.map((list) => {
-								return (
-									<Link href={`/list/${list._id}`}>
-										<div className="flex flex-row bg-investogram_navy hover:underline max-w-sm rounded overflow-hidden shadow-lg mb-3 p-3">
-											<h1 className="text-lg text-white">{list.list_name}</h1>
-										</div>
-									</Link>
-								)
-							})
-						}
-					</div>
-				}
-			</div>
-		)
-	}
-
 	return (
 		<div>
 			<main
@@ -144,12 +102,13 @@ const User = () => {
 				style={{ backgroundColor: "#f5f5f5", padding: "20px" }}
 			>
 				<div className="flex flex-row">
-					<div
-						className="flex-none w-1/3 p-4 flex justify-center items-center flex-col rounded-lg shadow-lg bg-investogram_lightblue p-5"
-						
-					>
+					<div className="flex-none w-1/3 p-4 flex justify-center items-center flex-col rounded-lg shadow-lg bg-investogram_lightblue p-5">
 						<img
-							src={user ? `/images/avatar_${user?.profile_pic}.png` : "/images/default_profile.jpg"}
+							src={
+								user
+									? `/images/avatar_${user?.profile_pic}.png`
+									: "/images/default_profile.jpg"
+							}
 							alt={`${user?.username}'s avatar`}
 							className="flex-center rounded-full object-cover h-36 w-36"
 						/>
@@ -199,39 +158,44 @@ const User = () => {
 							</div>
 						</div>
 						{following && (
-						<div className="flex flex-row p-1">
-							<div className="text-black-500 mt-2 p-1">
-								<button className="flex items-center justify-center mt-2 px-2 py-1 text-base font-medium leading-6 text-white whitespace-no-wrap bg-black border-2 border-transparent rounded-full shadow-sm hover:bg-transparent hover:text-black hover:border-black focus:outline-none">
-									<Link
-										href={`/blog/user/${uid}`}
-										style={{ textDecoration: "none" }}
-									>
-										Blog
-									</Link>
-								</button>
-							</div>
+							<div className="flex flex-row p-1">
+								<div className="text-black-500 mt-2 p-1">
+									<button className="flex items-center justify-center mt-2 px-2 py-1 text-base font-medium leading-6 text-white whitespace-no-wrap bg-black border-2 border-transparent rounded-full shadow-sm hover:bg-transparent hover:text-black hover:border-black focus:outline-none">
+										<Link
+											href={`/blog/user/${uid}`}
+											style={{ textDecoration: "none" }}
+										>
+											Blog
+										</Link>
+									</button>
+								</div>
 
-							<div className="text-black-500 mt-2 p-1">
-								<button className="flex items-center justify-center mt-2 px-2 py-1 text-base font-medium leading-6 text-white whitespace-no-wrap bg-black border-2 border-transparent rounded-full shadow-sm hover:bg-transparent hover:text-black hover:border-black focus:outline-none">
-									<Link
-										href={"/list"}
-										style={{ textDecoration: "none" }}
-									>
-										Lists
-									</Link>
-								</button>
+								<div className="text-black-500 mt-2 p-1">
+									<button className="flex items-center justify-center mt-2 px-2 py-1 text-base font-medium leading-6 text-white whitespace-no-wrap bg-black border-2 border-transparent rounded-full shadow-sm hover:bg-transparent hover:text-black hover:border-black focus:outline-none">
+										<Link
+											href={`/list/user/${uid}`}
+											style={{ textDecoration: "none" }}
+										>
+											Lists
+										</Link>
+									</button>
+								</div>
 							</div>
-						</div>
 						)}
 					</div>
 					<div
-						className="flex-grow w-2/3 p-4 shadow-lg bg-white mx-auto align-middle rounded-lg" style={{ backgroundColor: "#FDE698", marginLeft: "20px"  }}
-						>
+						className="flex-grow w-2/3 p-4 shadow-lg bg-white mx-auto align-middle rounded-lg"
+						style={{ backgroundColor: "#FDE698", marginLeft: "20px" }}
+					>
 						<div>
 							{following ? (
-								state?.monetary_info && user && (
-									
-									<LossGainSection monetaryInfo={state.monetary_info} stocks={state.stock_info} user={user!}/>
+								state?.monetary_info &&
+								user && (
+									<LossGainSection
+										monetaryInfo={state.monetary_info}
+										stocks={state.stock_info}
+										user={user!}
+									/>
 								)
 							) : (
 								<p
@@ -248,28 +212,28 @@ const User = () => {
 			{following && (
 				<div className="bg-investogram_dark_white">
 					<div className="grid grid-cols-4 p-5">
-						<div className="col-span-2" style={{ backgroundColor: "#f5f5f5", padding: "20px" }}>
-
+						<div
+							className="col-span-2"
+							style={{ backgroundColor: "#f5f5f5", padding: "20px" }}
+						>
 							<p className="mb-4 font-extrabold leading-none tracking-tight text-gray-900 md:text-2xl lg:text-4xl dark:text-black">
 								Trade History
 							</p>
-							{ state?.trades && <RecentTradesSection trades={state.trades} /> }
+							{state?.trades && <RecentTradesSection trades={state.trades} />}
 						</div>
-						<div className="col-span-2" style={{ backgroundColor: "#f5f5f5", padding: "20px" }}>
+						<div
+							className="col-span-2"
+							style={{ backgroundColor: "#f5f5f5", padding: "20px" }}
+						>
 							<p className="mb-4 font-extrabold leading-none tracking-tight text-gray-900 md:text-2xl lg:text-4xl dark:text-black">
 								Value of Stocks Owned
 							</p>
 							{state?.stock_info && <StocksOwned stocks={state.stock_info} />}
 						</div>
 					</div>
-					<div className="p-8">
-						<UsersListsSection />
-					</div>
 				</div>
 			)}
 		</div>
-
-
 	);
 };
 
