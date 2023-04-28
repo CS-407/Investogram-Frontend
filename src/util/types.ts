@@ -77,6 +77,7 @@ export interface Post {
 	likes: number;
 	timestamp: number;
 	comments: Comment[];
+	userlikes: string[];
 }
 
 export interface PopularStock {
