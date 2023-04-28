@@ -141,9 +141,9 @@ export default function stock() {
 						
 					)}
 					<p className="text-sm font-semibold text-investogram_dark_yellow p-1">
-						Number of purchases made on this account
+						Number of times this stock has been purchased
 					</p>
-					<PopularStats stockId="{stockId}" />
+					<PopularStats stockId={stockId} />
 				</div>
 
 				<div>
