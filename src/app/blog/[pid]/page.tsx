@@ -7,6 +7,7 @@ import { usePathname } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
 import NewComment from "@/components/blog/newComment";
+import UpvoteButton from "@/components/blog/upvote";
 import { dateConverter, dateToString } from "@/util/HelperFunctions";
 
 const initialPost: Post = {
@@ -38,6 +39,7 @@ const page = () => {
 			.then((res) => {
 				console.log(res.data.post);
 				setPost(res.data.post);
+				console.log(post.likes);
 			})
 			.catch((err) => {
 				if (err.response && err.response.data && err.response.data.msg) {
@@ -64,6 +66,32 @@ const page = () => {
 			)
 			.then((res) => {
 				setPost({ ...post, comments: [res.data.comment, ...post.comments] });
+			})
+			.catch((err) => {
+				if (err.response && err.response.data && err.response.data.msg) {
+					alert(err.response.data.msg);
+				} else {
+					alert("Trouble contacting server");
+				}
+			});
+	};
+
+	const upvoteBlog = (like: number) => {
+		axios
+			.post(
+				`${BASE_URL}/api/blog/like/${pid}`,
+				{
+					content: like,
+				},
+				{
+					headers: {
+						"Content-Type": "application/json",
+						Authorization: "Bearer " + localStorage.getItem("token"),
+					},
+				}
+			)
+			.then((res) => {
+				setPost({ ...post, likes: res.data.like });
 			})
 			.catch((err) => {
 				if (err.response && err.response.data && err.response.data.msg) {
@@ -104,9 +132,12 @@ const page = () => {
 					</div>
 				))}
 			</div>
-
 			{/* Form to add a new comment */}
 			<NewComment addComment={addComment} />
+			<UpvoteButton upvoteBlog={upvoteBlog}/>
+			<div>
+				{post.likes}
+			</div>
 		</div>
 	);
 };
