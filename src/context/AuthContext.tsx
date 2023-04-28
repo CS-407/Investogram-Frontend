@@ -1,5 +1,7 @@
+'use client';
+
 import React, { useEffect, useState } from "react";
-import axios, { AxiosError } from "axios";
+import axios from "axios";
 import { User } from "@/util/types";
 import { BASE_URL } from "@/util/globals";
 
