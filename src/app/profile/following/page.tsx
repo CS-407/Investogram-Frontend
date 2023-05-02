@@ -1,4 +1,5 @@
 "use client";
+
 import { User } from "@/util/types";
 import React, { useEffect, useState } from "react";
 import { BASE_URL } from "src/util/globals";

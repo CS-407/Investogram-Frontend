@@ -1,4 +1,5 @@
-import Link from "next/link";
+'use client';
+
 import AggregateStocks from "@/components/stock/aggregateStocks";
 
 export default function globalstocks() {

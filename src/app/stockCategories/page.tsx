@@ -1,3 +1,5 @@
+'use client';
+
 import { StockCategories } from "@/components/stock/stockCategories";
 import Link from "next/link";
 import React from "react";
