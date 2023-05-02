@@ -1,3 +1,5 @@
+'use client';
+
 import SearchStock from "@/components/stock/searchStock";
 import Link from "next/link";
 

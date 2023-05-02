@@ -121,7 +121,9 @@ const page = () => {
 				<p className="text-2xl font-semibold p-5">{post.content}</p>
 			</div>
 			<div className="flex items-center justify-space-around px-3 py-2 dark:border-gray-600">
-			<div className="inline bg-blue-100 px-2 py-1 rounded-full m-3">{post.likes} likes</div>
+				<div className="inline bg-blue-100 px-2 py-1 rounded-full m-3">
+					{post.likes} likes
+				</div>
 				<button
 					type="button"
 					className="inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-white bg-green-700 rounded-lg focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-900 hover:bg-blue-500"
@@ -130,6 +132,7 @@ const page = () => {
 					{isLiked ? "Unlike" : "Like"}
 				</button>
 			</div>
+			
 			{/* List of comments */}
 			<div className="mt-4 flex flex-col">
 				{post.comments.map((comment) => (
@@ -150,12 +153,9 @@ const page = () => {
 					</div>
 				))}
 			</div>
-			
+
 			{/* Form to add a new comment */}
-			
-			
 			<NewComment addComment={addComment} />
-			
 		</div>
 	);
 };

@@ -1,7 +1,5 @@
 "use client";
 import AuthContext from "@/context/AuthContext";
-import { BASE_URL } from "@/util/globals";
-import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 
 export default function ChangeProfilePic() {
@@ -13,22 +11,7 @@ export default function ChangeProfilePic() {
 		if (user) {
 			setLoadedProfilePic(user.profile_pic);
 		}
-	}, [user])
-
-	// async function loadProfilePic() {
-	// 	axios
-	// 		.get(`${BASE_URL}/api/user/getProfilePic`, {
-	// 			headers: {
-	// 				Authorization: "Bearer " + localStorage.getItem("token"),
-	// 			},
-	// 		})
-	// 		.then((res) => {
-	// 			setLoadedProfilePic(res.data.data);
-	// 		})
-	// 		.catch((err) => {
-	// 			alert("Trouble fetching current profile picture");
-	// 		});
-	// }
+	}, [user]);
 
 	const changeProfilePic = async (choice: number) => {
 		try {
@@ -42,10 +25,6 @@ export default function ChangeProfilePic() {
 			}
 		}
 	};
-
-	// useEffect(() => {
-	// 	loadProfilePic();
-	// }, []);
 
 	const otherOptions = () => {
 		let out = Array.from(Array(4), (_, index) => index + 1);

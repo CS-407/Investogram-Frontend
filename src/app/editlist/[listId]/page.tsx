@@ -2,7 +2,7 @@
 
 import { StockRow } from "@/components/stock/stockRow";
 import { BASE_URL } from "@/util/globals";
-import { Stock, StockList, User } from "@/util/types";
+import { Stock, StockList } from "@/util/types";
 import axios from "axios";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -57,7 +57,9 @@ const EditListPage = () => {
 		if (list?.stocks.length === 0) return <p>No stocks</p>;
 		return (
 			<div className="bg-investogram_yellow rounded-lg m-3 p-3">
-                <h3 className="text-2xl font-bold my-auto m-5 p-1 text-investogram_navy">Current Stocks:</h3>
+				<h3 className="text-2xl font-bold my-auto m-5 p-1 text-investogram_navy">
+					Current Stocks:
+				</h3>
 				{list?.stocks.map((stock) => (
 					<div className="flex flex-row my-2">
 						<StockRow stock={stock} />
@@ -141,13 +143,13 @@ const EditListPage = () => {
 				<div className="flex flex-row my-auto">
 					<Link href={`/list/${listId}`}>
 						<button
-						className="block w-30 h-12 px-4 py-2 font-medium my-2 p-1 bg-investogram_navy text-white rounded-full hover:text-investogram_navy hover:bg-white hover:border-2 hover:border-investogram_navy"
-						onClick={() => submitChanges}
-					>
-						Back to List Page
-					</button>
+							className="block w-30 h-12 px-4 py-2 font-medium my-2 p-1 bg-investogram_navy text-white rounded-full hover:text-investogram_navy hover:bg-white hover:border-2 hover:border-investogram_navy"
+							onClick={() => submitChanges}
+						>
+							Back to List Page
+						</button>
 					</Link>
-					
+
 					<button
 						className="block w-16 h-12 my-auto mx-2 p-1 bg-green-500 text-white rounded-lg hover:text-green-500 hover:bg-white hover:border-2 hover:border-green-500"
 						onClick={() => submitChanges()}
@@ -157,16 +159,14 @@ const EditListPage = () => {
 				</div>
 			</div>
 			<div>
-				
 				<StocksSection />
 				{!showingOtherStocks && (
 					<button
-					className="block w-30 h-12 px-4 py-2 font-medium my-2 p-1 bg-investogram_navy text-white rounded-full hover:text-investogram_navy hover:bg-white hover:border-2 hover:border-investogram_navy"
-					onClick={() => setShowingOtherStocks(true)}
-				>
-					Show Other Stocks
-				</button>
-
+						className="block w-30 h-12 px-4 py-2 font-medium my-2 p-1 bg-investogram_navy text-white rounded-full hover:text-investogram_navy hover:bg-white hover:border-2 hover:border-investogram_navy"
+						onClick={() => setShowingOtherStocks(true)}
+					>
+						Show Other Stocks
+					</button>
 				)}
 				{showingOtherStocks && <OtherStocks />}
 			</div>

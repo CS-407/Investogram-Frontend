@@ -1,15 +1,11 @@
 "use client";
 
 import { useContext, useEffect } from "react";
-import { Inter } from "@next/font/google";
 import Link from "next/link";
 import AuthContext from "@/context/AuthContext";
 import { usePathname, useRouter } from "next/navigation";
 import PopularStocks from "@/components/stock/popularStocks";
 import { FriendsTrades } from "@/components/transaction/friendsTrades";
-
-const inter = Inter({ subsets: ["latin"] });
-
 
 export default function Home() {
 	const router = useRouter();
@@ -21,7 +17,7 @@ export default function Home() {
 		if (!isAuth) {
 			router.push("/auth/login");
 		}
-	}, [isAuth])
+	}, [isAuth]);
 
 	if (!isAuth) {
 		return <div></div>;
@@ -36,8 +32,6 @@ export default function Home() {
 				</h1>
 			</div>
 			{/* end of title */}
-
-			
 
 			<div className="flex flex-row">
 				{/* start of popular stocks component */}
@@ -56,7 +50,11 @@ export default function Home() {
 						My Profile
 					</h1>
 					<img
-						src={user ? `/images/avatar_${user?.profile_pic}.png` : "/images/default_profile.jpg"}
+						src={
+							user
+								? `/images/avatar_${user?.profile_pic}.png`
+								: "/images/default_profile.jpg"
+						}
 						alt={`${"your"}'s avatar`}
 						className="flex-center rounded-full object-cover h-36 w-36"
 					/>
@@ -92,31 +90,24 @@ export default function Home() {
 					<div className="flex flex-row p-1">
 						<div className="text-black-500 mt-2 p-1">
 							<button className="flex items-center justify-center mt-2 px-2 py-1 text-base font-medium leading-6 text-white whitespace-no-wrap bg-black border-2 border-transparent rounded-full shadow-sm hover:bg-transparent hover:text-black hover:border-black focus:outline-none">
-								<Link
-									href={"/blog"}
-									style={{ textDecoration: "none" }}
-								>
+								<Link href={"/blog"} style={{ textDecoration: "none" }}>
 									Blog
 								</Link>
 							</button>
 						</div>
-						
+
 						<div className="text-black-500 mt-2 p-1">
 							<button className="flex items-center justify-center mt-2 px-2 py-1 text-base font-medium leading-6 text-white whitespace-no-wrap bg-black border-2 border-transparent rounded-full shadow-sm hover:bg-transparent hover:text-black hover:border-black focus:outline-none">
-								<Link
-									href={"/list"}
-									style={{ textDecoration: "none" }}
-								>
+								<Link href={"/list"} style={{ textDecoration: "none" }}>
 									Lists
 								</Link>
 							</button>
 						</div>
-						</div>
+					</div>
 				</div>
 				{/* end of profile component */}
-				
 			</div>
-			
+
 			<div>
 				<FriendsTrades />
 			</div>

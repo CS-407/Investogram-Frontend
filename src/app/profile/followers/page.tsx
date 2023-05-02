@@ -33,7 +33,8 @@ const Followers = () => {
 				Your Followers
 			</h1>
 			<p className="text-lg mb-2" style={{ color: "#364F6B", padding: "20px" }}>
-				You are being followed by <strong>{followersList.length}</strong> user{followersList.length === 1 ? "" : "s"}
+				You are being followed by <strong>{followersList.length}</strong> user
+				{followersList.length === 1 ? "" : "s"}
 			</p>
 			<ul className="list-none" style={{ padding: "20px" }}>
 				{followersList.map((usr) => (

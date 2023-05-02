@@ -7,22 +7,14 @@ import AuthContext from "@/context/AuthContext";
 import { TradeInfo } from "@/util/types";
 import { BASE_URL } from "@/util/globals";
 
-
 import RecentTradesSection from "../../components/profile/recentTradesSection";
 import LossGainSection from "@/components/profile/lossGainSection";
 import StocksOwned from "@/components/profile/stocksOwned";
-import FollowRequests from "@/components/profile/followRequests";
-import NewPost from "@/components/blog/newPost";
 
 export default function profile() {
 	const { user } = useContext(AuthContext);
 
 	const [state, setState] = useState<TradeInfo>();
-	const [showNewPost, setShowNewPost] = useState(false);
-
-	function handleNewPostClick() {
-		setShowNewPost(true);
-	}
 
 	useEffect(() => {
 		axios
