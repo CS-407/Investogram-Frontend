@@ -2,9 +2,8 @@
 
 import { StockRow } from "@/components/stock/stockRow";
 import AuthContext from "@/context/AuthContext";
-import UserContext from "@/context/UserContext";
 import { BASE_URL } from "@/util/globals";
-import { StockList, User } from "@/util/types";
+import { StockList } from "@/util/types";
 import axios from "axios";
 import Link from "next/link";
 import { usePathname } from "next/navigation";

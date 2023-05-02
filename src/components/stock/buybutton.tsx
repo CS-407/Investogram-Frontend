@@ -1,11 +1,8 @@
 "use client";
 
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import { BASE_URL } from "@/util/globals";
-import { UserContextProvider } from "@/context/UserContext";
-import AuthContext from "@/context/AuthContext";
-import { User } from "@/util/types";
 
 export interface BuySellButtonProps {
 	stock_id: string;
