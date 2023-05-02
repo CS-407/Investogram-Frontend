@@ -332,7 +332,7 @@ export const AuthContextProvider = (props: React.PropsWithChildren<{}>) => {
 				rejectFollowRequest: rejectFollowRequestHandler,
 			}}
 		>
-			{props.children}
+			{state === initialState ? props.children : props.children}
 		</AuthContext.Provider>
 	);
 };
