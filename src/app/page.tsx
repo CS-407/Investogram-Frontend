@@ -1,4 +1,5 @@
 "use client";
+
 import { useContext, useEffect } from "react";
 import { Inter } from "@next/font/google";
 import Link from "next/link";
@@ -6,8 +7,6 @@ import AuthContext from "@/context/AuthContext";
 import { usePathname, useRouter } from "next/navigation";
 import PopularStocks from "@/components/stock/popularStocks";
 import { FriendsTrades } from "@/components/transaction/friendsTrades";
-import CurrentStockValue from "@/components/profile/currentStockValue";
-import AggregateStocks from "@/components/stock/aggregateStocks";
 
 const inter = Inter({ subsets: ["latin"] });
 
